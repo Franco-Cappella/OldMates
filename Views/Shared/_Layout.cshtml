@@ -4,21 +4,65 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NombreProyecto</title>
+    <title>@ViewData["Title"] - OldMates</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
 <body>
     <header>
-        NombreProyecto
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li>
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                    <img src="./img/OldMatesLogoFinal.jpg" alt="Logo OldMates" width="30" height="24">
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="Explorar.html">Explorar</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true" href="#">Mensajes</a>
+            </li>
+            <li>
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                    <img src="./img/Perfil.png" alt="Imagen Perfil" width="30" height="24">
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                    <img src="./img/Campana.png" alt="Imagen Notificaciones" width="30" height="24">
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                    <img src="./img/Menu.png" alt="Imagen Menu" width="30" height="24">
+                    </a>
+                </div>
+            </li>
+      </ul>
+    </div>
+  </div>
+</nav>
     </header>
 
     <main role="main">
         @RenderBody()
     </main>
-
+            
     <footer>
-        &copy; @DateTime.Now.Year - NombreProyecto
+        &copy; @DateTime.Now.Year - OldMates
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

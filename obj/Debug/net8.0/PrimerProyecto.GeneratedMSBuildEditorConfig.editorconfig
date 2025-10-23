@@ -9,63 +9,67 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PrimerProyecto
 build_property.RootNamespace = PrimerProyecto
-build_property.ProjectDir = Z:\2025\INFO 360\OldMates\
+build_property.ProjectDir = C:\Users\49123639\OldMates\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = Z:\2025\INFO 360\OldMates
+build_property.MSBuildProjectDirectory = C:\Users\49123639\OldMates
 build_property._RazorSourceGeneratorDebug = 
 
-[Z:/2025/INFO 360/OldMates/Views/Account/Landing.cshtml]
+[C:/Users/49123639/OldMates/Views/Account/Landing.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMYW5kaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Account/Login.cshtml]
+[C:/Users/49123639/OldMates/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Account/Registro.cshtml]
+[C:/Users/49123639/OldMates/Views/Account/Registro.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Ryby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Home/Actividades.cshtml]
+[C:/Users/49123639/OldMates/Views/Home/Actividades.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBY3RpdmlkYWRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Home/Calendario.cshtml]
+[C:/Users/49123639/OldMates/Views/Home/Calendario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDYWxlbmRhcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Home/Home.cshtml]
+[C:/Users/49123639/OldMates/Views/Home/Explorar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFeHBsb3Jhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/49123639/OldMates/Views/Home/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Home/Index.cshtml]
+[C:/Users/49123639/OldMates/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Home/Mensajes.cshtml]
+[C:/Users/49123639/OldMates/Views/Home/Mensajes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNZW5zYWplcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Home/Tutoriales.cshtml]
+[C:/Users/49123639/OldMates/Views/Home/Tutoriales.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUdXRvcmlhbGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Shared/_Layout.cshtml]
+[C:/Users/49123639/OldMates/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/49123639/OldMates/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/_ViewImports.cshtml]
+[C:/Users/49123639/OldMates/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/2025/INFO 360/OldMates/Views/_ViewStart.cshtml]
+[C:/Users/49123639/OldMates/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

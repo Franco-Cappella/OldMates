@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\2025\\INFO 360\\OldMates\\PrimerProyecto.csproj": {}
+    "C:\\Users\\49123639\\OldMates\\PrimerProyecto.csproj": {}
   },
   "projects": {
-    "Z:\\2025\\INFO 360\\OldMates\\PrimerProyecto.csproj": {
+    "C:\\Users\\49123639\\OldMates\\PrimerProyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\2025\\INFO 360\\OldMates\\PrimerProyecto.csproj",
+        "projectUniqueName": "C:\\Users\\49123639\\OldMates\\PrimerProyecto.csproj",
         "projectName": "PrimerProyecto",
-        "projectPath": "Z:\\2025\\INFO 360\\OldMates\\PrimerProyecto.csproj",
+        "projectPath": "C:\\Users\\49123639\\OldMates\\PrimerProyecto.csproj",
         "packagesPath": "C:\\Users\\49123639\\.nuget\\packages\\",
-        "outputPath": "Z:\\2025\\INFO 360\\OldMates\\obj\\",
+        "outputPath": "C:\\Users\\49123639\\OldMates\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
