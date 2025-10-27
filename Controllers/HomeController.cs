@@ -18,7 +18,4 @@ public class HomeController : Controller
         if(sino) return View("Login", "Home");
         else return View("Registro", "Home");
     }
-    public IActionResult CrearEvento(Evento evento){
-        if(CrearEvento(Evento evento);
-    }
 }
