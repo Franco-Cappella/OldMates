@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TP10.Models;
 using Newtonsoft.Json;
 
-namespace TP10.Models
+namespace OldMates.Models
 {
     public class Evento
     {
@@ -24,5 +20,4 @@ namespace TP10.Models
         public string Intereses { get; set; }
 
     }
-
 }
