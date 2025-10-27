@@ -13,8 +13,12 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(bool sino)
     {
-        return View("Actividades", "Home");
+        if(sino) return View("Login", "Home");
+        else return View("Registro", "Home");
+    }
+    public IActionResult CrearEvento(Evento evento){
+        if(CrearEvento(Evento evento);
     }
 }
