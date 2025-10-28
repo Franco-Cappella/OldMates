@@ -85,3 +85,14 @@ C:\Users\49004085\Downloads\OldMates\obj\Debug\net8.0\refint\PrimerProyecto.dll
 C:\Users\49004085\Downloads\OldMates\obj\Debug\net8.0\PrimerProyecto.pdb
 C:\Users\49004085\Downloads\OldMates\obj\Debug\net8.0\PrimerProyecto.genruntimeconfig.cache
 C:\Users\49004085\Downloads\OldMates\obj\Debug\net8.0\ref\PrimerProyecto.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Users\49004085\Downloads\OldMates\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\49004085\Downloads\OldMates\obj\Debug\net8.0\PrimerProyecto.csproj.AssemblyReference.cache
+C:\Users\49004085\Downloads\OldMates\obj\Debug\net8.0\PrimerPr.1DAA9958.Up2Date
