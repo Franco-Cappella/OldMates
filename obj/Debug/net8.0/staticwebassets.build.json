@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "njisQYXAVmB6VJDqiY1NsN1kaEpk1yfXokkerEfVGKE=",
+  "Hash": "618QCZmI9VeeTKHvp0vs7d4sc2/XGvlVV3WYl7/wiRM=",
   "Source": "PrimerProyecto",
   "BasePath": "_content/PrimerProyecto",
   "Mode": "Default",
@@ -74,12 +74,12 @@
       "OriginalItemSpec": "wwwroot\\img\\20251030_1507_Recreación de Naipes_remix_01k8v4smtef0vsg708png0y3nd.png"
     },
     {
-      "Identity": "Z:\\OldMates\\wwwroot\\img\\Campana.jpg",
+      "Identity": "Z:\\OldMates\\wwwroot\\img\\Campana.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
       "ContentRoot": "Z:\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/Campana.jpg",
+      "RelativePath": "img/Campana.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,7 +90,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\Campana.jpg"
+      "OriginalItemSpec": "wwwroot\\img\\Campana.png"
     },
     {
       "Identity": "Z:\\OldMates\\wwwroot\\img\\ManosCreativas.png",
@@ -110,25 +110,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\ManosCreativas.png"
-    },
-    {
-      "Identity": "Z:\\OldMates\\wwwroot\\img\\Menu.png",
-      "SourceId": "PrimerProyecto",
-      "SourceType": "Discovered",
-      "ContentRoot": "Z:\\OldMates\\wwwroot\\",
-      "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/Menu.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\Menu.png"
     },
     {
       "Identity": "Z:\\OldMates\\wwwroot\\img\\MoverseConAlegria.png",

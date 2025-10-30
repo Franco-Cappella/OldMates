@@ -42,10 +42,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFeHBsb3Jhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[Z:/OldMates/Views/Home/Home.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [Z:/OldMates/Views/Home/Juego.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxKdWVnby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,6 +52,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [Z:/OldMates/Views/Home/Mensajes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNZW5zYWplcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[Z:/OldMates/Views/Home/Notificaciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb3RpZmljYWNpb25lcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[Z:/OldMates/Views/Home/Perfil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQZXJmaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [Z:/OldMates/Views/Home/Tutoriales.cshtml]

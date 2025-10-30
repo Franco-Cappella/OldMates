@@ -5,9 +5,6 @@ namespace OldMates.Controllers
 {
     public class HomeController : Controller
     {
-
-       
-
         [HttpGet]
         public IActionResult CrearEvento()
         {
@@ -62,10 +59,10 @@ namespace OldMates.Controllers
                 ViewBag.Error = "Debe ingresar un título.";
                 return View(eventoEditado);
             }
-            
+
             if (BD.ModificarEvento(eventoEditado))
                 return RedirectToAction("Index");
-            
+
             ViewBag.Error = "Error al modificar el evento.";
             return View(eventoEditado);
         }
