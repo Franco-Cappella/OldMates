@@ -184,27 +184,17 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                // Verificamos si el evento existe
                 string queryExiste = "SELECT 1 FROM Eventos WHERE ID = @IDEvento";
                 int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = eventoEditado.ID });
 
                 if (existe == 1)
                 {
-                    // Actualizamos el evento con los nuevos datos
                     string queryActualizar = @"UPDATE Eventos SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses WHERE ID = @IDEvento";
-                    connection.Execute(queryActualizar, new
-                    {
-                        eventoEditado.ID,
-                        eventoEditado.Titulo,
-                        eventoEditado.Descripcion,
-                        eventoEditado.Fecha,
-                        eventoEditado.Localidad,
-                        eventoEditado.Intereses
-                    });
-                    return true;  // Evento actualizado exitosamente
+                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses });
+                    return true;
                 }
 
-                return false;  // El evento no existe
+                return false;
             }
         }
 

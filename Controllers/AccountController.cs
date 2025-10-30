@@ -5,108 +5,67 @@ namespace OldMates.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Index()
+ public IActionResult Index()
         {
-            List<Evento> listaEventos = BD.ObtenerEventos();
-            return View(listaEventos);
+            return View("Index");
         }
-
-        [HttpGet]
-        public IActionResult CrearEvento()
+        public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("Estado") != "true")
-                return RedirectToAction("Login", "Account");
-
             return View();
         }
+
         [HttpPost]
-        public IActionResult CrearEvento(Evento nuevoEvento)
+        public IActionResult LoginPost(string Username, string Contraseña)
         {
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo) ||
-                string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
+
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Contraseña))
             {
-                ViewBag.Error = "Debe completar todos los campos.";
-                return View(nuevoEvento);
+                return View("Login");
             }
 
-            nuevoEvento.IDCreador = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-
-            if (BD.CrearEvento(nuevoEvento))
-                return RedirectToAction("Index");
+            else if (BD.VerificarContraseña(Username, Contraseña))
+            {
+                Usuario usuario = BD.ObtenerPorUsername(Username);
+                HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
+                HttpContext.Session.SetString("Username", usuario.Username);
+                HttpContext.Session.SetString("Estado", "true");
+                return RedirectToAction("Index", "Home");
+            }
             else
             {
-                ViewBag.Error = "Error al crear el evento.";
-                return View(nuevoEvento);
+                return View("Login");
             }
         }
 
-        [HttpGet]
-        public IActionResult ModificarEvento(int IDEvento)
+        public IActionResult Registro()
         {
-            Evento evento = BD.ObtenerEventoPorId(IDEvento);
-            if (evento == null) return RedirectToAction("Index");
-
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (evento.IDCreador != IDUsuario)
-            {
-                ViewBag.Error = "No puede modificar un evento que no creó.";
-                return RedirectToAction("Index");
-            }
-
-            return View(evento);
+            return View();
         }
 
         [HttpPost]
-        public IActionResult ModificarEventoRecibir(Evento eventoEditado)
+        public IActionResult RegistroPost(Usuario usuario)
         {
-            if (string.IsNullOrWhiteSpace(eventoEditado.Titulo))
+            if (string.IsNullOrEmpty(usuario.Username) || string.IsNullOrEmpty(usuario.Contraseña))
             {
-                ViewBag.Error = "Debe ingresar un título.";
-                return View(eventoEditado);
+                return View("Registro");
             }
-            
-            if (BD.ModificarEvento(eventoEditado))
-                return RedirectToAction("Index");
-            
-            ViewBag.Error = "Error al modificar el evento.";
-            return View(eventoEditado);
+            else if (BD.Registro(usuario))
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View("Registro");
+            }
         }
 
-        public IActionResult BorrarEvento(int IDEvento)
+
+
+        public IActionResult CerrarSesion()
         {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            Evento evento = BD.ObtenerEventoPorId(IDEvento);
-
-            if (evento == null || evento.IDCreador != IDUsuario)
-                return RedirectToAction("Index");
-
-            BD.BorrarEvento(IDEvento);
-            return RedirectToAction("Index");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
-        public IActionResult Inscribirse(int IDEvento)
-        {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (!BD.EstaInscripto(IDUsuario, IDEvento))
-                BD.InscribirseAEvento(IDUsuario, IDEvento);
-
-            return RedirectToAction("MisEventos");
-        }
-
-        public IActionResult Desinscribirse(int IDEvento)
-        {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            BD.DesinscribirseDeEvento(IDUsuario, IDEvento);
-            return RedirectToAction("MisEventos");
-        }
-
-        public IActionResult MisEventos()
-        {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            List<Evento> eventos = BD.ObtenerEventosInscripto(IDUsuario);
-            return View(eventos);
-        }
     }
 }
-
-
