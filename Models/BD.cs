@@ -54,9 +54,75 @@ namespace OldMates.Models
                 }
             }
         }
-        public static bool BorrarEvento(int IDEvento){
-            string QueryExiste = "SELECT * FROM Eventos WHERE ID = @IDEvento";
-            int existe = _connectionString.QueryFirstDefault<int>(QueryExiste);
+        public static Evento ObtenerEventoPorId(int IDEvento)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Eventos WHERE ID = @IDEvento";
+                return connection.QueryFirstOrDefault<Evento>(query, new { IDEvento = IDEvento });
+            }
+        }
+
+        public static bool BorrarEvento(int IDEvento)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string queryExiste = "SELECT 1 FROM Eventos WHERE ID = @IDEvento";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento });
+
+                if (existe != 1)
+                    return false;
+
+                string borrarEvento = "DELETE FROM Eventos WHERE ID = @IDEvento";
+                connection.Execute(borrarEvento, new { IDEvento });
+
+                return true;
+            }
+        }
+
+        //REVISAR ESTO ESTA MAL
+        public static bool EstaInscripto(int IDUsuario, int IDEvento)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT 1 FROM Eventos WHERE IDUsuario = @IDUsuario AND IDContraseña = @IDEvento";
+                int existe = connection.QueryFirstOrDefault<int>(query, new { IDUsuario, IDEvento });
+                return existe == 1;
+            }
+        }
+
+
+        // Inscribirse a un evento
+        public static void InscribirseAEvento(int IDUsuario, int IDEvento)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO Usuarios_Eventos (idUsuario, idContraseña) VALUES (@idUsuario, @idEvento)";
+                connection.Execute(query, new { idUsuario, idEvento });
+            }
+        }
+
+        // Desinscribirse de un evento
+        public static void DesinscribirseDeEvento(int idUsuario, int idEvento)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "DELETE FROM Usuarios_Eventos WHERE idUsuario = @idUsuario AND idContraseña = @idEvento";
+                connection.Execute(query, new { idUsuario, idEvento });
+            }
+        }
+
+        // Obtener todos los eventos en los que el usuario está inscripto
+        public static List<Evento> ObtenerEventosInscripto(int idUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"SELECT e.* 
+                                 FROM Eventos e
+                                 INNER JOIN Usuarios_Eventos ue ON ue.idContraseña = e.ID
+                                 WHERE ue.idUsuario = @idUsuario";
+                return connection.Query<Evento>(query, new { idUsuario }).ToList();
+            }
         }
     }
 }

@@ -102,17 +102,17 @@ namespace OldMates.Controllers
             return RedirectToAction("MisEventos");
         }
 
-        public IActionResult Desinscribirse(int idEvento)
+        public IActionResult Desinscribirse(int IDEvento)
         {
             int idUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            BD.DesinscribirseDeEvento(idUsuario, idEvento);
+            BD.DesinscribirseDeEvento(IDUsuario, IDEvento);
             return RedirectToAction("MisEventos");
         }
 
         public IActionResult MisEventos()
         {
             int idUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            List<Evento> eventos = BD.ObtenerEventosInscripto(idUsuario);
+            List<Evento> eventos = BD.ObtenerEventosInscripto(IDUsuario);
             return View(eventos);
         }
     }

@@ -7,16 +7,24 @@ namespace OldMates.Models
         [JsonProperty]
         public int ID { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
+
+        public int IDCreador { get; set; }
+
+        [JsonProperty]
+
+        public List<int> Integrantes { get; set; }
+
+        [JsonProperty]
         public DateTime Fecha { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public string Localidad { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public int Capacidad { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public string Intereses { get; set; }
 
     }

@@ -8,16 +8,75 @@ html {
     font-size: 16px;
   }
 }
-
-body {
-  margin: 10px;
-  padding: 10px;
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+/* CARROUSELES */
+.carousel {
+  width: 60%;
+  max-width: 1000px;
+  margin-left: 20%;
+  height: auto;
+}
+/* Capa de degradado sobre la imagen */
+.carousel-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 255, 0) 40%,     /* transparente arriba */
+    rgba(0, 100, 255, 0.4) 75%, /* azul intermedio */
+    rgba(0, 50, 150, 0.8) 100%  /* azul más oscuro abajo */
+  );
+  z-index: 1;
 }
 
-
-footer {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-top: 1px solid #e9ecef;
+/* Texto del carrusel */
+.carousel-caption {
+  position: absolute;
+  bottom: 20%;
+  z-index: 2; /* encima del degradado */
 }
+/* --- Colores generales del carrusel --- */
+
+/* Texto de los títulos y párrafos dentro del carrusel */
+.carousel-caption h5,
+.carousel-caption p {
+  color: rgb(255, 255, 255); /* Azul Bootstrap clásico */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* mejora visibilidad sobre imágenes */
+}
+
+/* --- Botones de control (prev/next) --- */
+
+/* Cambia el color del icono de los botones */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 123, 255, 0.6); /* azul semitransparente */
+  border-radius: 50%;
+  width: 10%;
+  height: 5%;
+}
+
+/* Cambia el color al pasar el mouse */
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: rgba(0, 123, 255, 0.9);
+}
+.carousel-item img {
+  height: 50%;         /* 50% de la altura visible */
+  border-radius: 12px;  /* Bordes redondeados (opcional) */
+}
+/* --- Indicadores (los puntitos de abajo) --- */
+.carousel-indicators [data-bs-target] {
+  background-color: #007bff;
+}
+
+.carousel-indicators .active {
+  background-color: #0056b3; /* azul más oscuro para el activo */
+}
+/* TERMINA CARROUSELES */
