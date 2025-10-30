@@ -47,9 +47,7 @@ namespace OldMates.Controllers
                 return View("Registro");
             }
 
-            usuario.UltimoLogin = DateTime.Now;
-
-            if (BD.Registro(usuario))
+            else if (BD.Registro(usuario))
             {
                 return RedirectToAction("Login");
             }

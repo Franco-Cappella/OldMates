@@ -13,7 +13,6 @@ public class HomeController : Controller
 
     public IActionResult Index(bool sino)
     {
-        if(sino) return View("Login", "Home");
-        else return View("Registro", "Home");
+        return View("Index", "Home");
     }
 }
