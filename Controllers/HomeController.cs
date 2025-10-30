@@ -13,6 +13,11 @@ public class HomeController : Controller
 
     public IActionResult Index(bool sino)
     {
-        return View("Index", "Home");
+        if (sino)
+            return View("~/Views/Account/Login.cshtml");
+        else
+            return View("~/Views/Account/Index.cshtml");
     }
+
+
 }

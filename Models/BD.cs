@@ -54,5 +54,9 @@ namespace OldMates.Models
                 }
             }
         }
+        public static bool BorrarEvento(int IDEvento){
+            string QueryExiste = "SELECT * FROM Eventos WHERE ID = @IDEvento";
+            int existe = _connectionString.QueryFirstDefault<int>(QueryExiste);
+        }
     }
 }
