@@ -80,3 +80,72 @@ main {
   background-color: #0056b3; /* azul más oscuro para el activo */
 }
 /* TERMINA CARROUSELES */
+
+body {
+  background-color: #021F59;
+  color: #F2F2F2;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #024873;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.col {
+  background-color: #007CB5;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 15px;
+  flex: 1 1 200px;
+  max-width: 220px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+.col img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 3px solid #E9C94A;
+}
+
+
+.col:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(233, 201, 74, 0.5);
+}
+
+
+.col {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #F2F2F2;
+}
+
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col {
+    max-width: 90%;
+  }
+}

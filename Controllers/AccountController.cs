@@ -3,15 +3,8 @@ using OldMates.Models;
 
 namespace OldMates.Controllers
 {
-    public class HomeController : Controller
+    public class AccountController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
             List<Evento> listaEventos = BD.ObtenerEventos();
@@ -26,7 +19,6 @@ namespace OldMates.Controllers
 
             return View();
         }
-
         [HttpPost]
         public IActionResult CrearEvento(Evento nuevoEvento)
         {
@@ -37,7 +29,6 @@ namespace OldMates.Controllers
                 return View(nuevoEvento);
             }
 
-            nuevoEvento.FechaCreacion = DateTime.Now;
             nuevoEvento.IDCreador = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
 
             if (BD.CrearEvento(nuevoEvento))
@@ -73,10 +64,10 @@ namespace OldMates.Controllers
                 ViewBag.Error = "Debe ingresar un título.";
                 return View(eventoEditado);
             }
-
+            
             if (BD.ModificarEvento(eventoEditado))
                 return RedirectToAction("Index");
-
+            
             ViewBag.Error = "Error al modificar el evento.";
             return View(eventoEditado);
         }
@@ -84,7 +75,7 @@ namespace OldMates.Controllers
         public IActionResult BorrarEvento(int IDEvento)
         {
             int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            Evento evento = BD.ObtenerEventoPorId(idEvento);
+            Evento evento = BD.ObtenerEventoPorId(IDEvento);
 
             if (evento == null || evento.IDCreador != IDUsuario)
                 return RedirectToAction("Index");
@@ -96,7 +87,7 @@ namespace OldMates.Controllers
         public IActionResult Inscribirse(int IDEvento)
         {
             int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (!BD.EstaInscripto(IDEvento))
+            if (!BD.EstaInscripto(IDUsuario, IDEvento))
                 BD.InscribirseAEvento(IDUsuario, IDEvento);
 
             return RedirectToAction("MisEventos");
@@ -117,4 +108,5 @@ namespace OldMates.Controllers
         }
     }
 }
+
 

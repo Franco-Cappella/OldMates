@@ -63,6 +63,16 @@ namespace OldMates.Models
             }
         }
 
+        public static List<Evento> ObtenerEventos()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Eventos";
+                return connection.Query<Evento>(query).ToList();
+            }
+        }
+
+
         public static bool BorrarEvento(int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -142,7 +152,7 @@ namespace OldMates.Models
             }
         }
 
-        public static List<Evento> ObtenerEventosInscripto(int IDdUsuario)
+        public static List<Evento> ObtenerEventosInscripto(int IDUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -150,5 +160,53 @@ namespace OldMates.Models
                 return connection.Query<Evento>(query, new { IDUsuario }).ToList();
             }
         }
+
+        public static bool CrearEvento(Evento evento)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string queryExiste = "SELECT 1 FROM Eventos WHERE Nombre = @Nombre";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Nombre = evento.Titulo });
+
+                if (existe != 1)
+                {
+                    string queryInsertar = @"INSERT INTO Eventos (Nombre, Descripcion, Fecha, Localidad, Intereses) 
+                                            VALUES (@Nombre, @Descripcion, @Fecha, @Localidad, @Intereses)";
+                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses });
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public static bool ModificarEvento(Evento eventoEditado)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // Verificamos si el evento existe
+                string queryExiste = "SELECT 1 FROM Eventos WHERE ID = @IDEvento";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = eventoEditado.ID });
+
+                if (existe == 1)
+                {
+                    // Actualizamos el evento con los nuevos datos
+                    string queryActualizar = @"UPDATE Eventos SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses WHERE ID = @IDEvento";
+                    connection.Execute(queryActualizar, new
+                    {
+                        eventoEditado.ID,
+                        eventoEditado.Titulo,
+                        eventoEditado.Descripcion,
+                        eventoEditado.Fecha,
+                        eventoEditado.Localidad,
+                        eventoEditado.Intereses
+                    });
+                    return true;  // Evento actualizado exitosamente
+                }
+
+                return false;  // El evento no existe
+            }
+        }
+
     }
 }
