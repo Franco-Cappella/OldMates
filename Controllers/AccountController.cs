@@ -50,13 +50,13 @@ namespace OldMates.Controllers
         }
 
         [HttpGet]
-        public IActionResult ModificarEvento(int idEvento)
+        public IActionResult ModificarEvento(int IDEvento)
         {
-            Evento evento = BD.ObtenerEventoPorId(idEvento);
+            Evento evento = BD.ObtenerEventoPorId(IDEvento);
             if (evento == null) return RedirectToAction("Index");
 
-            int idUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (evento.IDCreador != idUsuario)
+            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
+            if (evento.IDCreador != IDUsuario)
             {
                 ViewBag.Error = "No puede modificar un evento que no creó.";
                 return RedirectToAction("Index");
@@ -66,7 +66,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult ModificarEvento(Evento eventoEditado)
+        public IActionResult ModificarEventoRecibir(Evento eventoEditado)
         {
             if (string.IsNullOrWhiteSpace(eventoEditado.Titulo))
             {
@@ -83,7 +83,7 @@ namespace OldMates.Controllers
 
         public IActionResult BorrarEvento(int IDEvento)
         {
-            int idUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
+            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
             Evento evento = BD.ObtenerEventoPorId(idEvento);
 
             if (evento == null || evento.IDCreador != IDUsuario)
@@ -96,7 +96,7 @@ namespace OldMates.Controllers
         public IActionResult Inscribirse(int IDEvento)
         {
             int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (!BD.EstaInscripto(IDUsuario, IDEvento))
+            if (!BD.EstaInscripto(IDEvento))
                 BD.InscribirseAEvento(IDUsuario, IDEvento);
 
             return RedirectToAction("MisEventos");
@@ -104,14 +104,14 @@ namespace OldMates.Controllers
 
         public IActionResult Desinscribirse(int IDEvento)
         {
-            int idUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
+            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
             BD.DesinscribirseDeEvento(IDUsuario, IDEvento);
             return RedirectToAction("MisEventos");
         }
 
         public IActionResult MisEventos()
         {
-            int idUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
+            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
             List<Evento> eventos = BD.ObtenerEventosInscripto(IDUsuario);
             return View(eventos);
         }

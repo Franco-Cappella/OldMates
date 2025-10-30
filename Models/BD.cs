@@ -80,48 +80,74 @@ namespace OldMates.Models
             }
         }
 
-        //REVISAR ESTO ESTA MAL
         public static bool EstaInscripto(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT 1 FROM Eventos WHERE IDUsuario = @IDUsuario AND IDContraseña = @IDEvento";
-                int existe = connection.QueryFirstOrDefault<int>(query, new { IDUsuario, IDEvento });
-                return existe == 1;
+                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento";
+
+                List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento });
+
+                return listarUsuarios.Contains(IDUsuario);
             }
         }
 
 
-        // Inscribirse a un evento
-        public static void InscribirseAEvento(int IDUsuario, int IDEvento)
+        public static bool InscribirseAEvento(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Usuarios_Eventos (idUsuario, idContraseña) VALUES (@idUsuario, @idEvento)";
-                connection.Execute(query, new { idUsuario, idEvento });
+                string query = "SELECT * FROM Evento WHERE ID = @IDEvento";
+                bool evento = connection.QueryFirstOrDefault(query, new { IDEvento });
+
+                if (evento)
+                {
+                    string queryUsuario = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                    bool usuarioInscripto = connection.QueryFirstOrDefault(queryUsuario, new { IDUsuario, IDEvento });
+
+                    if (!usuarioInscripto)
+                    {
+                        string insertQuery = "INSERT INTO Anotados (IDUsuario, IDEvento) VALUES (@IDUsuario, @IDEvento)";
+                        connection.Execute(insertQuery, new { IDUsuario, IDEvento });
+                        return true;
+                    }
+                }
+                return false;
             }
         }
 
-        // Desinscribirse de un evento
-        public static void DesinscribirseDeEvento(int idUsuario, int idEvento)
+
+
+        public static bool DesinscribirseDeEvento(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "DELETE FROM Usuarios_Eventos WHERE idUsuario = @idUsuario AND idContraseña = @idEvento";
-                connection.Execute(query, new { idUsuario, idEvento });
+                string queryEvento = "SELECT * FROM Evento WHERE ID = @IDEvento";
+                var evento = connection.QueryFirstOrDefault(queryEvento, new { IDEvento });
+
+                if (evento != null)
+                {
+                    string queryUsuario = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                    var usuarioInscripto = connection.QueryFirstOrDefault(queryUsuario, new { IDUsuario, IDEvento });
+
+                    if (usuarioInscripto != null)
+                    {
+                        string deleteQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        connection.Execute(deleteQuery, new { IDUsuario, IDEvento });
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 
-        // Obtener todos los eventos en los que el usuario está inscripto
-        public static List<Evento> ObtenerEventosInscripto(int idUsuario)
+        public static List<Evento> ObtenerEventosInscripto(int IDdUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT e.* 
-                                 FROM Eventos e
-                                 INNER JOIN Usuarios_Eventos ue ON ue.idContraseña = e.ID
-                                 WHERE ue.idUsuario = @idUsuario";
-                return connection.Query<Evento>(query, new { idUsuario }).ToList();
+                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario";
+                return connection.Query<Evento>(query, new { IDUsuario }).ToList();
             }
         }
     }

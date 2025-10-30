@@ -13,10 +13,16 @@ namespace OldMates.Models
 
         [JsonProperty]
 
-        public List<int> Integrantes { get; set; }
+        public List<int> Anotados { get; set; }
 
         [JsonProperty]
         public DateTime Fecha { get; set; }
+
+        [JsonProperty]
+        public string Titulo { get; set; }
+
+        [JsonProperty]
+        public string Descripcion { get; set; }
 
         [JsonProperty]
         public string Localidad { get; set; }
