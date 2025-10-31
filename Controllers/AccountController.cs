@@ -65,19 +65,19 @@ namespace OldMates.Controllers
             return RedirectToAction("Login");
         }
 
-        
+
         private void GuardarIntegranteEnSession(Usuario usuario) //Para guardar el objeto integrante en la sesión(guarda la informacion de jugador a medida que avanza)
-    {
-        HttpContext.Session.SetString("Usuario", Objeto.ObjectToString(usuario));
-    }
+        {
+            HttpContext.Session.SetString("Usuario", Objeto.ObjectToString(usuario));
+        }
 
-    private Integrantes ObtenerIntegranteDesdeSession()//Busca si un jugador ya tiene un integrante en sesión, si no lo tiene crea uno nuevo
-    {
-        Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Usuario"));
-        
-        return usuario;
+        private Usuario ObtenerIntegranteDesdeSession()//Busca si un jugador ya tiene un integrante en sesión, si no lo tiene crea uno nuevo
+        {
+            Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Usuario"));
 
-    }
+            return usuario;
+
+        }
     }
 
 }
