@@ -16,6 +16,20 @@ namespace OldMates.Models
                 return connection.QueryFirstOrDefault<Usuario>(query, new { Username = username });
             }
         }
+
+
+        //creo que esta repetido
+        /*
+        public static Usuario devolverIntegrante(string Username, string Contraseña)
+        {
+            Usuario usuario = null;
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Integrantes WHERE Usuario = @Usuario AND Contraseña = @contraseña";
+                usuario = connection.QueryFirstOrDefault<Usuario>(query, new { Usuario = Usuario, contraseña = Contraseña });
+            }
+            return Usuario;
+        } */
         public static bool VerificarContraseña(string Username, string Contraseña)
         {
 

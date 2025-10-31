@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DL4ZND8pM0UV8+uW78xKynt1vUSO48pvCuUd81Mmo8k=",
+  "Hash": "P9wwRnmLxx47IZlnaLBQN95MOgnmvbM91P6BbTN73WY=",
   "Source": "PrimerProyecto",
   "BasePath": "_content/PrimerProyecto",
   "Mode": "Default",
@@ -55,12 +55,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\20251030_1507_Recreación de Naipes_remix_01k8v4smtef0vsg708png0y3nd.png",
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Actividades.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/20251030_1507_Recreación de Naipes_remix_01k8v4smtef0vsg708png0y3nd.png",
+      "RelativePath": "img/Actividades.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -71,15 +71,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\20251030_1507_Recreación de Naipes_remix_01k8v4smtef0vsg708png0y3nd.png"
+      "OriginalItemSpec": "wwwroot\\img\\Actividades.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\actividades.png",
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Bingo.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/actividades.png",
+      "RelativePath": "img/Bingo.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,7 +90,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\actividades.png"
+      "OriginalItemSpec": "wwwroot\\img\\Bingo.png"
     },
     {
       "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Campana.png",
@@ -112,12 +112,12 @@
       "OriginalItemSpec": "wwwroot\\img\\Campana.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\juego.png",
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Juegos.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/juego.png",
+      "RelativePath": "img/Juegos.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\juego.png"
+      "OriginalItemSpec": "wwwroot\\img\\Juegos.png"
     },
     {
       "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\ManosCreativas.png",
@@ -245,6 +245,25 @@
       "OriginalItemSpec": "wwwroot\\img\\SaboresConHistoria.png"
     },
     {
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\TableroDeAjedrez.png",
+      "SourceId": "PrimerProyecto",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "BasePath": "_content/PrimerProyecto",
+      "RelativePath": "img/TableroDeAjedrez.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\TableroDeAjedrez.png"
+    },
+    {
       "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Thumbs.db",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
@@ -264,12 +283,12 @@
       "OriginalItemSpec": "wwwroot\\img\\Thumbs.db"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Ttutoriales.png",
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Tutoriales.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/Ttutoriales.png",
+      "RelativePath": "img/Tutoriales.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -280,7 +299,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\Ttutoriales.png"
+      "OriginalItemSpec": "wwwroot\\img\\Tutoriales.png"
     },
     {
       "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\js\\site.js",

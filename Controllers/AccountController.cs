@@ -11,6 +11,8 @@ namespace OldMates.Controllers
         }
         public IActionResult Login()
         {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -26,10 +28,8 @@ namespace OldMates.Controllers
             else if (BD.VerificarContraseña(Username, Contraseña))
             {
                 Usuario usuario = BD.ObtenerPorUsername(Username);
-                HttpContext.Session.SetString("IDdelUsuario", usuario.ID.ToString());
-                /* HttpContext.Session.SetString("Username", usuario.Username);
-                HttpContext.Session.SetString("Estado", "true"); */
-                return RedirectToAction("Index", "Home");
+                GuardarIntegranteEnSession(usuario);
+                return RedirectToAction("Landing", "Home");
             }
             else
             {
@@ -66,13 +66,19 @@ namespace OldMates.Controllers
         }
 
 
-        private void GuardarIntegranteEnSession(Usuario usuario) //Para guardar el objeto integrante en la sesión(guarda la informacion de jugador a medida que avanza)
+        private bool GuardarIntegranteEnSession(Usuario usuario)
         {
             HttpContext.Session.SetString("Usuario", Objeto.ObjectToString(usuario));
+
+            string valor = HttpContext.Session.GetString("Usuario");
+
+            if (!string.IsNullOrEmpty(valor)) return true;
+            else return false;
         }
 
         private Usuario ObtenerIntegranteDesdeSession()//Busca si un jugador ya tiene un integrante en sesión, si no lo tiene crea uno nuevo
         {
+
             Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Usuario"));
 
             return usuario;

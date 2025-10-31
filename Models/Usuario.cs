@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using OldMates.Models;
 using Newtonsoft.Json;
 
 namespace OldMates.Models
@@ -7,16 +11,16 @@ namespace OldMates.Models
         [JsonProperty]
         public int ID { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public string Username { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public string Contraseña { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public string Localidad { get; set; }
 
-         [JsonProperty]
+        [JsonProperty]
         public string Intereses { get; set; }
 
         [JsonProperty]
@@ -28,5 +32,9 @@ namespace OldMates.Models
         [JsonProperty]
         public bool Admin { get; set; }
 
+        public Usuario()
+        {
+
+        }
     }
 }

@@ -17,19 +17,19 @@
             <li>
                 <div class="container">
                     <a class="navbar-brand" href="#">
-                    <img src=".\img\OldMates_Logo_Final.jpg" alt="Logo OldMates" width="30" height="24">
+                    <img src="/img/OldMates_Logo_Final.jpg" alt="Logo OldMates" width="30" height="24">
                     </a>
                 </div>
             </li>
             
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="Index.cshtml">Inicio</a>
+            <a href='@Url.Action("Landing", "Home")'>Inicio</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="Explorar.cshtml">Explorar</a>
+            <a href='@Url.Action("Explorar", "Home")'>Explorar</a>
             </li>
             <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true" href="Mensajes.cshtml">Mensajes</a>
+           <a href='@Url.Action("Mensajes", "Home")'>Mensajes</a>
             </li>
             <li>
                 <div class="container">

@@ -8,6 +8,8 @@ namespace OldMates.Controllers
         [HttpGet]
         public IActionResult CrearEvento()
         {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
             return View();
         }
 
@@ -98,6 +100,58 @@ namespace OldMates.Controllers
             List<Evento> eventos = BD.ObtenerEventosInscripto(IDUsuario);
             return View(eventos);
         }
+
+        private Usuario ObtenerIntegranteDesdeSession()//Busca si un jugador ya tiene un integrante en sesión, si no lo tiene crea uno nuevo
+        {
+            
+            Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Usuario"));
+
+            return usuario;
+
+        }
+
+        public IActionResult Landing()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            return View("Landing", "Home");
+        }
+
+        public IActionResult Explorar()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            return View("Explorar", "Home");
+        }
+
+        public IActionResult Mensajes()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            return View("Mensajes", "Home");
+        }
+
+        public IActionResult Tutoriales()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            return View("Tutoriales", "Home");
+        }
+
+        public IActionResult Juegos()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("Juegos", "Home");
+        }
+        public IActionResult Actividades()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("Actividades", "Home");
+        }
+
+
     }
 }
 
