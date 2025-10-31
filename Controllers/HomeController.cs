@@ -8,9 +8,6 @@ namespace OldMates.Controllers
         [HttpGet]
         public IActionResult CrearEvento()
         {
-            if (HttpContext.Session.GetString("Estado") != "true")
-                return RedirectToAction("Login", "Account");
-
             return View();
         }
 

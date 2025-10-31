@@ -2461,11 +2461,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Z:\\OldMates\\PrimerProyecto.csproj",
+      "projectUniqueName": "C:\\Users\\49004085\\Downloads\\OldMates\\PrimerProyecto.csproj",
       "projectName": "PrimerProyecto",
-      "projectPath": "Z:\\OldMates\\PrimerProyecto.csproj",
+      "projectPath": "C:\\Users\\49004085\\Downloads\\OldMates\\PrimerProyecto.csproj",
       "packagesPath": "C:\\Users\\49004085\\.nuget\\packages\\",
-      "outputPath": "Z:\\OldMates\\obj\\",
+      "outputPath": "C:\\Users\\49004085\\Downloads\\OldMates\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

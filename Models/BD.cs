@@ -6,13 +6,13 @@ namespace OldMates.Models
 {
     public static class BD
     {
-        private static string _connectionString = @"Server=localhost;DataBase SQL Ort; Integrated Security=True; TrustServer Certificate=True;";
+        private static string _connectionString = @"Server=localhost;DataBase=OldMates; Integrated Security=True; TrustServerCertificate=True;";
 
         public static Usuario ObtenerPorUsername(string username)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Usuarios WHERE Username = @Username";
+                string query = "SELECT * FROM Usuario WHERE Username = @Username";
                 return connection.QueryFirstOrDefault<Usuario>(query, new { Username = username });
             }
         }
@@ -22,7 +22,7 @@ namespace OldMates.Models
             Usuario x = new Usuario();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Usuarios WHERE Username = @Username";
+                string query = "SELECT * FROM Usuario WHERE Username = @Username";
                 x = connection.QueryFirstOrDefault<Usuario>(query, new { Username = Username });
             }
             if (x == null || x.Contraseña != Contraseña)
@@ -38,7 +38,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string QueryExiste = "SELECT * FROM Usuarios WHERE Contraseña = @Contraseña";
+                string QueryExiste = "SELECT * FROM Usuario WHERE Contraseña = @Contraseña";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { Username = usuario.Username });
                 if (existe == null)
                 {
@@ -58,7 +58,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Eventos WHERE ID = @IDEvento";
+                string query = "SELECT * FROM Evento WHERE ID = @IDEvento";
                 return connection.QueryFirstOrDefault<Evento>(query, new { IDEvento = IDEvento });
             }
         }
@@ -67,7 +67,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Eventos";
+                string query = "SELECT * FROM Evento";
                 return connection.Query<Evento>(query).ToList();
             }
         }
@@ -77,13 +77,13 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string queryExiste = "SELECT 1 FROM Eventos WHERE ID = @IDEvento";
+                string queryExiste = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
                 int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento });
 
                 if (existe != 1)
                     return false;
 
-                string borrarEvento = "DELETE FROM Eventos WHERE ID = @IDEvento";
+                string borrarEvento = "DELETE FROM Evento WHERE ID = @IDEvento";
                 connection.Execute(borrarEvento, new { IDEvento });
 
                 return true;
@@ -165,12 +165,12 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string queryExiste = "SELECT 1 FROM Eventos WHERE Nombre = @Nombre";
+                string queryExiste = "SELECT 1 FROM Evento WHERE Nombre = @Nombre";
                 int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Nombre = evento.Titulo });
 
                 if (existe != 1)
                 {
-                    string queryInsertar = @"INSERT INTO Eventos (Nombre, Descripcion, Fecha, Localidad, Intereses) 
+                    string queryInsertar = @"INSERT INTO Evento (Nombre, Descripcion, Fecha, Localidad, Intereses) 
                                             VALUES (@Nombre, @Descripcion, @Fecha, @Localidad, @Intereses)";
                     connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses });
                     return true;
@@ -184,12 +184,12 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string queryExiste = "SELECT 1 FROM Eventos WHERE ID = @IDEvento";
+                string queryExiste = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
                 int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = eventoEditado.ID });
 
                 if (existe == 1)
                 {
-                    string queryActualizar = @"UPDATE Eventos SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses WHERE ID = @IDEvento";
+                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses WHERE ID = @IDEvento";
                     connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses });
                     return true;
                 }
