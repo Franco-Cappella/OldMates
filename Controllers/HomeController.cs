@@ -14,7 +14,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearEvento(Evento nuevoEvento)
+        public IActionResult CrearEventoRecibir(Evento nuevoEvento)
         {
             if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo) ||
                 string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
