@@ -1,127 +1,131 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Bingo.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Bingo.png",
       "PackagePath": "staticwebassets\\img\\Bingo.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Campana.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Campana.png",
       "PackagePath": "staticwebassets\\img\\Campana.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Juegos.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\FotoRegistro.png",
+      "PackagePath": "staticwebassets\\img\\FotoRegistro.png"
+    },
+    {
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Juegos.png",
       "PackagePath": "staticwebassets\\img\\Juegos.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\ManosCreativas.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\ManosCreativas.png",
       "PackagePath": "staticwebassets\\img\\ManosCreativas.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\ManosCreativasTutorial.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\ManosCreativasTutorial.png",
       "PackagePath": "staticwebassets\\img\\ManosCreativasTutorial.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Menu.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Menu.png",
       "PackagePath": "staticwebassets\\img\\Menu.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\MoverseConAlegria.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\MoverseConAlegria.png",
       "PackagePath": "staticwebassets\\img\\MoverseConAlegria.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\OldMates_Logo_Final.jpg",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OldMates_Logo_Final.jpg",
       "PackagePath": "staticwebassets\\img\\OldMates_Logo_Final.jpg"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\OrganizacionDelHogar.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OrganizacionDelHogar.png",
       "PackagePath": "staticwebassets\\img\\OrganizacionDelHogar.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Perfil.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Perfil.png",
       "PackagePath": "staticwebassets\\img\\Perfil.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\RegistroYUso.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\RegistroYUso.png",
       "PackagePath": "staticwebassets\\img\\RegistroYUso.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\SaboresConHistoria.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\SaboresConHistoria.png",
       "PackagePath": "staticwebassets\\img\\SaboresConHistoria.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\TableroDeAjedrez.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\TableroDeAjedrez.png",
       "PackagePath": "staticwebassets\\img\\TableroDeAjedrez.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Thumbs.db",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Thumbs.db",
       "PackagePath": "staticwebassets\\img\\Thumbs.db"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Tutoriales.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Tutoriales.png",
       "PackagePath": "staticwebassets\\img\\Tutoriales.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\actividades.png",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\actividades.png",
       "PackagePath": "staticwebassets\\img\\actividades.png"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
