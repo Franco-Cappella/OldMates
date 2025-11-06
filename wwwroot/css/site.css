@@ -1,151 +1,380 @@
-html {
-  font-size: 14px;
-  min-height: 100%;
+/* ==============================
+   PALETA DE COLORES OLD MATES
+   ============================== */
+   :root {
+    --azul-oscuro: #021F59;
+    --azul-medio: #024873;
+    --azul-claro: #007CB5;
+    --dorado: #E9C94A;
+    --gris-claro: #F2F2F2;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f9f9f9;
-}
-/* CARROUSELES */
- .carousel {
-  width: 60%;
-  max-width: 1000px;
-  margin-left: 20%;
-  height: auto;
-}
-/* Capa de degradado sobre la imagen */
-.carousel-item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 255, 0) 40%,     /* transparente arriba */
-    rgba(0, 100, 255, 0.4) 75%, /* azul intermedio */
-    rgba(0, 50, 150, 0.8) 100%  /* azul más oscuro abajo */
-  );
-  z-index: 1;
-}
-
-/* Texto del carrusel */
-.carousel-caption {
-  position: absolute;
-  bottom: 20%;
-  z-index: 2; /* encima del degradado */
-}
-/* --- Colores generales del carrusel --- */
-
-/* Texto de los títulos y párrafos dentro del carrusel */
-.carousel-caption h5,
-.carousel-caption p {
-  color: rgb(255, 255, 255); /* Azul Bootstrap clásico */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* mejora visibilidad sobre imágenes */
-}
-
-/* --- Botones de control (prev/next) --- */
-
-/* Cambia el color del icono de los botones */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: rgba(0, 123, 255, 0.6); /* azul semitransparente */
-  border-radius: 50%;
-  width: 10%;
-  height: 5%;
-}
-
-/* Cambia el color al pasar el mouse */
-.carousel-control-prev-icon:hover,
-.carousel-control-next-icon:hover {
-  background-color: rgba(0, 123, 255, 0.9);
-}
-.carousel-item img {
-  height: 50%;         /* 50% de la altura visible */
-  border-radius: 12px;  /* Bordes redondeados (opcional) */
-}
-/* --- Indicadores (los puntitos de abajo) --- */
-.carousel-indicators [data-bs-target] {
-  background-color: #007bff;
-}
-
-.carousel-indicators .active {
-  background-color: #0056b3; /* azul más oscuro para el activo */
-}
-/* TERMINA CARROUSELES */
-
+/* ==============================
+   ESTILOS GENERALES
+   ============================== */
 body {
-  background-color: #021F59;
-  color: #F2F2F2;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: var(--gris-claro);
+    color: var(--azul-oscuro);
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #024873;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+h1, h2, h3, h5 {
+    color: var(--azul-oscuro);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
-.row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
+/* ==============================
+   NAVBAR
+   ============================== */
+nav.navbar {
+    background-color: var(--azul-oscuro) !important;
+    padding: 0.7rem 2rem;
 }
 
-.col {
-  background-color: #007CB5;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 15px;
-  flex: 1 1 200px;
-  max-width: 220px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+nav a {
+    color: var(--gris-claro);
+    font-weight: 500;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
 }
 
-
-.col img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-top: 10px;
-  border: 3px solid #E9C94A;
+nav a:hover {
+    color: var(--dorado);
 }
 
-
-.col:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 16px rgba(233, 201, 74, 0.5);
+.navbar-brand img {
+    border-radius: 5px;
 }
 
-
-.col {
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #F2F2F2;
+/* ==============================
+   FORMULARIOS (Login / Registro)
+   ============================== */
+form {
+    background-color: white;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(2, 31, 89, 0.2);
 }
 
+.form-group {
+    margin-bottom: 15px;
+}
 
+label {
+    font-weight: 600;
+    color: var(--azul-medio);
+    display: block;
+    margin-bottom: 5px;
+}
+
+input.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--azul-claro);
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+input.form-control:focus {
+    border-color: var(--dorado);
+    box-shadow: 0 0 8px rgba(233, 201, 74, 0.4);
+}
+
+/* ==============================
+   BOTONES
+   ============================== */
+button, .btn-primary, .btn-success {
+    background-color: var(--azul-claro);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+button:hover, .btn-primary:hover, .btn-success:hover {
+    background-color: var(--azul-medio);
+}
+
+.btn-success {
+    background-color: var(--dorado);
+    color: var(--azul-oscuro);
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background-color: #d8b83f;
+}
+
+/* ==============================
+   ENLACES Y TEXTO SECUNDARIO
+   ============================== */
+p {
+    text-align: center;
+}
+
+p a {
+    color: var(--azul-claro);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+p a:hover {
+    color: var(--dorado);
+}
+
+/* ==============================
+   CAROUSEL
+   ============================== */
+.carousel-caption h5 {
+    color: var(--dorado);
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    font-weight: bold;
+}
+
+.carousel-caption p {
+    color: white;
+    font-size: 1rem;
+    background: rgba(2, 31, 89, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* ==============================
+   TARJETAS (Landing, Eventos)
+   ============================== */
+.card {
+    background-color: white;
+    border: 2px solid var(--azul-claro);
+    border-radius: 15px;
+    margin: 20px auto;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background-color: var(--azul-claro);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-title {
+    color: var(--azul-oscuro);
+    font-weight: bold;
+}
+
+.card-link {
+    color: var(--azul-claro);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.card-link:hover {
+    color: var(--dorado);
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+footer {
+    background-color: var(--azul-oscuro);
+    color: var(--gris-claro);
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    margin-top: 40px;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
 @media (max-width: 768px) {
-  .row {
-    flex-direction: column;
-    align-items: center;
-  }
+    form {
+        width: 90%;
+        padding: 20px;
+    }
 
-  .col {
-    max-width: 90%;
-  }
+    nav a {
+        display: block;
+        margin: 8px 0;
+    }
+
+    .card {
+        width: 90%;
+    }
 }
+/* ==============================
+   CONFIGURACIÓN GENERAL
+   ============================== */
+   html {
+    font-size: 14px;
+    min-height: 100%;
+  }
+  
+  @media (min-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+  }
+  
+  body {
+    background-color: #021F59;
+    color: #F2F2F2;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* ==============================
+     SECCIÓN PRINCIPAL
+     ============================== */
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #F2F2F2;
+  }
+  
+  /* ==============================
+     CAROUSEL
+     ============================== */
+  .carousel {
+    width: 60%;
+    max-width: 1000px;
+    margin-left: 20%;
+    height: auto;
+  }
+  
+  /* Degradado sobre las imágenes */
+  .carousel-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 124, 181, 0) 40%,    /* transparente arriba */
+      rgba(0, 124, 181, 0.4) 75%,  /* azul intermedio */
+      rgba(2, 31, 89, 0.8) 100%    /* azul oscuro abajo */
+    );
+    z-index: 1;
+  }
+  
+  /* Texto dentro del carrusel */
+  .carousel-caption {
+    position: absolute;
+    bottom: 20%;
+    z-index: 2;
+  }
+  
+  .carousel-caption h5,
+  .carousel-caption p {
+    color: #F2F2F2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Botones de control */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: rgba(0, 124, 181, 0.6);
+    border-radius: 50%;
+    width: 10%;
+    height: 5%;
+  }
+  
+  .carousel-control-prev-icon:hover,
+  .carousel-control-next-icon:hover {
+    background-color: rgba(0, 124, 181, 0.9);
+  }
+  
+  /* Imágenes del carrusel */
+  .carousel-item img {
+    height: 50%;
+    border-radius: 12px;
+  }
+  
+  /* Indicadores (puntitos de abajo) */
+  .carousel-indicators [data-bs-target] {
+    background-color: #007CB5;
+  }
+  
+  .carousel-indicators .active {
+    background-color: #024873;
+  }
+  
+  /* ==============================
+     SECCIÓN EXPLORAR (GRID DE IMÁGENES)
+     ============================== */
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #024873;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  
+  .col {
+    background-color: #007CB5;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 15px;
+    flex: 1 1 200px;
+    max-width: 220px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #F2F2F2;
+  }
+  
+  .col img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 3px solid #E9C94A;
+  }
+  
+  .col:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(233, 201, 74, 0.5);
+  }
+  
+  /* ==============================
+     RESPONSIVE
+     ============================== */
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .col {
+      max-width: 90%;
+    }
+  
+    .carousel {
+      width: 90%;
+      margin-left: 5%;
+    }
+  }
+  

@@ -7,12 +7,12 @@ namespace OldMates.Controllers
     {
         public IActionResult Index()
         {
-            return View("Login");
+            return View("Index");
         }
         public IActionResult Login()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Login", "Home");
             return View();
         }
 
