@@ -52,7 +52,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string QueryExiste = "SELECT * FROM Usuario WHERE Contraseña = @Contraseña";
+                string QueryExiste = "SELECT * FROM Usuario WHERE Username = @Username";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { Username = usuario.Username });
                 if (existe == null)
                 {
