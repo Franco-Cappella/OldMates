@@ -9,7 +9,7 @@ namespace OldMates.Controllers
         public IActionResult CrearEvento()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -103,7 +103,7 @@ namespace OldMates.Controllers
 
         private Usuario ObtenerIntegranteDesdeSession()//Busca si un jugador ya tiene un integrante en sesión, si no lo tiene crea uno nuevo
         {
-            
+
             Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Usuario"));
 
             return usuario;
@@ -113,28 +113,28 @@ namespace OldMates.Controllers
         public IActionResult Landing()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Landing", "Home");
         }
 
         public IActionResult Explorar()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Explorar", "Home");
         }
 
         public IActionResult Mensajes()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Mensajes", "Home");
         }
 
         public IActionResult Tutoriales()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if(ObtenerIntegranteDesdeSession() == null) RedirectToAction ("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Tutoriales", "Home");
         }
 
@@ -151,7 +151,62 @@ namespace OldMates.Controllers
             return View("Actividades", "Home");
         }
 
+        public IActionResult Menu()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("Menu", "Home");
+        }
+        public IActionResult MiPerfil()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("MiPerfil", "Home");
+        }
 
+        public IActionResult EditarPerfil()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("EditarPerfil", "Home");
+        }
+        public IActionResult MisActividades()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("MisActividades", "Home");
+        }
+        public IActionResult InvitarAmigos()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("InvitarAmigos", "Home");
+        }
+        public IActionResult Recomendaciones()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("Recomendaciones", "Home");
+        }
+        public IActionResult MiAgenda()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("MiAgenda", "Home");
+        }
+        public IActionResult ListaDeAmigos()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("ListaDeAmigos", "Home");
+        }
+
+        public IActionResult CerrarSesion()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("Index", "Home");
+        }
     }
 }
 
