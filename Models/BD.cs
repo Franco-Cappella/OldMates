@@ -54,12 +54,12 @@ namespace OldMates.Models
             {
                 string QueryExiste = "SELECT * FROM Usuario WHERE Username = @Username";
                 int existe = connection.QueryFirstOrDefault<int>(QueryExiste, new { Username = usuario.Username });
-                if (existe == null)
+                if (existe == 0)
                 {
-                    string query = @"INSERT INTO Usuarios(Username, Contraseña, Localidad, Intereses, Nombre, Apellido)
-                               VALUES (@Username, @Contraseña, @Localidad, @Intereses, @Nombre, @Apellido)";
+                    string query = @"INSERT INTO Usuario (Username, Contraseña, Localidad, Intereses, Nombre, Apellido, Admin)
+                               VALUES (@Username, @Contraseña, @Localidad, @Intereses, @Nombre, @Apellido, @Admin)";
 
-                    connection.Execute(query, new { usuario.Username, usuario.Contraseña, usuario.Localidad, usuario.Intereses, usuario.Nombre, usuario.Apellido });
+                    connection.Execute(query, new { usuario.Username, usuario.Contraseña, usuario.Localidad, usuario.Intereses, usuario.Nombre, usuario.Apellido, usuario.Admin });
                     return true;
                 }
                 else
