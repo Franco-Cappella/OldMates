@@ -156,9 +156,9 @@ namespace OldMates.Models
 
                 if (existe != 1)
                 {
-                    string queryInsertar = @"INSERT INTO Evento (Titulo, Descripcion, Duracion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
-                                            VALUES (@Titulo, @Descripcion, @Duracion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
-                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad  });
+                    string queryInsertar = @"INSERT INTO Evento (IDCreador, Titulo, Descripcion, Duracion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
+                                            VALUES (@IDCreador, @Titulo, @Descripcion, @Duracion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
+                    connection.Execute(queryInsertar, new { evento.IDCreador, evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad  });
                     return true;
                 }
 

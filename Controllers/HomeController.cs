@@ -25,12 +25,10 @@ namespace OldMates.Controllers
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;
             BD.CrearEvento(nuevoEvento);
-            if (nuevoEvento.Anotados == null)
                 nuevoEvento.Anotados = new List<int>();
-
             nuevoEvento.Anotados.Add(nuevoEvento.IDCreador);
-            if (BD.CrearEvento(nuevoEvento))
-                return RedirectToAction("Index");
+            if (BD.ObtenerEventoPorId != null)
+                return RedirectToAction("Index", "Home");
             else
             {
                 ViewBag.Error = "Error al crear el evento.";
