@@ -10,7 +10,7 @@ namespace OldMates.Controllers
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View();
+            return View(ObtenerIntegranteDesdeSession().ID);
         }
 
         [HttpPost]
@@ -34,6 +34,20 @@ namespace OldMates.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult CargarEvento()
+        {
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            ViewBag.Evento = BD.ObtenerEventoPorId(usuario.ID);
+            return View("VerEvento");
+        }
+
+        public IActionResult VerEventos()
+        {
+            return CargarEvento();
+        }
+
         [HttpGet]
         public IActionResult ModificarEvento(int IDEvento)
         {
@@ -47,7 +61,7 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(evento);
+            return View();
         }
 
         [HttpPost]

@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Lista de Eventos";
+    List<Evento> eventos = ViewBag.Eventos;
+}
+
+<div class="container mt-4">
+    <h2 class="title">Mis Eventos</h2>
+
+    @if (eventos != null && eventos.Count > 0)
+    {
+        <section class="task-list">
+            <header class="task-list-header">
+                <div>Título</div>
+                <div>Descripción</div>
+                <div>Fecha</div>
+                <div>Finalizada</div>
+                <div>Localidad</div>
+                <div>Capacidad Disponible</div>
+                <div>Intereses</div>
+                <div>Acciones</div>
+            </header>
+
+            @foreach (var evento in eventos)
+            {
+                <section>
+                    <div>@evento.Titulo</div>
+                    <div>@evento.Descripcion</div>
+                    <div>@evento.Fecha.ToString("dd/MM/yyyy")</div>
+                    <div>@evento.CapacidadDisponible</div>
+                    <div>@evento.Localidad</div>
+                    <div>@evento.Intereses</div>
+                    <div>
+                        <a class="btn btn-secondary" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+                        <a class="btn btn-secondary" href="@Url.Action("FinalizarEvento", "Home", new { IDEvento = evento.ID })">Finalizar</a>
+                        <a class="btn btn-danger" href="@Url.Action("EliminarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                    </div>
+                </section>
+            }
+        </section>
+    }
+    else
+    {
+        <p class="empty-message">No tienes eventos registrados.</p>
+    }
+</div>
+
