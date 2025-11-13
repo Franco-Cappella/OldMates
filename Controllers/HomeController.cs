@@ -28,7 +28,7 @@ namespace OldMates.Controllers
                 nuevoEvento.Anotados = new List<int>();
             nuevoEvento.Anotados.Add(nuevoEvento.IDCreador);
             if (BD.ObtenerEventoPorId != null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
             else
             {
                 ViewBag.Error = "Error al crear el evento.";
