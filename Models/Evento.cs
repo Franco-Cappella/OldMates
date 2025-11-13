@@ -24,6 +24,9 @@ namespace OldMates.Models
         [JsonProperty]
         public string Descripcion { get; set; }
 
+         [JsonProperty]
+        public TimeSpan Duracion { get; set; }
+
         [JsonProperty]
         public string Localidad { get; set; }
 

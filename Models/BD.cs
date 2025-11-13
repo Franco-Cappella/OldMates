@@ -20,12 +20,7 @@ namespace OldMates.Models
         public static bool VerificarContraseña(string Username, string Contraseña)
         {
 
-            Usuario x = new Usuario();
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Usuario WHERE Username = @Username";
-                x = connection.QueryFirstOrDefault<Usuario>(query, new { Username = Username });
-            }
+            Usuario x = ObtenerPorUsername(Username);
             if (x == null || x.Contraseña != Contraseña)
             {
 
@@ -164,9 +159,9 @@ namespace OldMates.Models
 
                 if (existe != 1)
                 {
-                    string queryInsertar = @"INSERT INTO Evento (Titulo, Descripcion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
-                                            VALUES (@Titulo, @Descripcion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
-                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad  });
+                    string queryInsertar = @"INSERT INTO Evento (Titulo, Descripcion, Duracion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
+                                            VALUES (@Titulo, @Descripcion, @Duracion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
+                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad  });
                     return true;
                 }
 
@@ -183,8 +178,8 @@ namespace OldMates.Models
 
                 if (existe == 1)
                 {
-                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Foto = @Foto, DesInscribirse = @DesInscribirse, Eliminada = @Eliminada WHERE ID = @IDEvento";
-                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses, eventoEditado.Foto, eventoEditado.DesInscribirse, eventoEditado.Eliminada });
+                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion ,Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Foto = @Foto, DesInscribirse = @DesInscribirse, Eliminada = @Eliminada WHERE ID = @IDEvento";
+                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Duracion ,eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses, eventoEditado.Foto, eventoEditado.DesInscribirse, eventoEditado.Eliminada });
                     return true;
                 }
 

@@ -25,6 +25,10 @@ namespace OldMates.Controllers
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;
             BD.CrearEvento(nuevoEvento);
+            if (nuevoEvento.Anotados == null)
+                nuevoEvento.Anotados = new List<int>();
+
+            nuevoEvento.Anotados.Add(nuevoEvento.IDCreador);
             if (BD.CrearEvento(nuevoEvento))
                 return RedirectToAction("Index");
             else
@@ -185,10 +189,13 @@ namespace OldMates.Controllers
         public IActionResult MisActividades()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            BD.MisActividades(usuario.ID);
-            return View("MisActividades", "Home");
+            if (usuario == null)
+                return RedirectToAction("Index", "Home");
+
+            List<Evento> actividades = BD.MisActividades(usuario.ID);
+            return View(actividades);
         }
+
         public IActionResult InvitarAmigos()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
@@ -218,7 +225,7 @@ namespace OldMates.Controllers
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("Index", "Home");
+            return View("Index", "Account");
         }
     }
 }
