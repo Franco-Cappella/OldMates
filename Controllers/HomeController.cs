@@ -22,15 +22,15 @@ namespace OldMates.Controllers
                 ViewBag.Error = "Debe completar todos los campos.";
                 return View(nuevoEvento);
             }
-
-            nuevoEvento.IDCreador = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-
+            Usuario Creador = ObtenerIntegranteDesdeSession();
+            nuevoEvento.IDCreador = Creador.ID;
+            BD.CrearEvento(nuevoEvento);
             if (BD.CrearEvento(nuevoEvento))
                 return RedirectToAction("Index");
             else
             {
                 ViewBag.Error = "Error al crear el evento.";
-                return View(nuevoEvento);
+                return View("Actividades");
             }
         }
 
@@ -186,6 +186,7 @@ namespace OldMates.Controllers
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            BD.MisActividades(usuario.ID);
             return View("MisActividades", "Home");
         }
         public IActionResult InvitarAmigos()

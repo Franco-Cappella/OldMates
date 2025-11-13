@@ -45,11 +45,6 @@ C:\Users\49123639\OldMates\obj\Debug\net8.0\PrimerProyecto.RazorAssemblyInfo.cs
 C:\Users\49123639\OldMates\obj\Debug\net8.0\PrimerProyecto.sourcelink.json
 C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets.development.json
-C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets\msbuild.PrimerProyecto.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets\msbuild.build.PrimerProyecto.props
-C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.PrimerProyecto.props
-C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.PrimerProyecto.props
-C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\49123639\OldMates\obj\Debug\net8.0\scopedcss\bundle\PrimerProyecto.styles.css
 C:\Users\49123639\OldMates\obj\Debug\net8.0\PrimerProyecto.dll
 C:\Users\49123639\OldMates\obj\Debug\net8.0\refint\PrimerProyecto.dll
@@ -250,7 +245,6 @@ C:\Users\49123639\OldMates\bin\Debug\net8.0\System.Memory.Data.dll
 C:\Users\49123639\OldMates\bin\Debug\net8.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\49123639\OldMates\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\49123639\OldMates\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
-C:\Users\49123639\OldMates\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\49123639\OldMates\bin\Debug\net8.0\cs\Microsoft.Data.SqlClient.resources.dll
 C:\Users\49123639\OldMates\bin\Debug\net8.0\de\Microsoft.Data.SqlClient.resources.dll
 C:\Users\49123639\OldMates\bin\Debug\net8.0\es\Microsoft.Data.SqlClient.resources.dll
@@ -356,3 +350,10 @@ C:\Users\rothb\Downloads\OldMates\obj\Debug\net8.0\refint\PrimerProyecto.dll
 C:\Users\rothb\Downloads\OldMates\obj\Debug\net8.0\PrimerProyecto.pdb
 C:\Users\rothb\Downloads\OldMates\obj\Debug\net8.0\PrimerProyecto.genruntimeconfig.cache
 C:\Users\rothb\Downloads\OldMates\obj\Debug\net8.0\ref\PrimerProyecto.dll
+C:\Users\49123639\OldMates\bin\Debug\net8.0\PrimerProyecto.staticwebassets.endpoints.json
+C:\Users\49123639\OldMates\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\49123639\OldMates\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\49123639\OldMates\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\49123639\OldMates\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\49123639\OldMates\obj\Debug\net8.0\staticwebassets.build.endpoints.json

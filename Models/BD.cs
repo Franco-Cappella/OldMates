@@ -73,7 +73,14 @@ namespace OldMates.Models
             }
         }
 
-
+        public static List<Evento> MisActividades(int IDUsuario){
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario";
+                return connection.Query<Evento>(query).ToList();
+            }
+        }
+        
         public static bool BorrarEvento(int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -152,14 +159,14 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string queryExiste = "SELECT 1 FROM Evento WHERE Nombre = @Nombre";
-                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Nombre = evento.Titulo });
+                string queryExiste = "SELECT 1 FROM Evento WHERE Titulo = @Titulo";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Titulo = evento.Titulo });
 
                 if (existe != 1)
                 {
-                    string queryInsertar = @"INSERT INTO Evento (Nombre, Descripcion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada) 
-                                            VALUES (@Nombre, @Descripcion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada)";
-                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada });
+                    string queryInsertar = @"INSERT INTO Evento (Titulo, Descripcion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
+                                            VALUES (@Titulo, @Descripcion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
+                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad  });
                     return true;
                 }
 
@@ -184,6 +191,7 @@ namespace OldMates.Models
                 return false;
             }
         }
+         
 
     }
 }

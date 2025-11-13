@@ -33,7 +33,6 @@ namespace OldMates.Models
         [JsonProperty]
         public string Intereses { get; set; }
 
-        //agregar Foto, DesInscribirse Y Eliminada a la base de datos
         [JsonProperty]
         public string Foto { get; set; }
 
