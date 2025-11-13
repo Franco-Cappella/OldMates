@@ -9,8 +9,13 @@ namespace OldMates.Controllers
         public IActionResult CrearEvento()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View(ObtenerIntegranteDesdeSession().ID);
+            if (ObtenerIntegranteDesdeSession() == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            else{
+                return View(ObtenerIntegranteDesdeSession().ID);
+            }
         }
 
         [HttpPost]
