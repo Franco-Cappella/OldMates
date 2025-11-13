@@ -1,3 +1,4 @@
+@using OldMates.Models
 @{
     ViewData["Title"] = "Lista de Eventos";
     List<Evento> eventos = ViewBag.Eventos;
@@ -15,8 +16,9 @@
                 <div>Fecha</div>
                 <div>Finalizada</div>
                 <div>Localidad</div>
-                <div>Capacidad Disponible</div>
+                <div>Capacidad libre</div>
                 <div>Intereses</div>
+                <div>Foto</div>
                 <div>Acciones</div>
             </header>
 
@@ -26,12 +28,12 @@
                     <div>@evento.Titulo</div>
                     <div>@evento.Descripcion</div>
                     <div>@evento.Fecha.ToString("dd/MM/yyyy")</div>
-                    <div>@evento.CapacidadDisponible</div>
+                    <div>@evento.Capacidad - @evento.Anotados.Count()</div>
                     <div>@evento.Localidad</div>
                     <div>@evento.Intereses</div>
+                    <div><img src="@evento.Foto" alt="Foto del evento" style="max-width: 100px; max-height: 100px;" /></div>
                     <div>
                         <a class="btn btn-secondary" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
-                        <a class="btn btn-secondary" href="@Url.Action("FinalizarEvento", "Home", new { IDEvento = evento.ID })">Finalizar</a>
                         <a class="btn btn-danger" href="@Url.Action("EliminarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
                     </div>
                 </section>

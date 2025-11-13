@@ -17,19 +17,6 @@ namespace OldMates.Models
             }
         }
 
-
-        //creo que esta repetido
-        /*
-        public static Usuario devolverIntegrante(string Username, string Contraseña)
-        {
-            Usuario usuario = null;
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = "SELECT * FROM Integrantes WHERE Usuario = @Usuario AND Contraseña = @contraseña";
-                usuario = connection.QueryFirstOrDefault<Usuario>(query, new { Usuario = Usuario, contraseña = Contraseña });
-            }
-            return Usuario;
-        } */
         public static bool VerificarContraseña(string Username, string Contraseña)
         {
 
@@ -72,7 +59,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Evento WHERE ID = @IDEvento";
+                string query = "SELECT * FROM Evento WHERE ID = @IDEvento AND Eliminada = 0";
                 return connection.QueryFirstOrDefault<Evento>(query, new { IDEvento = IDEvento });
             }
         }
@@ -81,7 +68,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Evento";
+                string query = "SELECT * FROM Evento WHERE Eliminada = 0";
                 return connection.Query<Evento>(query).ToList();
             }
         }
@@ -97,7 +84,9 @@ namespace OldMates.Models
                 if (existe != 1)
                     return false;
 
-                string borrarEvento = "DELETE FROM Evento WHERE ID = @IDEvento";
+                string updateQuery = "UPDATE Anotados SET DesInscribirse = 1 WHERE IDEvento = @IDEvento";
+                connection.Execute(updateQuery, new { IDEvento });
+                string borrarEvento = "UPDATE Evento SET Eliminada = 1 WHERE ID = @IDEvento";
                 connection.Execute(borrarEvento, new { IDEvento });
 
                 return true;
@@ -108,16 +97,16 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento";
+                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario AND DesInscribirse = 1 AND Eliminada = 0";
 
-                List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento });
+                List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento, IDUsuario });
 
                 return listarUsuarios.Contains(IDUsuario);
             }
         }
 
 
-        public static bool InscribirseAEvento(int IDUsuario, int IDEvento)
+        public static bool DesInscribirseAEvento(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -126,42 +115,26 @@ namespace OldMates.Models
 
                 if (evento)
                 {
-                    string queryUsuario = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                    string queryUsuario = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento AND Eliminada = 0";
                     bool usuarioInscripto = connection.QueryFirstOrDefault(queryUsuario, new { IDUsuario, IDEvento });
 
                     if (!usuarioInscripto)
                     {
+                        string updateQuery = "UPDATE Anotados SET DesInscribirse = 1 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        connection.Execute(updateQuery, new { IDUsuario, IDEvento });
                         string insertQuery = "INSERT INTO Anotados (IDUsuario, IDEvento) VALUES (@IDUsuario, @IDEvento)";
                         connection.Execute(insertQuery, new { IDUsuario, IDEvento });
                         return true;
                     }
-                }
-                return false;
-            }
-        }
-
-
-
-        public static bool DesinscribirseDeEvento(int IDUsuario, int IDEvento)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string queryEvento = "SELECT * FROM Evento WHERE ID = @IDEvento";
-                var evento = connection.QueryFirstOrDefault(queryEvento, new { IDEvento });
-
-                if (evento != null)
-                {
-                    string queryUsuario = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
-                    var usuarioInscripto = connection.QueryFirstOrDefault(queryUsuario, new { IDUsuario, IDEvento });
-
-                    if (usuarioInscripto != null)
+                    else
                     {
-                        string deleteQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
-                        connection.Execute(deleteQuery, new { IDUsuario, IDEvento });
-                        return true;
+                        string updateQuery = "UPDATE Anotados SET DesInscribirse = 0 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        connection.Execute(updateQuery, new { IDUsuario, IDEvento });
+                        string insertQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        connection.Execute(insertQuery, new { IDUsuario, IDEvento });
+                        return false;
                     }
                 }
-
                 return false;
             }
         }
@@ -170,7 +143,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario";
+                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND DesInscribirse = 1 AND Eliminada = 0";
                 return connection.Query<Evento>(query, new { IDUsuario }).ToList();
             }
         }
@@ -184,9 +157,9 @@ namespace OldMates.Models
 
                 if (existe != 1)
                 {
-                    string queryInsertar = @"INSERT INTO Evento (Nombre, Descripcion, Fecha, Localidad, Intereses) 
-                                            VALUES (@Nombre, @Descripcion, @Fecha, @Localidad, @Intereses)";
-                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses });
+                    string queryInsertar = @"INSERT INTO Evento (Nombre, Descripcion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada) 
+                                            VALUES (@Nombre, @Descripcion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada)";
+                    connection.Execute(queryInsertar, new { evento.Titulo, evento.Descripcion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada });
                     return true;
                 }
 
@@ -203,8 +176,8 @@ namespace OldMates.Models
 
                 if (existe == 1)
                 {
-                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses WHERE ID = @IDEvento";
-                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses });
+                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Foto = @Foto, DesInscribirse = @DesInscribirse, Eliminada = @Eliminada WHERE ID = @IDEvento";
+                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses, eventoEditado.Foto, eventoEditado.DesInscribirse, eventoEditado.Eliminada });
                     return true;
                 }
 

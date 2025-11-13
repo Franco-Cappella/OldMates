@@ -92,19 +92,10 @@ namespace OldMates.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Inscribirse(int IDEvento)
-        {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (!BD.EstaInscripto(IDUsuario, IDEvento))
-                BD.InscribirseAEvento(IDUsuario, IDEvento);
-
-            return RedirectToAction("MisEventos");
-        }
-
         public IActionResult Desinscribirse(int IDEvento)
         {
             int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            BD.DesinscribirseDeEvento(IDUsuario, IDEvento);
+            BD.DesInscribirseAEvento(IDUsuario, IDEvento);
             return RedirectToAction("MisEventos");
         }
 
@@ -124,6 +115,13 @@ namespace OldMates.Controllers
 
         }
 
+        public IActionResult DesInscribirse(int IDEvento)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            BD.DesInscribirseAEvento(usuario.ID, IDEvento);
+            return View("Index", "Home");
+        }
         public IActionResult Landing()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
