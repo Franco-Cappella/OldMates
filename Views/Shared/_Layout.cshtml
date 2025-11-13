@@ -31,27 +31,29 @@
             <li class="nav-item">
            <a href='@Url.Action("Mensajes", "Home")'>Mensajes</a>
             </li>
-            <li>
-                <div class="container">
-                    <a class="navbar-brand" href="Perfil.cshtml">
-                    <img src="/img/Perfil.png" alt="Imagen Perfil" width="30" height="24">
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <a class="navbar-brand" href="Notificaciones.cshtml">
-                    <img src="/img/Campana.png" alt="Imagen Notificaciones" width="30" height="24">
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="container">
-                    <a class="navbar-brand" href="Menu.cshtml"></a>
-                    <img src="/img/Menu.png" alt="Imagen Menu" width="30" height="24">
-                    </a>
-                </div>
-            </li>
+                  <div class="container">
+                      <a class="navbar-brand" href='@Url.Action("Perfil", "Home")'>
+                          <img src="/img/Perfil.png" alt="Imagen Perfil" width="30" height="24">
+                      </a>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="container">
+                      <a class="navbar-brand" href='@Url.Action("Notificaciones", "Home")'>
+                          <img src="/img/Campana.png" alt="Imagen Notificaciones" width="30" height="24">
+                      </a>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="container">
+                        <a class="navbar-brand" href='@Url.Action("Menu", "Home")'>
+                          <img src="/img/Menu.png" alt="Imagen Menu" width="30" height="24">
+                      </a>
+                  </div>
+              </li>
+
       </ul>
     </div>
   </div>

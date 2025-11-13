@@ -11,15 +11,15 @@
     {
         <section class="task-list">
             <header class="task-list-header">
-                <div>Título</div>
-                <div>Descripción</div>
-                <div>Fecha</div>
-                <div>Finalizada</div>
-                <div>Localidad</div>
-                <div>Capacidad libre</div>
-                <div>Intereses</div>
-                <div>Foto</div>
-                <div>Acciones</div>
+                <p>Título</p>
+                <p>Descripción</p>
+                <p>Fecha</p>
+                <p>Finalizada</p>
+                <p>Localidad</p>
+                <p>Capacidad libre</p>
+                <p>Intereses</p>
+                <p>Foto</p>
+                <p>Acciones</p>
             </header>
 
             @foreach (var evento in eventos)
@@ -34,7 +34,7 @@
                     <div><img src="@evento.Foto" alt="Foto del evento" style="max-width: 100px; max-height: 100px;" /></div>
                     <div>
                         <a class="btn btn-secondary" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
-                        <a class="btn btn-danger" href="@Url.Action("EliminarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                        <a class="btn btn-danger" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
                     </div>
                 </section>
             }

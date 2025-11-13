@@ -25,7 +25,7 @@ namespace OldMates.Controllers
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;
             BD.CrearEvento(nuevoEvento);
-                nuevoEvento.Anotados = new List<int>();
+            nuevoEvento.Anotados = new List<int>();
             nuevoEvento.Anotados.Add(nuevoEvento.IDCreador);
             if (BD.ObtenerEventoPorId != null)
                 return RedirectToAction("Index", "Account");
@@ -171,12 +171,20 @@ namespace OldMates.Controllers
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Menu", "Home");
         }
-        public IActionResult MiPerfil()
+        public IActionResult Perfil()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("MiPerfil", "Home");
+            return View("Perfil", "Home");
         }
+
+        public IActionResult Notificaciones()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("Notificaciones", "Home");
+        }
+
 
         public IActionResult EditarPerfil()
         {
@@ -206,11 +214,11 @@ namespace OldMates.Controllers
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Recomendaciones", "Home");
         }
-        public IActionResult MiAgenda()
+        public IActionResult Calendario()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("MiAgenda", "Home");
+            return View("Calendario", "Home");
         }
         public IActionResult ListaDeAmigos()
         {
@@ -219,11 +227,32 @@ namespace OldMates.Controllers
             return View("ListaDeAmigos", "Home");
         }
 
+        [HttpGet]
+        public IActionResult InvitarAmigosPost(string NombreAmigo, string Telefono, string Mensaje)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            if (string.IsNullOrEmpty(NombreAmigo) || string.IsNullOrEmpty(Telefono) || string.IsNullOrEmpty(Mensaje))
+            {
+                return View("Landing", "Home");
+            }
+
+            // Aca lo tendriamos que guardar en algun lado
+            else
+            {
+                return RedirectToAction("Index", "Account");
+            }
+        }
+
         public IActionResult CerrarSesion()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("Index", "Account");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Account");
         }
     }
 }

@@ -72,7 +72,7 @@ namespace OldMates.Models
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario";
-                return connection.Query<Evento>(query).ToList();
+                return connection.Query<Evento>(query, new { IDUsuario }).ToList();
             }
         }
         
@@ -96,8 +96,8 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario AND DesInscribirse = 0 AND Eliminada = 0";
-
+                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario";
+                
                 List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento, IDUsuario });
 
                 return listarUsuarios.Contains(IDUsuario);
