@@ -85,9 +85,6 @@ namespace OldMates.Models
 
                 if (existe != 1)
                     return false;
-
-                string updateQuery = "UPDATE Anotados SET DesInscribirse = 1 WHERE IDEvento = @IDEvento";
-                connection.Execute(updateQuery, new { IDEvento });
                 string borrarEvento = "UPDATE Evento SET Eliminada = 1 WHERE ID = @IDEvento";
                 connection.Execute(borrarEvento, new { IDEvento });
 
@@ -99,7 +96,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario AND DesInscribirse = 1 AND Eliminada = 0";
+                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario AND DesInscribirse = 0 AND Eliminada = 0";
 
                 List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento, IDUsuario });
 
@@ -122,7 +119,7 @@ namespace OldMates.Models
 
                     if (!usuarioInscripto)
                     {
-                        string updateQuery = "UPDATE Anotados SET DesInscribirse = 1 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        string updateQuery = "UPDATE Anotados SET DesInscribirse = 0 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
                         connection.Execute(updateQuery, new { IDUsuario, IDEvento });
                         string insertQuery = "INSERT INTO Anotados (IDUsuario, IDEvento) VALUES (@IDUsuario, @IDEvento)";
                         connection.Execute(insertQuery, new { IDUsuario, IDEvento });
@@ -130,7 +127,7 @@ namespace OldMates.Models
                     }
                     else
                     {
-                        string updateQuery = "UPDATE Anotados SET DesInscribirse = 0 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        string updateQuery = "UPDATE Anotados SET DesInscribirse = 1 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
                         connection.Execute(updateQuery, new { IDUsuario, IDEvento });
                         string insertQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
                         connection.Execute(insertQuery, new { IDUsuario, IDEvento });
@@ -145,7 +142,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND DesInscribirse = 1 AND Eliminada = 0";
+                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND DesInscribirse = 0 AND Eliminada = 0";
                 return connection.Query<Evento>(query, new { IDUsuario }).ToList();
             }
         }
