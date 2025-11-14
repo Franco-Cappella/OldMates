@@ -491,7 +491,79 @@
   .menu-boton:hover {
     background-color: #006ca8;
   }
-  
+  /* ======== SECCIÓN ======== */
+section {
+  text-align: center;
+  padding: 40px 0;
+}
+
+section h1 {
+  font-size: 3rem;
+  color: #0A2A43;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* ======== CARRUSEL ======== */
+.carousel {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-item img {
+  border: 10px solid #064B70;   /* Borde azul grueso como en la imagen */
+  border-radius: 10px;
+  height: 350px;
+  object-fit: cover;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+/* ======== RECUADRO AZUL DEL TEXTO ======== */
+.carousel-caption {
+  background-color: #064B70;
+  padding: 20px;
+  border-radius: 10px;
+  bottom: -10px;               /* Lo baja un poquito como tu imagen */
+}
+
+/* Títulos de los tutoriales */
+.carousel-caption h5 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Texto descriptivo */
+.carousel-caption p {
+  color: #E5E5E5;
+  font-size: 1rem;
+}
+
+/* ======== FLECHAS ======== */
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  filter: invert(100%); /* blancas */
+  width: 40px;
+  height: 40px;
+}
+
+/* ======== INDICADORES (bolitas) ======== */
+.carousel-indicators button {
+  background-color: #064B70;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.carousel-indicators .active {
+  background-color: #0B79A8;
+}
+
+/* Centra todo el contenedor */
+.carousel-inner {
+  text-align: center;
+}
+
   
   /* =========================================================
      ========================= FOOTER ==========================

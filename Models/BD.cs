@@ -1,6 +1,8 @@
 using Microsoft.Data.SqlClient;
 using Dapper;
 using OldMates.Models;
+using System.Linq;
+using System.Data;
 
 namespace OldMates.Models
 {
@@ -92,7 +94,7 @@ namespace OldMates.Models
                 return true;
             }
         }
-    
+
         public static bool EstaInscripto(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -132,7 +134,7 @@ namespace OldMates.Models
                         connection.Execute(updateQuery, new { IDUsuario, IDEvento });
                         string insertQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
                         connection.Execute(insertQuery, new { IDUsuario, IDEvento });
-                        return false;   
+                        return false;
                     }
                 }
                 return false;
@@ -148,22 +150,21 @@ namespace OldMates.Models
             }
         }
 
-        public static bool CrearEvento(Evento evento)
+        public static bool CrearEvento(Evento NuevoEvento)
         {
             Anotados anotados = new Anotados();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string queryExiste = "SELECT 1 FROM Evento WHERE Titulo = @Titulo";
-                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Titulo = evento.Titulo });
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Titulo = NuevoEvento.Titulo });
 
                 if (existe != 1)
                 {
-                    string queryInsertar = @"INSERT INTO Evento (IDCreador, Titulo, Descripcion, Duracion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
-                                            VALUES (@IDCreador, @Titulo, @Descripcion, @Duracion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
-                    connection.Execute(queryInsertar, new { evento.IDCreador, evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad });
-                    string queryInsertAnotado = @"INSERT INTO Anotados (IDEvento, IDCreador)
-                                            VALUES (@IDEvento, @IDCreador);";
-                    connection.Execute(queryInsertAnotado, new { evento.ID, evento.IDCreador});
+                    string query = "CrearEvento2";
+                    using (SqlConnection connection2 = new SqlConnection(_connectionString))
+                    {
+                        Evento evento2 = connection2.QueryFirstOrDefault<Evento>(query, new {  NuevoEvento.IDCreador, NuevoEvento.Titulo, NuevoEvento.Descripcion, NuevoEvento.Duracion, NuevoEvento.Fecha, NuevoEvento.Localidad, NuevoEvento.Intereses, NuevoEvento.Foto, NuevoEvento.DesInscribirse, NuevoEvento.Eliminada, NuevoEvento.Capacidad  }, commandType: CommandType.StoredProcedure);
+                    }
                     return true;
                 }
 
