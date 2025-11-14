@@ -1,10 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>OldMates</title>
-</head>
+﻿@{
+    ViewData["Title"] = "Index";
+}
   <body>
+  <main>
+  <section>
     <div class="index">
 
       <h1>Bienvenido a <strong>¡OldMates!</strong></h1>
@@ -26,8 +25,7 @@
         <a href='@Url.Action("Registro", "Account")' class="btn-registro">Registro</a>
         <a href='@Url.Action("Login", "Account")' class="btn-login">Iniciar Sesión</a>
       </div>
-  
     </div>  
-  
-  </body>
-</html>
+  </section>
+  </main>
+</body>

@@ -33,10 +33,9 @@ namespace OldMates.Controllers
             nuevoEvento.Anotados = new List<int>();
             nuevoEvento.Anotados.Add(nuevoEvento.IDCreador);
             if (BD.ObtenerEventoPorId != null)
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Landing", "Home");
             else
             {
-                ViewBag.Error = "Error al crear el evento.";
                 return View("Actividades");
             }
         }
@@ -44,8 +43,8 @@ namespace OldMates.Controllers
         [HttpPost]
         public IActionResult CargarEvento()
         {
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             ViewBag.Evento = BD.MisActividades(usuario.ID);
             return View("MisActividades");
         }
@@ -97,13 +96,6 @@ namespace OldMates.Controllers
 
             BD.BorrarEvento(IDEvento);
             return RedirectToAction("Index");
-        }
-
-        public IActionResult Desinscribirse(int IDEvento)
-        {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            BD.DesInscribirseAEvento(IDUsuario, IDEvento);
-            return RedirectToAction("MisEventos");
         }
 
         public IActionResult MisEventos()

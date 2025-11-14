@@ -11,8 +11,6 @@ namespace OldMates.Controllers
         }
         public IActionResult Login()
         {
-            Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Login", "Home");
             return View();
         }
 

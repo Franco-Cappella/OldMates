@@ -1,18 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-      <link rel="stylesheet" href="./wwwroot/styles.css">  
 
-    <title>Actividades</title>
-  </head>
+@using OldMates.Models
+@{
+    ViewData["Title"] = "Actividades";
+    List<Evento> eventos = ViewBag.Eventos;
+}
+
+<div class="container mt-4">
+    <h2 class="title">Eventos disponibles</h2>
+    
+    @if (eventos != null && eventos.Count > 0)
+    {
+        <section class="task-list">
+            <header class="task-list-header">
+                <p>Título</p>
+                <p>Descripción</p>
+                <p>Fecha</p>
+                <p>Finalizada</p>
+                <p>Localidad</p>
+                <p>Capacidad libre</p>
+                <p>Intereses</p>
+                <p>Foto</p>
+                <p>Acciones</p>
+            </header>
+
+            @foreach (var evento in eventos)
+            {
+                <section>
+                    <p>@evento.Titulo</p>
+                    <p>@evento.Descripcion</p>
+                    <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
+                    <p>@(evento.Eliminada ? "Sí" : "No")</p>
+                    <p>@evento.Localidad</p>
+                    <p>@(evento.Capacidad - evento.Anotados.Count())</p>
+                    <p>@evento.Intereses</p>
+                    <p>
+                        <img src="@evento.Foto" alt="Foto del evento"
+                             style="max-width: 100px; max-height: 100px;" />
+                    </p>
+                    <p>
+                        <a class="btn btn-secondary"
+                           href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+
+                        <a class="btn btn-danger"
+                           href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                    </p>
+                </section>
+            }
+        </section>
+    }
+    else
+    {
+        <p class="empty-message">No tienes eventos registrados.</p>
+    }
+</div>
+
+@{
+    ViewData["Title"] = "Actividades";
+}
     <body>
       <main>
       <a href='@Url.Action("CrearEvento", "Home")'>Crear Actividad</a>
@@ -91,4 +135,3 @@
         </section>
       </main>
   </body>
-</html>

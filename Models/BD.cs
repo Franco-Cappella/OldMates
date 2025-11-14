@@ -132,7 +132,7 @@ namespace OldMates.Models
                         connection.Execute(updateQuery, new { IDUsuario, IDEvento });
                         string insertQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
                         connection.Execute(insertQuery, new { IDUsuario, IDEvento });
-                        return false;
+                        return false;   
                     }
                 }
                 return false;
@@ -161,9 +161,9 @@ namespace OldMates.Models
                     string queryInsertar = @"INSERT INTO Evento (IDCreador, Titulo, Descripcion, Duracion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
                                             VALUES (@IDCreador, @Titulo, @Descripcion, @Duracion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
                     connection.Execute(queryInsertar, new { evento.IDCreador, evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad });
-                    string queryInsertAnotado = @"INSERT INTO Anotados (IDEvento, IDUsuario)
-                                            VALUES (@IDEvento, @IDUsuario);";
-                    connection.Execute(queryInsertAnotado, new { anotados.IDEvento, anotados.IDUsuario});
+                    string queryInsertAnotado = @"INSERT INTO Anotados (IDEvento, IDCreador)
+                                            VALUES (@IDEvento, @IDCreador);";
+                    connection.Execute(queryInsertAnotado, new { evento.ID, evento.IDCreador});
                     return true;
                 }
 
