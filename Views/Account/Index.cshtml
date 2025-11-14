@@ -4,29 +4,30 @@
   <meta charset="UTF-8">
   <title>OldMates</title>
 </head>
-<body>
+  <body>
+    <div class="index">
 
-  <h1>Bienvenido a <strong>¡OldMates!</strong></h1>
-
-  <p><strong>OldMates</strong> es una app para abuelos y personas mayores que quieren hacer nuevos amigos, compartir intereses y mantenerse activos.
-
-  Sumate a actividades grupales, juegos, encuentros o charlas.
-
-  Descubrí eventos, armá tu agenda y conectate con otros desde tu perfil.
-
-  En OldMates siempre hay algo para hacer... y alguien con quien compartirlo.</p>
-
-  <br>
-
-  <div>
-    <img src="mesa1.png" alt="Personas mayores jugando" width="150">
-    <img src="mesa2.png" alt="Personas mayores conversando" width="150">
-  </div>
-  <br>
-  <div>
-    <a href='@Url.Action("Registro", "Account")'>Registro</a>
-    <a href='@Url.Action("Login", "Account")'>Iniciar Sesion</a>
-  </div>
-
-</body>
+      <h1>Bienvenido a <strong>¡OldMates!</strong></h1>
+  
+      <p>
+        <strong>OldMates</strong> es una app para abuelos y personas mayores que quieren hacer nuevos amigos,
+        compartir intereses y mantenerse activos. <br><br>
+        Sumate a actividades grupales, juegos, encuentros o charlas. <br><br>
+        Descubrí eventos, armá tu agenda y conectate con otros desde tu perfil. <br><br>
+        En OldMates siempre hay algo para hacer... y alguien con quien compartirlo.
+      </p>
+  
+      <div class="index-imgs">
+        <img src="mesa1.png" alt="Personas mayores jugando">
+        <img src="mesa2.png" alt="Personas mayores conversando">
+      </div>
+  
+      <div class="index-buttons">
+        <a href='@Url.Action("Registro", "Account")' class="btn-registro">Registro</a>
+        <a href='@Url.Action("Login", "Account")' class="btn-login">Iniciar Sesión</a>
+      </div>
+  
+    </div>  
+  
+  </body>
 </html>

@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Dapper;
-
+using OldMates.Models;
 
 namespace OldMates.Models
 {
@@ -68,14 +68,15 @@ namespace OldMates.Models
             }
         }
 
-        public static List<Evento> MisActividades(int IDUsuario){
+        public static List<Evento> MisActividades(int IDUsuario)
+        {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario";
                 return connection.Query<Evento>(query, new { IDUsuario }).ToList();
             }
         }
-        
+
         public static bool BorrarEvento(int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -91,13 +92,13 @@ namespace OldMates.Models
                 return true;
             }
         }
-
+    
         public static bool EstaInscripto(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario";
-                
+
                 List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento, IDUsuario });
 
                 return listarUsuarios.Contains(IDUsuario);
@@ -149,6 +150,7 @@ namespace OldMates.Models
 
         public static bool CrearEvento(Evento evento)
         {
+            Anotados anotados = new Anotados();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string queryExiste = "SELECT 1 FROM Evento WHERE Titulo = @Titulo";
@@ -158,7 +160,10 @@ namespace OldMates.Models
                 {
                     string queryInsertar = @"INSERT INTO Evento (IDCreador, Titulo, Descripcion, Duracion, Fecha, Localidad, Intereses, Foto, DesInscribirse, Eliminada, Capacidad) 
                                             VALUES (@IDCreador, @Titulo, @Descripcion, @Duracion, @Fecha, @Localidad, @Intereses, @Foto, @DesInscribirse, @Eliminada, @Capacidad)";
-                    connection.Execute(queryInsertar, new { evento.IDCreador, evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad  });
+                    connection.Execute(queryInsertar, new { evento.IDCreador, evento.Titulo, evento.Descripcion, evento.Duracion, evento.Fecha, evento.Localidad, evento.Intereses, evento.Foto, evento.DesInscribirse, evento.Eliminada, evento.Capacidad });
+                    string queryInsertAnotado = @"INSERT INTO Anotados (IDEvento, IDUsuario)
+                                            VALUES (@IDEvento, @IDUsuario);";
+                    connection.Execute(queryInsertAnotado, new { anotados.IDEvento, anotados.IDUsuario});
                     return true;
                 }
 
@@ -176,14 +181,14 @@ namespace OldMates.Models
                 if (existe == 1)
                 {
                     string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion ,Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Foto = @Foto, DesInscribirse = @DesInscribirse, Eliminada = @Eliminada WHERE ID = @IDEvento";
-                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Duracion ,eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses, eventoEditado.Foto, eventoEditado.DesInscribirse, eventoEditado.Eliminada });
+                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Duracion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses, eventoEditado.Foto, eventoEditado.DesInscribirse, eventoEditado.Eliminada });
                     return true;
                 }
 
                 return false;
             }
         }
-         
+
 
     }
 }

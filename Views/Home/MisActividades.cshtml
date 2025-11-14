@@ -1,66 +1,54 @@
-@model List<OldMates.Models.Evento>
-
+@using OldMates.Models
 @{
-    ViewData["Title"] = "Mis Actividades";
+    ViewData["Title"] = "Lista de Eventos";
+    List<Evento> eventos = ViewBag.Eventos;
 }
 
-<div class="container text-center mt-4">
-    <h1 class="mb-4">Mis Actividades</h1>
+<div class="container mt-4">
+    <h2 class="title">Mis Eventos</h2>
 
-    <div class="d-flex justify-content-end mb-3">
-        <a href="@Url.Action("CrearEvento", "Home")" class="btn btn-primary">Crear Actividad</a>
-    </div>
-
-    <div class="input-group mb-4 justify-content-center" style="max-width: 400px; margin: auto;">
-        <input type="text" id="buscar" class="form-control" placeholder="Buscar">
-        <button class="btn btn-outline-secondary" type="button">
-            <i class="bi bi-search"></i>
-        </button>
-    </div>
-
-    @if (Model != null && Model.Any())
+    @if (eventos != null && eventos.Count > 0)
     {
-        <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-light me-3">
-                <i class="bi bi-arrow-left-circle"></i>
-            </button>
+        <section class="task-list">
+            <header class="task-list-header">
+                <p>Título</p>
+                <p>Descripción</p>
+                <p>Fecha</p>
+                <p>Finalizada</p>
+                <p>Localidad</p>
+                <p>Capacidad libre</p>
+                <p>Intereses</p>
+                <p>Foto</p>
+                <p>Acciones</p>
+            </header>
 
-            <div class="card text-center" style="width: 18rem;">
-                <img src="~/images/halloween.jpg" class="card-img-top" alt="Imagen de evento">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.First().Titulo</h5>
-                    <p class="card-text">@Model.First().Descripcion</p>
-                    <a href="@Url.Action("VerEventos", "Home", new { IDEvento = Model.First().ID })" class="btn btn-primary">Ver más</a>
-                </div>
-            </div>
-
-            <button class="btn btn-light ms-3">
-                <i class="bi bi-arrow-right-circle"></i>
-            </button>
-        </div>
-
-        <div class="row mt-4">
-            @foreach (var evento in Model.Skip(1))
+            @foreach (var evento in eventos)
             {
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <img src="~/images/default-event.jpg" class="card-img-top" alt="Imagen de evento">
-                        <div class="card-body">
-                            <h5 class="card-title">@evento.Titulo</h5>
-                            <p class="card-text">@evento.Descripcion</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 text-center">
-                            <a href="@Url.Action("VerEvento", "Home", new { IDEvento = evento.ID })" class="btn btn-primary">Ver más</a>
-                        </div>
-                    </div>
-                </div>
+                <section>
+                    <p>@evento.Titulo</p>
+                    <p>@evento.Descripcion</p>
+                    <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
+                    <p>@(evento.Eliminada ? "Sí" : "No")</p>
+                    <p>@evento.Localidad</p>
+                    <p>@(evento.Capacidad - evento.Anotados.Count())</p>
+                    <p>@evento.Intereses</p>
+                    <p>
+                        <img src="@evento.Foto" alt="Foto del evento"
+                             style="max-width: 100px; max-height: 100px;" />
+                    </p>
+                    <p>
+                        <a class="btn btn-secondary"
+                           href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+
+                        <a class="btn btn-danger"
+                           href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                    </p>
+                </section>
             }
-        </div>
+        </section>
     }
     else
     {
-        <p class="text-muted mt-5">No tienes actividades creadas todavía.</p>
+        <p class="empty-message">No tienes eventos registrados.</p>
     }
 </div>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">

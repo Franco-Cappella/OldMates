@@ -46,8 +46,8 @@ namespace OldMates.Controllers
         {
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            ViewBag.Evento = BD.ObtenerEventoPorId(usuario.ID);
-            return View("VerEvento");
+            ViewBag.Evento = BD.MisActividades(usuario.ID);
+            return View("MisActividades");
         }
 
         public IActionResult VerEventos()

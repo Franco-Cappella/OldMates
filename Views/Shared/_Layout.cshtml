@@ -9,96 +9,62 @@
 </head>
 
 <body>
-    <header>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li>
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                    <img src="/img/OldMates_Logo_Final.jpg" alt="Logo OldMates" width="30" height="24">
-                    </a>
-                </div>
-            </li>
-            
-            <li class="nav-item">
-            <a href='@Url.Action("Landing", "Home")'>Inicio</a>
-            </li>
-            <li class="nav-item">
-            <a href='@Url.Action("Explorar", "Home")'>Explorar</a>
-            </li>
-            <li class="nav-item">
-           <a href='@Url.Action("Mensajes", "Home")'>Mensajes</a>
-            </li>
-                  <div class="container">
-                      <a class="navbar-brand" href='@Url.Action("Perfil", "Home")'>
-                          <img src="/img/Perfil.png" alt="Imagen Perfil" width="30" height="24">
-                      </a>
-                  </div>
-              </li>
-
-              <li>
-                  <div class="container">
-                      <a class="navbar-brand" href='@Url.Action("Notificaciones", "Home")'>
-                          <img src="/img/Campana.png" alt="Imagen Notificaciones" width="30" height="24">
-                      </a>
-                  </div>
-              </li>
-
-              <li>
-                  <div class="container">
-                        <a class="navbar-brand" href='@Url.Action("Menu", "Home")'>
-                          <img src="/img/Menu.png" alt="Imagen Menu" width="30" height="24">
-                      </a>
-                  </div>
-              </li>
-
-      </ul>
-    </div>
-  </div>
-</nav>
-    </header>
+     <header>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="img/OldMates_Logo_Final.jpg" alt="Logo OldMates">
+        </a>
+        <ul class="navbar-nav">
+          <li><a href='@Url.Action("Landing", "Home")'>Inicio</a></li>
+          <li><a href='@Url.Action("Explorar", "Home")'>Explorar</a></li>
+          <li><a href='@Url.Action("Mensajes", "Home")'>Mensajes</a></li>
+          <li><a href='@Url.Action("Perfil", "Home")'><img src="/img/Perfil.png" alt="Perfil"></a></li>
+          <li><a href='@Url.Action("Notificaciones", "Home")'><img src="/img/Campana.png" alt="Notificaciones"></a></li>
+          <li><a href='@Url.Action("Menu", "Home")'><img src="/img/Menu.png" alt="Menú"></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header> 
 
     <main role="main">
         @RenderBody()
     </main>
             
     <footer>
-     <footer>
-  <div>
-    <h2><strong>Oldmates</strong></h2>
-    <p>Acompañemos a quienes<br>siempre nos acompañaron</p>
-  </div>
+      <footer>
+    <div>
+      <h2><strong>Oldmates</strong></h2>
+      <p>Acompañemos a quienes<br>siempre nos acompañaron</p>
+    </div>
 
-  <div>
-    <h3>Ayuda</h3>
-    <p>Recomendaciones</p>
-    <p>Tutoriales</p>
-    <p>Chat de servicio</p>
-  </div>
+    <div>
+      <h3>Ayuda</h3>
+      <p>Recomendaciones</p>
+      <p>Tutoriales</p>
+      <p>Chat de servicio</p>
+    </div>
 
-  <div>
-    <h3>Links Útiles</h3>
-    <p>Perfil</p>
-    <p>Actividades</p>
-    <p>Encuentros</p>
-  </div>
+    <div>
+      <h3>Links Útiles</h3>
+      <p>Perfil</p>
+      <p>Actividades</p>
+      <p>Encuentros</p>
+    </div>
 
-  <div>
-    <h3>Contacto</h3>
-    <p>📞 +54 (11) 1823-4359</p>
-    <p>✉️ Servicio@oldmates.com</p>
-    <p>📍 Buenos Aires, Argentina</p>
-  </div>
-</footer>
+    <div>
+      <h3>Contacto</h3>
+      <p>📞 +54 (11) 1823-4359</p>
+      <p>✉️ Servicio@oldmates.com</p>
+      <p>📍 Buenos Aires, Argentina</p>
+    </div>
+  </footer>
+
 
         
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-
 </html>
