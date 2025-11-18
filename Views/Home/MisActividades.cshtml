@@ -1,4 +1,4 @@
-@using OldMates.Models
+@using OldMates.Models 
 @{
     ViewData["Title"] = "Lista de Eventos";
     List<Evento> eventos = ViewBag.Eventos;
@@ -23,14 +23,20 @@
             </header>
 
             @foreach (var evento in eventos)
-            {
+            {   int anotados;
+                if(Anotados.Count() == null){
+                    anotados = 0;
+                }
+                else{
+                    anotados = Anotados.Count();
+                }
                 <section>
                     <p>@evento.Titulo</p>
                     <p>@evento.Descripcion</p>
                     <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
                     <p>@(evento.Eliminada ? "Sí" : "No")</p>
                     <p>@evento.Localidad</p>
-                    <p>@(evento.Capacidad - evento.Anotados.Count())</p>
+                    <p>@(evento.Capacidad - (evento.Anotados.Count()))</p>
                     <p>@evento.Intereses</p>
                     <p>
                         <img src="@evento.Foto" alt="Foto del evento"

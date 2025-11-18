@@ -112,34 +112,40 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Evento WHERE ID = @IDEvento";
-                bool evento = connection.QueryFirstOrDefault(query, new { IDEvento });
+                string query = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
+                int? evento = connection.QueryFirstOrDefault<int?>(query, new { IDEvento });
 
-                if (evento)
+                if (evento == 1)
                 {
-                    string queryUsuario = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento AND Eliminada = 0";
-                    bool usuarioInscripto = connection.QueryFirstOrDefault(queryUsuario, new { IDUsuario, IDEvento });
+                    string queryUsuario = "SELECT 1 FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                    int usuarioInscripto = connection.QueryFirstOrDefault<int>(queryUsuario, new { IDUsuario, IDEvento });
 
-                    if (!usuarioInscripto)
+                    string queryEliminada = "SELECT 1 FROM Evento WHERE ID = @IDEvento AND Eliminada = 0";
+                    int eventoNoEliminado = connection.QueryFirstOrDefault<int>(queryEliminada, new { IDEvento });
+
+                    if (usuarioInscripto == 0 && eventoNoEliminado == 1)
                     {
                         string updateQuery = "UPDATE Anotados SET DesInscribirse = 0 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
-                        connection.Execute(updateQuery, new { IDUsuario, IDEvento });
-                        string insertQuery = "INSERT INTO Anotados (IDUsuario, IDEvento) VALUES (@IDUsuario, @IDEvento)";
-                        connection.Execute(insertQuery, new { IDUsuario, IDEvento });
+                                                bool DesInscribirse = false;
+                        connection.Execute(updateQuery, new { IDUsuario, IDEvento, DesInscribirse });
+                        string insertQuery = "INSERT INTO Anotados (IDUsuario, IDEvento, DesInscribirse) VALUES (@IDUsuario, @IDEvento, @DesInscribirse)";
+                        connection.Execute(insertQuery, new { IDUsuario, IDEvento, DesInscribirse });
                         return true;
                     }
                     else
                     {
                         string updateQuery = "UPDATE Anotados SET DesInscribirse = 1 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
-                        connection.Execute(updateQuery, new { IDUsuario, IDEvento });
-                        string insertQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
-                        connection.Execute(insertQuery, new { IDUsuario, IDEvento });
+                        int DesInscribirse = 1;
+                        connection.Execute(updateQuery, new { IDUsuario, IDEvento, DesInscribirse });
+                        string deleteQuery = "DELETE FROM Anotados WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
+                        connection.Execute(deleteQuery, new { IDUsuario, IDEvento, DesInscribirse });
                         return false;
                     }
                 }
                 return false;
             }
         }
+
 
         public static List<Evento> ObtenerEventosInscripto(int IDUsuario)
         {
@@ -157,13 +163,14 @@ namespace OldMates.Models
             {
                 string queryExiste = "SELECT 1 FROM Evento WHERE Titulo = @Titulo";
                 int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { Titulo = NuevoEvento.Titulo });
-
-                if (existe != 1)
+                DateTime fechaMinima = new DateTime(1800, 1, 1);
+                if (existe != 1 && NuevoEvento.Fecha > fechaMinima)
                 {
-                    string query = "CrearEvento2";
+                    string query = "CrearEvento";
                     using (SqlConnection connection2 = new SqlConnection(_connectionString))
                     {
-                        Evento evento2 = connection2.QueryFirstOrDefault<Evento>(query, new {  NuevoEvento.IDCreador, NuevoEvento.Titulo, NuevoEvento.Descripcion, NuevoEvento.Duracion, NuevoEvento.Fecha, NuevoEvento.Localidad, NuevoEvento.Intereses, NuevoEvento.Foto, NuevoEvento.DesInscribirse, NuevoEvento.Eliminada, NuevoEvento.Capacidad  }, commandType: CommandType.StoredProcedure);
+                        Evento evento2 = connection2.QueryFirstOrDefault<Evento>(query, new { NuevoEvento.IDCreador, NuevoEvento.Titulo, NuevoEvento.Descripcion, NuevoEvento.Duracion, NuevoEvento.Fecha, NuevoEvento.Localidad, NuevoEvento.Intereses, NuevoEvento.Foto, NuevoEvento.DesInscribirse, NuevoEvento.Eliminada, NuevoEvento.Capacidad }, commandType: CommandType.StoredProcedure);
+                        BD.DesInscribirseAEvento(evento2.IDCreador, evento2.ID);
                     }
                     return true;
                 }

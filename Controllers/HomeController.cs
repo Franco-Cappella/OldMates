@@ -13,7 +13,8 @@ namespace OldMates.Controllers
             {
                 return RedirectToAction("Index", "Account");
             }
-            else{
+            else
+            {
                 return View(ObtenerIntegranteDesdeSession().ID);
             }
         }
@@ -195,9 +196,14 @@ namespace OldMates.Controllers
             if (usuario == null)
                 return RedirectToAction("Index", "Home");
 
-            List<Evento> actividades = BD.MisActividades(usuario.ID);
-            return View(actividades);
+            List<Evento> eventos = BD.MisActividades(usuario.ID);
+            List<Anotados> anotados; //noseque chota va aca se que es = a algo
+            ViewBag.Eventos = eventos;
+            ViewBag.Anotados = anotados;
+
+            return View();
         }
+
 
         public IActionResult InvitarAmigos()
         {

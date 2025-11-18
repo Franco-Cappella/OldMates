@@ -631,5 +631,108 @@ section h1 {
     footer div {
       margin-bottom: 20px;
     }
+
+    
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 10px;
+  border: 1px solid #ddd;
+}
+
+
+.task-list-header {
+  display: contents;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+
+.task-list section {
+  display: contents;
+}
+
+
+.task-list section p {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  word-break: break-word;
+}
+
+
+.task-list img {
+  width: 100%;
+  max-width: 100px;
+  border-radius: 8px;
+}
+
+
+
+
+@media (max-width: 768px) {
+
+
+  .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border: none;
   }
+
+
+  .task-list-header {
+      display: none;
+  }
+
+
+  .task-list section {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background: #fafafa;
+  }
+
+
+  .task-list section p {
+      border: none;
+      padding: 5px 0;
+  }
+
+
+  .task-list section p::before {
+      font-weight: bold;
+      color: #444;
+      display: block;
+  }
+
+
+  .task-list section p:nth-child(1)::before { content: "Título"; }
+  .task-list section p:nth-child(2)::before { content: "Descripción"; }
+  .task-list section p:nth-child(3)::before { content: "Fecha"; }
+  .task-list section p:nth-child(4)::before { content: "Finalizada"; }
+  .task-list section p:nth-child(5)::before { content: "Localidad"; }
+  .task-list section p:nth-child(6)::before { content: "Capacidad libre"; }
+  .task-list section p:nth-child(7)::before { content: "Intereses"; }
+  .task-list section p:nth-child(8)::before { content: "Foto"; }
+  .task-list section p:nth-child(9)::before { content: "Acciones"; }
+
+
+  .task-list img {
+      max-width: 100%;
+      height: auto;
+  }
+
+
+  .btn {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+}
+
+
+  }
+ 
   
