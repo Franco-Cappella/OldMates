@@ -215,7 +215,5 @@ namespace OldMates.Models
                 return false;
             }
         }
-
-
     }
 }

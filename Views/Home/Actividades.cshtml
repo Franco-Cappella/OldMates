@@ -1,10 +1,64 @@
+@using OldMates.Models
 @{
-    ViewData["Title"] = "Crear Evento";
+    ViewData["Title"] = "Actividades";
+    List<Evento> Eventos = ViewBag.Eventos;
 }
-    <body>
-      <main>
-      <a href='@Url.Action("CrearEvento", "Home")'>Crear Actividad</a>
-        <section>
-        </section>
-      </main>
-  </body>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-center flex-grow-1">Actividades</h1>
+        <a href="/Actividades/Crear" class="btn btn-primary ms-3">Crear Actividad</a>
+    </div>
+
+    <div class="mb-4 d-flex justify-content-center">
+        <div class="input-group w-50">
+            <input type="text" id="searchInput" class="form-control" placeholder="Buscar">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <button class="btn btn-outline-secondary me-2" id="btnPrev">
+            <i class="bi bi-arrow-left"></i>
+        </button>
+
+        <div class="d-flex overflow-auto" id="carouselActividades" style="scroll-behavior: smooth; gap: 20px;">
+
+            @foreach (var act in ViewBag.Eventos)
+            {
+                <div class="card text-center shadow-sm p-2" style="min-width: 220px; max-width: 220px;">
+                    <img src="/img/@act.Foto" class="card-img-top" style="height: 150px; object-fit: cover;" />
+                    <div class="card-body">
+                        <h5 class="card-title">@act.Titulo</h5>
+                        <p class="card-text" style="font-size: 14px;">@act.Descripcion</p>
+                        <a href="/Actividades/Detalles/@act.Id" class="btn btn-primary">Ver más</a>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <button class="btn btn-outline-secondary ms-2" id="btnNext">
+            <i class="bi bi-arrow-right"></i>
+        </button>
+    </div>
+
+</div>
+
+<script>
+    const cont = document.getElementById("carouselActividades");
+    document.getElementById("btnPrev").onclick = () => cont.scrollLeft -= 250;
+    document.getElementById("btnNext").onclick = () => cont.scrollLeft += 250;
+
+    const input = document.getElementById("searchInput");
+    input.addEventListener("input", () => {
+        const term = input.value.toLowerCase();
+        document.querySelectorAll("#carouselActividades .card").forEach(c => {
+            const text = c.innerText.toLowerCase();
+            c.style.display = text.includes(term) ? "block" : "none";
+        });
+    });
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">

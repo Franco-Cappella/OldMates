@@ -47,17 +47,30 @@
         </div>
 
 
-        <div class="form-group">
-            <label>Contraseña</label>
-            <input type="password" class="form-control" name="Contraseña" required />
-        </div>
+<div class="form-group">
+    <label>Contraseña</label>
+    <input type="password" class="form-control" id="contraseña" required />
+</div>
 
+<div class="form-group">
+    <label>Repetir Contraseña</label>
+    <input type="password" class="form-control" id="repetir" required />
+    <small id="msg" class="text-danger"></small>
+</div>
 
-        <div class="form-group">
-            <label>Repetir Contraseña</label>
-            <input type="password" class="form-control" name="RepetirContraseña" required />
-        </div>
+<script>
+    const pass = document.getElementById("contraseña");
+    const rep = document.getElementById("repetir");
+    const msg = document.getElementById("msg");
 
+    rep.addEventListener("input", () => {
+        if (rep.value !== pass.value) {
+            msg.textContent = "Contraseñas incorrecta. Ingresé nuevamente";
+        } else {
+            msg.textContent = "";
+        }
+    });
+</script>
 
         <button type="submit" class="btn-enviar">Registrarse</button>
     </form>
@@ -70,5 +83,3 @@
 
 
 </div>
-
-

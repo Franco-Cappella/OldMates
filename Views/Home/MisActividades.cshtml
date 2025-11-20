@@ -3,6 +3,7 @@
     ViewData["Title"] = "Lista de Eventos";
     List<Evento> Eventos = ViewBag.Eventos;
     List<Anotados> Anotados = ViewBag.Anotados;
+    int IDUsuario = ViewBag.IDUsuario;
 }
 
 <div class="container mt-4">
@@ -24,13 +25,8 @@
             </header>
 
             @foreach (var evento in Eventos)
-            {   int anotados;
-                if(Anotados.Count() == null){
-                    anotados = 0;
-                }
-                else{
-                    anotados = Anotados.Count();
-                }
+            {
+                int anotados = Anotados.Count();
                 <section>
                     <p>@evento.Titulo</p>
                     <p>@evento.Descripcion</p>
@@ -43,13 +39,16 @@
                         <img src="@evento.Foto" alt="Foto del evento"
                              style="max-width: 100px; max-height: 100px;" />
                     </p>
-                    <p>
+                    @if(evento.IDCreador == IDUsuario){
+<p>
                         <a class="btn btn-secondary"
                            href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
 
                         <a class="btn btn-danger"
                            href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
                     </p>
+                    }
+                    
                 </section>
             }
         </section>

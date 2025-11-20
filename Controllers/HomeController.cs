@@ -29,11 +29,9 @@ namespace OldMates.Controllers
             }
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;
-            BD.CrearEvento(nuevoEvento);
-            BD.DesInscribirseAEvento(nuevoEvento.ID, Creador.ID);
+            bool eventoCreado = BD.CrearEvento(nuevoEvento);
 
-            Evento eventoGuardado = BD.ObtenerEventoPorId(nuevoEvento.ID);
-            if (eventoGuardado != null)
+            if (eventoCreado)
             {
                 return RedirectToAction("Landing", "Home");
             }
@@ -43,6 +41,8 @@ namespace OldMates.Controllers
                 return View("Actividades");
             }
         }
+
+
 
         [HttpPost]
         public IActionResult CargarEvento()
@@ -72,14 +72,15 @@ namespace OldMates.Controllers
 
             if (evento == null)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Landing", "Home");
             }
 
             if (evento.IDCreador != usuario.ID)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Landing", "Home");
             }
 
+            ViewBag.Evento = evento;
             return View(evento);
         }
 
@@ -113,7 +114,7 @@ namespace OldMates.Controllers
 
             if (evento == null || evento.IDCreador != usuario.ID)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
             }
 
             BD.BorrarEvento(IDEvento);
@@ -176,6 +177,9 @@ namespace OldMates.Controllers
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            List<Evento> Evento = BD.ObtenerEventos();
+            ViewBag.Evento = Evento;
+
             return View("Actividades", "Home");
         }
 
@@ -217,6 +221,7 @@ namespace OldMates.Controllers
 
             ViewBag.Eventos = Eventos;
             ViewBag.Anotados = Anotados;
+            ViewBag.IDUsuario = usuario.ID;
 
             return View();
         }
