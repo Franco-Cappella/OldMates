@@ -2,49 +2,73 @@
     ViewData["Title"] = "Registro";
 }
 
-  <h2> Estas a un paso de entrar a la familia de <strong> ¡OldMates! <strong></h2>
 
-    <img src="FotoRegistro.png" alt="Foto Registro" width="150">
-    
-    <form action="RegistroPost" method="post">
+<div class="registro-container">
+
+
+    <h2 class="registro-titulo">
+        ¡Estás a un paso de unirte a <strong>OldMates</strong>!
+    </h2>
+
+
+    <img src="FotoRegistro.png" alt="Foto Registro" class="registro-img">
+
+
+    <form action="RegistroPost" method="post" class="registro-form">
+
+
         <div class="form-group">
             <label>Usuario</label>
             <input type="text" class="form-control" name="Username" required />
         </div>
-    
+
+
         <div class="form-group">
             <label>Nombre</label>
             <input type="text" class="form-control" name="Nombre" required />
         </div>
-    
+
+
         <div class="form-group">
             <label>Apellido</label>
             <input type="text" class="form-control" name="Apellido" required />
         </div>
-    
-            <div class="form-group">
+
+
+        <div class="form-group">
             <label>Localidad</label>
             <input type="text" class="form-control" name="Localidad" required />
         </div>
-    
+
+
         <div class="form-group">
-            <label>Interes</label>
+            <label>Intereses</label>
             <input type="text" class="form-control" name="Intereses" required />
         </div>
-    
+
+
         <div class="form-group">
             <label>Contraseña</label>
             <input type="password" class="form-control" name="Contraseña" required />
         </div>
-    
+
+
         <div class="form-group">
             <label>Repetir Contraseña</label>
             <input type="password" class="form-control" name="RepetirContraseña" required />
         </div>
-    
-        <button type="submit" class="btn btn-success">Registrarse</button>
+
+
+        <button type="submit" class="btn-enviar">Registrarse</button>
     </form>
-    
-    <p class="mt-3">
-        ¿Ya tenes cuenta? <a href="Login">Inicia sesión</a>
+
+
+    <p class="registro-abajo">
+        ¿Ya tenés cuenta?
+        <a href="Login">Inicia sesión</a>
     </p>
+
+
+</div>
+
+
