@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HDz/66QfQcJCPakKi1l7QiPnP26xX9gfoU4PXKB+tVQ=",
+  "Hash": "yHGJe0fMtzoOg0xCXNXuPW6SoJll2z1rE0Uz7/FPiz8=",
   "Source": "PrimerProyecto",
   "BasePath": "_content/PrimerProyecto",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "PrimerProyecto\\wwwroot",
       "Source": "PrimerProyecto",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\css\\site.css",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\favicon.ico",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\actividades.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\actividades.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/actividades.png",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\img\\actividades.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Bingo.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Bingo.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Bingo.png",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Bingo.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Campana.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Campana.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Campana.png",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Campana.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\FotoRegistro.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\FotoRegistro.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/FotoRegistro.png",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\img\\FotoRegistro.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Juegos.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Juegos.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Juegos.png",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Juegos.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\ManosCreativas.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\ManosCreativas.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/ManosCreativas.png",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\img\\ManosCreativas.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\ManosCreativasTutorial.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\ManosCreativasTutorial.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/ManosCreativasTutorial.png",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\img\\ManosCreativasTutorial.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Menu.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Menu.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Menu.png",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Menu.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\MoverseConAlegria.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\MoverseConAlegria.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/MoverseConAlegria.png",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\img\\MoverseConAlegria.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OldMates_Logo_Final.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\OldMates_Logo_Final.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/OldMates_Logo_Final.png",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\img\\OldMates_Logo_Final.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OrganizacionDelHogar.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\OrganizacionDelHogar.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/OrganizacionDelHogar.png",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\img\\OrganizacionDelHogar.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Perfil.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Perfil.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Perfil.png",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Perfil.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\RegistroYUso.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\RegistroYUso.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/RegistroYUso.png",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\img\\RegistroYUso.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\SaboresConHistoria.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\SaboresConHistoria.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/SaboresConHistoria.png",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\img\\SaboresConHistoria.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\TableroDeAjedrez.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\TableroDeAjedrez.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/TableroDeAjedrez.png",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\img\\TableroDeAjedrez.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Thumbs.db",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Thumbs.db",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Thumbs.db",
       "AssetKind": "All",
@@ -359,10 +359,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Thumbs.db"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\Tutoriales.png",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\img\\Tutoriales.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "img/Tutoriales.png",
       "AssetKind": "All",
@@ -378,10 +378,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Tutoriales.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\js\\site.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -397,10 +397,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -416,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -435,10 +435,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -454,10 +454,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -473,10 +473,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -492,10 +492,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -511,10 +511,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -530,10 +530,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -549,10 +549,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -568,10 +568,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -587,10 +587,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -606,10 +606,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "C:\\Users\\49123639\\OldMates\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49123639\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",

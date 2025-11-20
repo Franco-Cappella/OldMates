@@ -1,21 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OldMates</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
 </head>
+
 
 <body>
      <header>
     <nav class="navbar">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          
+         
         <ul class="navbar-nav">
-          <li><a href='@Url.Action("Landing", "Home")'><img src="/img/OldMates_Logo_Final.png" alt="Logo OldMates"></a></li>
+          <li><a href='@Url.Action("Landing", "Home")'><img src="/img/OldMates_Logo_Final.jpg" alt="Logo OldMates"></a></li>
           <li><a href='@Url.Action("Landing", "Home")'>Inicio</a></li>
           <li><a href='@Url.Action("Explorar", "Home")'>Explorar</a></li>
           <li><a href='@Url.Action("Mensajes", "Home")'>Mensajes</a></li>
@@ -25,18 +30,20 @@
         </ul>
       </div>
     </nav>
-  </header> 
+  </header>
+
 
     <main role="main">
         @RenderBody()
     </main>
-            
+           
     <footer>
       <footer>
     <div>
       <h2><strong>Oldmates</strong></h2>
       <p>Acompañemos a quienes<br>siempre nos acompañaron</p>
     </div>
+
 
     <div>
       <h3>Ayuda</h3>
@@ -45,12 +52,14 @@
       <p>Chat de servicio</p>
     </div>
 
+
     <div>
       <h3>Links Útiles</h3>
       <p>Perfil</p>
       <p>Actividades</p>
       <p>Encuentros</p>
     </div>
+
 
     <div>
       <h3>Contacto</h3>
@@ -61,10 +70,15 @@
   </footer>
 
 
-        
+
+
+       
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+
