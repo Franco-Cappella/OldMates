@@ -40,10 +40,10 @@
                              style="max-width: 100px; max-height: 100px;" />
                     </p>
 
-                    <a class="btn btn-secondary"
-                           href="@Url.Action("DesInscribirseAEvento", "Home", new { IDUsuario = IDUsuario IDEvento = evento.ID })">DesInscribirse</a>
+                    <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
+
                     @if(evento.IDCreador == IDUsuario){
-<p>
+                    <p>
                         <a class="btn btn-secondary"
                            href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
 

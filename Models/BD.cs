@@ -129,7 +129,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
+                string query = "SELECT 1 FROM Evento WHERE ID = @IDEvento AND Eliminada = 0";
                 int? evento = connection.QueryFirstOrDefault<int?>(query, new { IDEvento });
 
                 if (evento == 1)

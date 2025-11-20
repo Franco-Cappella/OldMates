@@ -43,21 +43,6 @@ namespace OldMates.Controllers
         }
 
 
-
-        [HttpPost]
-        public IActionResult CargarEvento()
-        {
-            Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Account");
-            ViewBag.Evento = BD.MisActividades(usuario.ID);
-            return View("MisActividades");
-        }
-
-        public IActionResult VerEventos()
-        {
-            return CargarEvento();
-        }
-
         [HttpGet]
         public IActionResult ModificarEvento(int IDEvento)
         {
@@ -136,7 +121,7 @@ namespace OldMates.Controllers
         public IActionResult DesInscribirse(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Account");
             BD.DesInscribirseAEvento(usuario.ID, IDEvento);
             return View("Index", "Home");
         }

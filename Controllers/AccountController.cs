@@ -7,7 +7,7 @@ namespace OldMates.Controllers
     {
         public IActionResult Index()
         {
-            return View("Index");
+            return View("Index", "Account");
         }
         public IActionResult Login()
         {
