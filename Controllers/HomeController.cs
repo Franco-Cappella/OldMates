@@ -81,7 +81,7 @@ namespace OldMates.Controllers
             }
 
             ViewBag.Evento = evento;
-            return View(evento);
+            return View();
         }
 
 
