@@ -39,6 +39,9 @@
                         <img src="@evento.Foto" alt="Foto del evento"
                              style="max-width: 100px; max-height: 100px;" />
                     </p>
+
+                    <a class="btn btn-secondary"
+                           href="@Url.Action("DesInscribirseAEvento", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">DesInscribirse</a>
                     @if(evento.IDCreador == IDUsuario){
 <p>
                         <a class="btn btn-secondary"

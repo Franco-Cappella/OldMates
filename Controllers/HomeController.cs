@@ -81,6 +81,7 @@ namespace OldMates.Controllers
             }
 
             ViewBag.Evento = evento;
+            ViewBag.IDUsuario = usuario.ID;
             return View();
         }
 
