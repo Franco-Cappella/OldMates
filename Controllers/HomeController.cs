@@ -25,18 +25,21 @@ namespace OldMates.Controllers
             if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo) ||
                 string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
             {
-                ViewBag.Error = "Debe completar todos los campos.";
                 return View(nuevoEvento);
             }
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;
             BD.CrearEvento(nuevoEvento);
-            nuevoEvento.Anotados = new List<int>();
-            nuevoEvento.Anotados.Add(nuevoEvento.IDCreador);
-            if (BD.ObtenerEventoPorId != null)
+            BD.DesInscribirseAEvento(nuevoEvento.ID, Creador.ID);
+
+            Evento eventoGuardado = BD.ObtenerEventoPorId(nuevoEvento.ID);
+            if (eventoGuardado != null)
+            {
                 return RedirectToAction("Landing", "Home");
+            }
             else
             {
+                ViewBag.Error = "Hubo un problema al crear el evento.";
                 return View("Actividades");
             }
         }
@@ -45,7 +48,7 @@ namespace OldMates.Controllers
         public IActionResult CargarEvento()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Account");
             ViewBag.Evento = BD.MisActividades(usuario.ID);
             return View("MisActividades");
         }
@@ -58,18 +61,28 @@ namespace OldMates.Controllers
         [HttpGet]
         public IActionResult ModificarEvento(int IDEvento)
         {
-            Evento evento = BD.ObtenerEventoPorId(IDEvento);
-            if (evento == null) return RedirectToAction("Index");
+            Usuario usuario = ObtenerIntegranteDesdeSession();
 
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            if (evento.IDCreador != IDUsuario)
+            if (usuario == null)
             {
-                ViewBag.Error = "No puede modificar un evento que no creó.";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Account");
             }
 
-            return View();
+            Evento evento = BD.ObtenerEventoPorId(IDEvento);
+
+            if (evento == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            if (evento.IDCreador != usuario.ID)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            return View(evento);
         }
+
 
         [HttpPost]
         public IActionResult ModificarEventoRecibir(Evento eventoEditado)
@@ -89,24 +102,27 @@ namespace OldMates.Controllers
 
         public IActionResult BorrarEvento(int IDEvento)
         {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
             Evento evento = BD.ObtenerEventoPorId(IDEvento);
 
-            if (evento == null || evento.IDCreador != IDUsuario)
-                return RedirectToAction("Index");
+            if (evento == null || evento.IDCreador != usuario.ID)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             BD.BorrarEvento(IDEvento);
-            return RedirectToAction("Index");
+
+            return RedirectToAction("MisActividades", "Home");
         }
 
-        public IActionResult MisEventos()
-        {
-            int IDUsuario = int.Parse(HttpContext.Session.GetString("IDdelUsuario")!);
-            List<Evento> eventos = BD.ObtenerEventosInscripto(IDUsuario);
-            return View(eventos);
-        }
 
-        private Usuario ObtenerIntegranteDesdeSession()//Busca si un jugador ya tiene un integrante en sesión, si no lo tiene crea uno nuevo
+        private Usuario ObtenerIntegranteDesdeSession()
         {
 
             Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("Usuario"));
@@ -196,13 +212,15 @@ namespace OldMates.Controllers
             if (usuario == null)
                 return RedirectToAction("Index", "Home");
 
-            List<Evento> eventos = BD.MisActividades(usuario.ID);
-            List<Anotados> anotados; //noseque chota va aca se que es = a algo
-            ViewBag.Eventos = eventos;
-            ViewBag.Anotados = anotados;
+            List<Evento> Eventos = BD.MisActividades(usuario.ID);
+            List<Anotados> Anotados = BD.MisAnotados(usuario.ID);
+
+            ViewBag.Eventos = Eventos;
+            ViewBag.Anotados = Anotados;
 
             return View();
         }
+
 
 
         public IActionResult InvitarAmigos()

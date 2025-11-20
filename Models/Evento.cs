@@ -12,10 +12,6 @@ namespace OldMates.Models
         public int IDCreador { get; set; }
 
         [JsonProperty]
-
-        public List<int> Anotados { get; set; }
-
-        [JsonProperty]
         public DateTime Fecha { get; set; }
 
         [JsonProperty]

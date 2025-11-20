@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WgZ7n4PKjPwaOk0B5S10iwS6+v/vRSaO5E2oMKEMdJA=",
+  "Hash": "HDz/66QfQcJCPakKi1l7QiPnP26xX9gfoU4PXKB+tVQ=",
   "Source": "PrimerProyecto",
   "BasePath": "_content/PrimerProyecto",
   "Mode": "Default",
@@ -226,12 +226,12 @@
       "OriginalItemSpec": "wwwroot\\img\\MoverseConAlegria.png"
     },
     {
-      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OldMates_Logo_Final.jpg",
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OldMates_Logo_Final.png",
       "SourceId": "PrimerProyecto",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
       "BasePath": "_content/PrimerProyecto",
-      "RelativePath": "img/OldMates_Logo_Final.jpg",
+      "RelativePath": "img/OldMates_Logo_Final.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -242,7 +242,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\OldMates_Logo_Final.jpg"
+      "OriginalItemSpec": "wwwroot\\img\\OldMates_Logo_Final.png"
     },
     {
       "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\img\\OrganizacionDelHogar.png",

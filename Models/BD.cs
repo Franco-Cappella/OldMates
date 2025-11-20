@@ -74,10 +74,27 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario";
-                return connection.Query<Evento>(query, new { IDUsuario }).ToList();
+                string consultaAnotaciones = @" SELECT IDEvento FROM Anotados WHERE IDUsuario = @IDUsuario AND DesInscribirse = 0";
+
+                List<int> listaDeIDEventos = connection.Query<int>(consultaAnotaciones, new { IDUsuario }).ToList();
+
+                if (listaDeIDEventos.Count == 0)
+                    return new List<Evento>();
+
+                List<Evento> eventos = new List<Evento>();
+                foreach (var eventoID in listaDeIDEventos)
+                {
+                    string consultaEventos = @"SELECT * FROM Evento WHERE ID = @IDEvento AND Eliminada = 0";
+
+                    var evento = connection.QueryFirstOrDefault<Evento>(consultaEventos, new { IDEvento = eventoID });
+                    if (evento != null)
+                        eventos.Add(evento);
+                }
+
+                return eventos;
             }
         }
+
 
         public static bool BorrarEvento(int IDEvento)
         {
@@ -126,7 +143,7 @@ namespace OldMates.Models
                     if (usuarioInscripto == 0 && eventoNoEliminado == 1)
                     {
                         string updateQuery = "UPDATE Anotados SET DesInscribirse = 0 WHERE IDUsuario = @IDUsuario AND IDEvento = @IDEvento";
-                                                bool DesInscribirse = false;
+                        bool DesInscribirse = false;
                         connection.Execute(updateQuery, new { IDUsuario, IDEvento, DesInscribirse });
                         string insertQuery = "INSERT INTO Anotados (IDUsuario, IDEvento, DesInscribirse) VALUES (@IDUsuario, @IDEvento, @DesInscribirse)";
                         connection.Execute(insertQuery, new { IDUsuario, IDEvento, DesInscribirse });
@@ -147,14 +164,16 @@ namespace OldMates.Models
         }
 
 
-        public static List<Evento> ObtenerEventosInscripto(int IDUsuario)
+        public static List<Anotados> MisAnotados(int IDUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND DesInscribirse = 0 AND Eliminada = 0";
-                return connection.Query<Evento>(query, new { IDUsuario }).ToList();
+                string consulta = @"SELECT * FROM Anotados WHERE IDUsuario = @IDUsuario AND DesInscribirse = 0";
+
+                return connection.Query<Anotados>(consulta, new { IDUsuario }).ToList();
             }
         }
+
 
         public static bool CrearEvento(Evento NuevoEvento)
         {
