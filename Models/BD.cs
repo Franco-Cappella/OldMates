@@ -18,6 +18,14 @@ namespace OldMates.Models
                 return connection.QueryFirstOrDefault<Usuario>(query, new { Username = username });
             }
         }
+        public static List<int> ObtenerEventosInscripto(int idUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT IDEvento FROM Anotados WHERE IDUsuario = @idUsuario";
+                return connection.Query<int>(query, new { idUsuario }).ToList();
+            }
+        }
 
         public static bool VerificarContraseña(string Username, string Contraseña)
         {
@@ -95,7 +103,6 @@ namespace OldMates.Models
             }
         }
 
-
         public static bool BorrarEvento(int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -112,25 +119,21 @@ namespace OldMates.Models
             }
         }
 
-        public static bool EstaInscripto(int IDUsuario, int IDEvento)
+        public static List<int> EstaInscripto(int IDUsuario)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlConnection A = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM Anotados WHERE IDEvento = @IDEvento AND IDUsuario = @IDUsuario";
-
-                List<int> listarUsuarios = connection.QueryFirstOrDefault<List<int>>(query, new { IDEvento, IDUsuario });
-
-                return listarUsuarios.Contains(IDUsuario);
+                string sql = "SELECT IDEvento FROM Anotados WHERE IDUsuario = @Usuario";
+                return A.Query<int>(sql, new { Usuario = IDUsuario }).ToList();
             }
         }
-
 
         public static bool DesInscribirseAEvento(int IDUsuario, int IDEvento)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = "SELECT 1 FROM Evento WHERE ID = @IDEvento AND Eliminada = 0";
-                int? evento = connection.QueryFirstOrDefault<int?>(query, new { IDEvento });
+                int evento = connection.QueryFirstOrDefault<int>(query, new { IDEvento });
 
                 if (evento == 1)
                 {
@@ -198,25 +201,25 @@ namespace OldMates.Models
             }
         }
 
-public static bool ModificarEvento(Evento evento)
-{
-    using (SqlConnection connection = new SqlConnection(_connectionString))
-    {
-        string queryExiste = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
-        int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = evento.ID });
-
-        if (existe == 1)
+        public static bool ModificarEvento(Evento evento)
         {
-            string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Capacidad = @Capacidad WHERE ID = @IDEvento";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string queryExiste = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = evento.ID });
 
-            connection.Execute(queryActualizar, new { IDEvento = evento.ID, Titulo = evento.Titulo, Descripcion = evento.Descripcion, Duracion = evento.Duracion, Fecha = evento.Fecha, Localidad = evento.Localidad, Intereses = evento.Intereses, Capacidad = evento.Capacidad });
+                if (existe == 1)
+                {
+                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Capacidad = @Capacidad WHERE ID = @IDEvento";
 
-            return true;
+                    connection.Execute(queryActualizar, new { IDEvento = evento.ID, Titulo = evento.Titulo, Descripcion = evento.Descripcion, Duracion = evento.Duracion, Fecha = evento.Fecha, Localidad = evento.Localidad, Intereses = evento.Intereses, Capacidad = evento.Capacidad });
+
+                    return true;
+                }
+
+                return false;
+            }
         }
-
-        return false;
-    }
-}
 
     }
 }

@@ -1,89 +1,65 @@
-
 @using OldMates.Models
 @{
-    ViewData["Title"] = "Actividades";
     List<Evento> Eventos = ViewBag.Eventos;
+
+    // IDUsuario sin 'as'
+    int? IDUsuario;
+    if (ViewBag.IDUsuario != null)
+    {
+        IDUsuario = (int)ViewBag.IDUsuario;
+    }
+    else
+    {
+        IDUsuario = null;
+    }
+
+    // EventosInscripto sin 'as'
+    List<int> EventosInscripto;
+    if (ViewBag.EventosInscripto != null)
+    {
+        EventosInscripto = (List<int>)ViewBag.EventosInscripto;
+    }
+    else
+    {
+        EventosInscripto = new List<int>();
+    }
 }
 
+<div>
+    <h2>Actividades</h2>
 
-<div class="container mt-4">
+    @if (Eventos != null && Eventos.Count > 0)
+    {
+        @foreach (var evento in Eventos)
+        {
+            bool estaInscripto = EventosInscripto.Contains(evento.ID);
 
+            <div>
+                <p><strong>Título:</strong> @evento.Titulo</p>
+                <p><strong>Descripción:</strong> @evento.Descripcion</p>
+                <p><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy")</p>
+                <p><strong>Localidad:</strong> @evento.Localidad</p>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="text-center flex-grow-1">Actividades</h1>
-              <a href='@Url.Action("CrearEvento", "Home")'>Crear Actividad</a>
-    </div>
+                <div>
+                    @if (evento.IDCreador == IDUsuario)
+                    {
+                        <a href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+                        <a href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("DesInscribirse", "Actividades", new { IDEvento = evento.ID })">
+                            @(estaInscripto ? "Desinscribirse" : "Inscribirse")
+                        </a>
+                    }
 
-
-    <div class="mb-4 d-flex justify-content-center">
-        <div class="input-group w-50">
-            <input type="text" id="searchInput" class="form-control" placeholder="Buscar">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-        </div>
-    </div>
-
-
-    <div class="d-flex align-items-center">
-        <button class="btn btn-outline-secondary me-2" id="btnPrev">
-            <i class="bi bi-arrow-left"></i>
-        </button>
-
-
-        <div class="d-flex overflow-auto" id="carouselActividades" style="scroll-behavior: smooth; gap: 20px;">
-
-
-            @if (Eventos != null && Eventos.Count > 0)
-            {
-                foreach (var act in Eventos)
-                {
-                    <div class="card text-center shadow-sm p-2" style="min-width: 220px; max-width: 220px;">
-                        <img src="/img/@act.Foto" alt="@act.Titulo" class="card-img-top" style="height: 150px; object-fit: cover;" />
-                        <div class="card-body">
-                            <h5 class="card-title">@act.Titulo</h5>
-                            <p class="card-text" style="font-size: 14px;">@act.Descripcion</p>
-
-
-                            <a href="/Actividades/Detalles/@(act.ID)" class="btn btn-primary">Ver más</a>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="p-3">No hay actividades para mostrar.</div>
-            }
-
-
-        </div>
-
-
-        <button class="btn btn-outline-secondary ms-2" id="btnNext">
-            <i class="bi bi-arrow-right"></i>
-        </button>
-    </div>
-
-
+                    <a href="@Url.Action("ActividadUnica", "Actividades", new { IDEvento = evento.ID })">Ver más</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No hay actividades disponibles.</p>
+    }
 </div>
-
-
-<script>
-    const cont = document.getElementById("carouselActividades");
-    document.getElementById("btnPrev").onclick = () => cont.scrollLeft -= 250;
-    document.getElementById("btnNext").onclick = () => cont.scrollLeft += 250;
-
-
-    const input = document.getElementById("searchInput");
-    input.addEventListener("input", () => {
-        const term = input.value.toLowerCase();
-        document.querySelectorAll("#carouselActividades .card").forEach(c => {
-            const text = c.innerText.toLowerCase();
-            c.style.display = text.includes(term) ? "block" : "none";
-        });
-    });
-</script>
-
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-
-

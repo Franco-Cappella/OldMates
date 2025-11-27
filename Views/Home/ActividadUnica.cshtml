@@ -1,0 +1,67 @@
+@using OldMates.Models
+@{
+    ViewData["Title"] = "Actividad Unica";
+    List<Evento> Eventos = ViewBag.Eventos;
+    List<Anotados> Anotados = ViewBag.Anotados;
+    int? IDUsuario = ViewBag.IDUsuario as int?;
+    
+    Evento evento = Eventos != null && Eventos.Count > 0 ? Eventos[0] : null;
+}
+
+<div class="container mt-4">
+    <h2 class="title">Mi Actividad</h2>
+
+    @if (evento != null)
+    {
+        <section class="task-list">
+            <header class="task-list-header">
+                <p>Título</p>
+                <p>Descripción</p>
+                <p>Fecha</p>
+                <p>Finalizada</p>
+                <p>Localidad</p>
+                <p>Capacidad libre</p>
+                <p>Intereses</p>
+                <p>Foto</p>
+                <p>Acciones</p>
+            </header>
+
+            <section>
+                <p>@evento.Titulo</p>
+                <p>@evento.Descripcion</p>
+                <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
+                <p>@(evento.Eliminada ? "Sí" : "No")</p>
+                <p>@evento.Localidad</p>
+                
+                @{
+                    int anotadosEvento = Anotados != null ? Anotados.Count(a => a.IDEvento == evento.ID) : 0;
+                }
+                <p>@(evento.Capacidad - anotadosEvento)</p>
+                
+                <p>@evento.Intereses</p>
+                <p>
+                    <img src="@evento.Foto" alt="Foto del evento" style="max-width: 100px; max-height: 100px;" />
+                </p>
+
+                @if(evento.IDCreador == IDUsuario)
+                {
+                    <p>
+                        <a class="btn btn-secondary"
+                           href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+
+                        <a class="btn btn-danger"
+                           href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                    </p>
+                }
+                @if(evento.IDCreador != IDUsuario)
+                {
+                    <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
+                }
+            </section>
+        </section>
+    }
+    else
+    {
+        <p class="empty-message">No tienes eventos registrados.</p>
+    }
+</div>

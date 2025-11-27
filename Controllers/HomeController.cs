@@ -68,8 +68,8 @@ namespace OldMates.Controllers
             Evento eventoOriginal = BD.ObtenerEventoPorId(ID);
 
             if (eventoOriginal == null)
-                return RedirectToAction("Landing", "Home"); 
-                eventoOriginal.Titulo = Titulo; eventoOriginal.Duracion = Duracion; eventoOriginal.Descripcion = Descripcion; eventoOriginal.Intereses = Intereses; eventoOriginal.Capacidad = Capacidad; eventoOriginal.Fecha = Fecha; eventoOriginal.Localidad = Localidad;
+                return RedirectToAction("Landing", "Home");
+            eventoOriginal.Titulo = Titulo; eventoOriginal.Duracion = Duracion; eventoOriginal.Descripcion = Descripcion; eventoOriginal.Intereses = Intereses; eventoOriginal.Capacidad = Capacidad; eventoOriginal.Fecha = Fecha; eventoOriginal.Localidad = Localidad;
 
             if (string.IsNullOrWhiteSpace(eventoOriginal.Titulo))
             {
@@ -120,12 +120,15 @@ namespace OldMates.Controllers
 
         }
 
+        [HttpPost]
         public IActionResult DesInscribirse(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Account");
+            if (usuario == null) return RedirectToAction("Index", "Account");
+
             BD.DesInscribirseAEvento(usuario.ID, IDEvento);
-            return View("MisActividades", "Account");
+
+            return RedirectToAction("Landing", "Home");
         }
         public IActionResult Landing()
         {
@@ -164,12 +167,19 @@ namespace OldMates.Controllers
         public IActionResult Actividades()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            List<Evento> Evento = BD.ObtenerEventos();
-            ViewBag.Evento = Evento;
+            if (usuario == null)
+                return RedirectToAction("Index", "Account");
 
-            return View("Actividades", "Home");
+            List<Evento> eventos = BD.ObtenerEventos();
+            List<int> eventosInscripto = BD.ObtenerEventosInscripto(usuario.ID);
+
+            ViewBag.Eventos = eventos;
+            ViewBag.IDUsuario = usuario.ID;
+            ViewBag.EventosInscripto = eventosInscripto;
+
+            return View("Actividades");
         }
+
 
         public IActionResult Menu()
         {
@@ -221,6 +231,12 @@ namespace OldMates.Controllers
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("InvitarAmigos", "Home");
+        }
+        public IActionResult ActividadUnica()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            return View("ActividadUnica", "Home");
         }
         public IActionResult Recomendaciones()
         {
