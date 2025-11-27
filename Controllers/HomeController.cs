@@ -191,6 +191,7 @@ namespace OldMates.Controllers
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            ViewBag.IDUsuario = usuario.ID;
             return View("Perfil", "Home");
         }
 

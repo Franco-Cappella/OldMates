@@ -1,27 +1,52 @@
+@using OldMates.Models
 @{
-    ViewData["Title"] = "Perfil";
+    Usuario usuario = ViewBag.Usuario;
 }
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<body>
- 
-  <main class="perfil-main">
 
-    <p class="perfil-titulo">Hola! Aca estan tus datos.</</p>
+<div class="container mt-4">
+    <h2 class="title">Mi Perfil</h2>
 
-    <div class="perfil-foto">
-        <img src="tuimagen.jpg" alt="Foto de perfil">
-    </div>
-    <section class="perfil-seccion datos-personales">
+    @if (usuario != null)
+    {
+        <section class="task-list">
+            <header class="task-list-header">
+                <p>Campo</p>
+                <p>Valor</p>
+            </header>
 
-        <input type="text" placeholder="Nombre:________________________">   
-        <input type="text" placeholder="Apellido:________________________">      
-        <input type="text" placeholder="Edad:________________________">      
-        <input type="text" placeholder="Ubicación:________________________">       
-        <input type="text" placeholder="Email:________________________">
-</body>
-</html>
+            <section>
+                <p>Nombre</p>
+                <p>@usuario.Nombre</p>
+            </section>
 
+            <section>
+                <p>Apellido</p>
+                <p>@usuario.Apellido</p>
+            </section>
 
+            <section>
+                <p>Username</p>
+                <p>@usuario.Username</p>
+            </section>
+
+            <section>
+                <p>Zona</p>
+                <p>@usuario.Localidad</p>
+            </section>
+
+            <section>
+                <p>Intereses</p>
+                <p>@usuario.Intereses</p>
+            </section>
+
+            <section>
+                <p>Administrador</p>
+                <p>@(usuario.Admin ? "Sí" : "No")</p>
+            </section>
+        </section>
+    }
+    else
+    {
+        <p class="empty-message">No se encontró información del usuario.</p>
+    }
+</div>
