@@ -62,67 +62,123 @@ header {
 
 
 
-/* INDEX */
-
-.index {
-  text-align: center;
-  padding: 50px 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Título */
-.index h1 {
-  font-size: 2.3rem;
-  margin-bottom: 20px;
-  color: #000;
-}
-
-.index h1 strong {
-  color: #024873;
-}
-
-/* Texto */
-.index p {
-  font-size: 1.15rem;
-  color: #000;
-  line-height: 1.7;
-  max-width: 800px;
-  margin: 0 auto 40px auto;
-}
-
-/* Imágenes */
+/* Imagen */
 .index-imgs {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 5px;   /* Subido */
 }
 
 .index-imgs img {
-  width: 260px;
+  width: 420px;
   border-radius: 12px;
   border: 3px solid #E9C94A;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Botones */
+/* BOTONES */
 .index-buttons {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 20px;
+  margin-top: 25px;   /* Más arriba */
 }
 
+/* Tamaño fijo para ambos botones */
 .index-buttons a {
-  padding: 14px 30px;
+  width: 180px;            /* <-- EL TRUCO: tamaño fijo */
+  text-align: center;      /* Centrado */
+  padding: 12px 10px;         /* Vertical pero no horizontal (NO SE ESTIRA) */
   border-radius: 10px;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: white;
-  font-weight: bold;
+  font-weight: 600;
+  background-color: #024873;
+  transition: 0.25s ease;
+  white-space: nowrap;
+}
+
+.index-buttons a:hover {
+  background-color: #023f5f;
+  transform: translateY(-2px);
+}
+
+/* Contenedor general del formulario */
+.form-crear-actividad {
+  width: 90%;
+  margin: 3% auto;
+  padding: 3%;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
+}
+
+/* Títulos */
+.form-crear-actividad h2 {
+  font-size: 22px;
+  margin-bottom: 2%;
+  color: #333;
+}
+
+/* Contenedor de cada campo */
+.form-crear-actividad .campo {
+  margin-bottom: 3%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-crear-actividad .campo label {
+  font-size: 16px;
+  margin-bottom: 1%;
+  color: #555;
+}
+
+/* Inputs y textarea */
+.form-crear-actividad .campo input,
+.form-crear-actividad .campo textarea,
+.form-crear-actividad .campo select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-crear-actividad .campo textarea {
+  min-height: 120px;
+}
+
+/* Botón principal */
+.form-crear-actividad .btn-crear {
+  padding: 12px;
+  width: 35%;
+  background-color: #4a8fff;
+  color: white;
+  font-size: 17px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 2%;
   transition: 0.3s;
 }
+
+.form-crear-actividad .btn-crear:hover {
+  background-color: #2f6fe0;
+}
+
+/* Para agrupaciones tipo “dos inputs en una fila” */
+.form-crear-actividad .fila {
+  display: flex;
+  gap: 4%;
+  width: 100%;
+}
+
+.form-crear-actividad .fila .campo {
+  width: 48%;
+}
+
 
 /* Botón Registro */
 .btn-registro {
@@ -450,17 +506,23 @@ header {
   box-shadow: 0 8px 16px rgba(233, 201, 74, 0.5);
 }
 
-/*  MENÚ LATERAL */
-
-.menu-lateral{
+/* MENÚ LATERAL A LA DERECHA Y MÁS ABAJO */
+.menu-lateral {
   width: 230px;
   background-color: #eacb44;
-  padding: 40px 0;
+  padding: 10px 0;
   position: fixed;
-  left: 0;
-  top: 0;
-  min-height: 100vh;   
-  height: auto;      
+
+  /* Cambiado de izquierda a derecha */
+  right: 0;
+  left: auto;
+
+  /* Bajar el menú */
+  top: 120px;  /* AJUSTÁ ESTE VALOR A TU GUSTO */
+
+  height: calc(100vh - 120px);  
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .menu-lista {
@@ -483,13 +545,15 @@ header {
   border-radius: 5px;
   text-decoration: none;
   font-size: 15px;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
   transition: background-color 0.3s;
 }
 
 .menu-boton:hover {
   background-color: #006ca8;
 }
+
+
 
 
 
@@ -1008,4 +1072,119 @@ footer p:hover {
   font-weight: bold;
 }
 
+
+/*PERFIL - CONTENEDOR GENERAL */
+
+.perfil-main {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* TÍTULO */
+
+.perfil-titulo {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #eacb44;
+}
+
+/*FOTO DE PERFIL */
+
+.perfil-foto {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.perfil-foto img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #eacb44;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* SECCIONES DEL PERFIL */
+
+.perfil-seccion {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.perfil-seccion h2 {
+  margin-bottom: 18px;
+  color: #eacb44;
+  font-size: 22px;
+}
+
+/* 
+ INPUTS
+ */
+
+.perfil-seccion input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: #fafafa;
+  transition: 0.2s;
+}
+
+.perfil-seccion input:focus {
+  outline: none;
+  border-color: #eacb44;
+  box-shadow: 0 0 6px rgba(234,203,68,0.5);
+}
+
+
+
+.descripcion p {
+  color: #666;
+  font-size: 15px;
+}
+
+/*  RESPONSIVE */
+
+@media (max-width: 480px) {
+
+  .perfil-main {
+      padding: 25px 10px;
+  }
+
+  .perfil-foto img {
+      width: 130px;
+      height: 130px;
+  }
+  .card {
+    padding: 18px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    max-width: 500px;
+    font-size: 18px;
+  }
+  
+  /* Colores */
+  .blue {
+    background: #007bb6;
+    color: white;
+  }
+  
+  .yellow {
+    background: #e7ca4b;
+    color: #007bb6;
+  }
+  
+}
 

@@ -232,12 +232,31 @@ namespace OldMates.Controllers
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("InvitarAmigos", "Home");
         }
-        public IActionResult ActividadUnica()
+        public IActionResult ActividadUnica(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("ActividadUnica", "Home");
+            if (usuario == null)
+                return RedirectToAction("Index", "Home");
+
+            Evento evento = BD.ObtenerEventoPorId(IDEvento);
+
+            if (evento == null)
+            {
+                ViewBag.Eventos = null;
+                ViewBag.Anotados = null;
+                ViewBag.IDUsuario = usuario.ID;
+                return View();
+            }
+
+            List<Anotados> anotados = BD.MisAnotados(usuario.ID);
+            ViewBag.Eventos = new List<Evento> { evento };
+            ViewBag.Anotados = anotados;
+            ViewBag.IDUsuario = usuario.ID;
+
+            return View();
         }
+
+
         public IActionResult Recomendaciones()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();

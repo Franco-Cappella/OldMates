@@ -1,31 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Index";
 }
-  <body>
+<body>
   <main>
-  <section>
-    <div class="index">
+    <section>
+      <div class="index">
+        <h1>Bienvenido a <strong>¡OldMates!</strong></h1>
 
-      <h1>Bienvenido a <strong>¡OldMates!</strong></h1>
-  
-      <p>
-        <strong>OldMates</strong> es una app para abuelos y personas mayores que quieren hacer nuevos amigos,
-        compartir intereses y mantenerse activos. <br><br>
-        Sumate a actividades grupales, juegos, encuentros o charlas. <br><br>
-        Descubrí eventos, armá tu agenda y conectate con otros desde tu perfil. <br><br>
-        En OldMates siempre hay algo para hacer... y alguien con quien compartirlo.
-      </p>
-  
-      <div class="index-imgs">
-        <img src="img/index1.png" alt="Personas mayores jugando">
-        <img src="img/index2.png" alt="Personas mayores conversando">
-      </div>
-  
-      <div class="index-buttons">
-        <a href='@Url.Action("Registro", "Account")' class="btn-registro">Registro</a>
-        <a href='@Url.Action("Login", "Account")' class="btn-login">Iniciar Sesión</a>
-      </div>
-    </div>  
-  </section>
+        <p>
+          <strong>OldMates</strong> es una app para abuelos y personas mayores que quieren hacer nuevos amigos,
+          compartir intereses y mantenerse activos. <br><br>
+          Sumate a actividades grupales, juegos, encuentros o charlas. <br><br>
+          Descubrí eventos, armá tu agenda y conectate con otros desde tu perfil. <br><br>
+          En OldMates siempre hay algo para hacer... y alguien con quien compartirlo.
+        </p>
+
+        <div class="index-imgs">
+          <img src="img/index2.png" alt="Personas mayores conversando">
+        </div>
+
+        <div class="index-buttons">
+          <a href='@Url.Action("Registro", "Account")' class="btn-registro">Registro</a>
+          <a href='@Url.Action("Login", "Account")' class="btn-login">Iniciar Sesión</a>
+        </div>
+      </div>  
+    </section>
   </main>
 </body>
