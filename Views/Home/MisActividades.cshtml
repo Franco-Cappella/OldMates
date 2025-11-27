@@ -1,13 +1,13 @@
 @using OldMates.Models 
 @{
-    ViewData["Title"] = "Lista de Eventos";
+    ViewData["Title"] = "Mis Actividades";
     List<Evento> Eventos = ViewBag.Eventos;
     List<Anotados> Anotados = ViewBag.Anotados;
     int IDUsuario = ViewBag.IDUsuario;
 }
 
 <div class="container mt-4">
-    <h2 class="title">Mis Eventos</h2>
+    <h2 class="title">Mis Actividades</h2>
 
     @if (Eventos != null && Eventos.Count > 0)
     {

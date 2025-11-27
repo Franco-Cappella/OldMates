@@ -198,22 +198,25 @@ namespace OldMates.Models
             }
         }
 
-        public static bool ModificarEvento(Evento eventoEditado)
+public static bool ModificarEvento(Evento evento)
+{
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string queryExiste = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
+        int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = evento.ID });
+
+        if (existe == 1)
         {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string queryExiste = "SELECT 1 FROM Evento WHERE ID = @IDEvento";
-                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDEvento = eventoEditado.ID });
+            string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Capacidad = @Capacidad WHERE ID = @IDEvento";
 
-                if (existe == 1)
-                {
-                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion ,Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Foto = @Foto, DesInscribirse = @DesInscribirse, Eliminada = @Eliminada WHERE ID = @IDEvento";
-                    connection.Execute(queryActualizar, new { eventoEditado.ID, eventoEditado.Titulo, eventoEditado.Descripcion, eventoEditado.Duracion, eventoEditado.Fecha, eventoEditado.Localidad, eventoEditado.Intereses, eventoEditado.Foto, eventoEditado.DesInscribirse, eventoEditado.Eliminada });
-                    return true;
-                }
+            connection.Execute(queryActualizar, new { IDEvento = evento.ID, Titulo = evento.Titulo, Descripcion = evento.Descripcion, Duracion = evento.Duracion, Fecha = evento.Fecha, Localidad = evento.Localidad, Intereses = evento.Intereses, Capacidad = evento.Capacidad });
 
-                return false;
-            }
+            return true;
         }
+
+        return false;
+    }
+}
+
     }
 }

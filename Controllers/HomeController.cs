@@ -38,7 +38,7 @@ namespace OldMates.Controllers
             else
             {
                 ViewBag.Error = "Hubo un problema al crear el evento.";
-                return View("Actividades");
+                return View("Actividades", "Home");
             }
         }
 
@@ -49,43 +49,45 @@ namespace OldMates.Controllers
             Usuario usuario = ObtenerIntegranteDesdeSession();
 
             if (usuario == null)
-            {
                 return RedirectToAction("Index", "Account");
-            }
 
             Evento evento = BD.ObtenerEventoPorId(IDEvento);
 
-            if (evento == null)
-            {
+            if (evento == null || evento.IDCreador != usuario.ID)
                 return RedirectToAction("Landing", "Home");
-            }
-
-            if (evento.IDCreador != usuario.ID)
-            {
-                return RedirectToAction("Landing", "Home");
-            }
 
             ViewBag.Evento = evento;
             ViewBag.IDUsuario = usuario.ID;
-            return View();
-        }
 
+            return View("ModificarEvento");
+        }
 
         [HttpPost]
-        public IActionResult ModificarEventoRecibir(Evento eventoEditado)
+        public IActionResult ModificarEventoRecibir(int ID, string Titulo, TimeSpan Duracion, string Descripcion, string Intereses, int Capacidad, DateTime Fecha, string Localidad, string Imagen)
         {
-            if (string.IsNullOrWhiteSpace(eventoEditado.Titulo))
+            Evento eventoOriginal = BD.ObtenerEventoPorId(ID);
+
+            if (eventoOriginal == null)
+                return RedirectToAction("Landing", "Home"); 
+                eventoOriginal.Titulo = Titulo; eventoOriginal.Duracion = Duracion; eventoOriginal.Descripcion = Descripcion; eventoOriginal.Intereses = Intereses; eventoOriginal.Capacidad = Capacidad; eventoOriginal.Fecha = Fecha; eventoOriginal.Localidad = Localidad;
+
+            if (string.IsNullOrWhiteSpace(eventoOriginal.Titulo))
             {
                 ViewBag.Error = "Debe ingresar un título.";
-                return View(eventoEditado);
+                ViewBag.Evento = eventoOriginal;
+                return View("ModificarEvento");
             }
 
-            if (BD.ModificarEvento(eventoEditado))
-                return RedirectToAction("Index");
+            if (BD.ModificarEvento(eventoOriginal))
+                return RedirectToAction("MisActividades", "Home");
 
             ViewBag.Error = "Error al modificar el evento.";
-            return View(eventoEditado);
+            ViewBag.Evento = eventoOriginal;
+
+            return View("ModificarEvento");
         }
+
+
 
         public IActionResult BorrarEvento(int IDEvento)
         {
@@ -123,7 +125,7 @@ namespace OldMates.Controllers
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Account");
             BD.DesInscribirseAEvento(usuario.ID, IDEvento);
-            return View("Index", "Home");
+            return View("MisActividades", "Account");
         }
         public IActionResult Landing()
         {
@@ -200,7 +202,7 @@ namespace OldMates.Controllers
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Account");
 
             List<Evento> Eventos = BD.MisActividades(usuario.ID);
             List<Anotados> Anotados = BD.MisAnotados(usuario.ID);

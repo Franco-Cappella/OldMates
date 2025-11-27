@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Poa3r6avNkbe0GmkvuM0shUlEDcszsz3y96kfE3HTgYQe89vcr5v0Aw/xM1fLuBjkOixDq1Urvl5i55/fs2DeQ==",
+  "dgSpecHash": "HfiXV0NDd2/+KgVywzBSaA91vVpGv5MkRgnWKmzZG02zh7+WwzZTHsjG2hXEhdrt7U0D74HIcR/ApMQJqFXI/Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\49004085\\Downloads\\OldMates\\PrimerProyecto.csproj",
+  "projectFilePath": "C:\\Users\\49004085\\OldMates\\PrimerProyecto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\49004085\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\49004085\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
