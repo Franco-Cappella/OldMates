@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "PerfilMenu";
+}
+
+    <nav class="menu-lateral">
+        <ul class="menu-lista">
+            <li><a class="menu-boton" href='@Url.Action("Perfil", "Home")'>Mi Perfil</a></li>
+            <li><a class="menu-boton" href='@Url.Action("EditarPerfil", "Home")'>Editar Perfil</a></li>
+            <li><a class="menu-boton" href='@Url.Action("ListaDeAmigos", "Home")'>Lista De Amigos</a></li>
+            <li><a class="menu-boton" href='@Url.Action("CerrarSesion", "Home")'>Cerrar Sesion</a></li>
+        </ul>
+    </nav>

@@ -180,19 +180,20 @@ namespace OldMates.Controllers
             return View("Actividades");
         }
 
-
-        public IActionResult Menu()
-        {
-            Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("Menu", "Home");
-        }
         public IActionResult Perfil()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            ViewBag.IDUsuario = usuario.ID;
+            ViewBag.Usuario = usuario;
             return View("Perfil", "Home");
+        }
+
+        public IActionResult PerfilMenu()
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            ViewBag.Usuario = usuario;
+            return View("PerfilMenu", "Home");
         }
 
         public IActionResult Notificaciones()
@@ -244,26 +245,20 @@ namespace OldMates.Controllers
             if (evento == null)
             {
                 ViewBag.Eventos = null;
-                ViewBag.Anotados = null;
+                ViewBag.EventosInscripto = new List<int>();
                 ViewBag.IDUsuario = usuario.ID;
                 return View();
             }
 
-            List<Anotados> anotados = BD.MisAnotados(usuario.ID);
-            ViewBag.Eventos = new List<Evento> { evento };
-            ViewBag.Anotados = anotados;
+            List<int> eventosInscripto = BD.ObtenerEventosInscripto(usuario.ID);
+
+            ViewBag.Eventos = new List<Evento> {evento};
+            ViewBag.EventosInscripto = eventosInscripto;
             ViewBag.IDUsuario = usuario.ID;
 
             return View();
         }
 
-
-        public IActionResult Recomendaciones()
-        {
-            Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("Recomendaciones", "Home");
-        }
         public IActionResult Calendario()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
@@ -290,7 +285,6 @@ namespace OldMates.Controllers
                 return View("Landing", "Home");
             }
 
-            // Aca lo tendriamos que guardar en algun lado
             else
             {
                 return RedirectToAction("Index", "Account");

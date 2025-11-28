@@ -1,6 +1,7 @@
 @using OldMates.Models
 @{
     Usuario usuario = ViewBag.Usuario;
+    ViewData["Title"] = "Perfil";
 }
 
 <div class="container mt-4">
@@ -37,11 +38,6 @@
             <section>
                 <p>Intereses</p>
                 <p>@usuario.Intereses</p>
-            </section>
-
-            <section>
-                <p>Administrador</p>
-                <p>@(usuario.Admin ? "Sí" : "No")</p>
             </section>
         </section>
     }
