@@ -130,6 +130,7 @@ namespace OldMates.Controllers
 
             return RedirectToAction("Landing", "Home");
         }
+
         public IActionResult Landing()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();

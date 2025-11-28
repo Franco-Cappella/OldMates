@@ -62,11 +62,16 @@
                 <p>
                     @if (inscripto)
                     {
-                        <a class="btn btn-warning" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
+                        <form action="@Url.Action("DesInscribirse", "Home")" method="post">
+                            <input type="hidden" name="IDEvento" value="@evento.ID" />
+                            <button type="submit" class="btn btn-warning">Desinscribirse</button>
+                        </form>
                     }
                     else
                     {
-                        <a class="btn btn-primary" href="@Url.Action("Inscribirse", "Home", new { IDEvento = evento.ID })">Inscribirse</a>
+                        <a class="btn btn-primary" href="@Url.Action("Inscribirse", "Home", new { IDEvento = evento.ID })">
+                            Inscribirse
+                        </a>
                     }
                 </p>
             }
