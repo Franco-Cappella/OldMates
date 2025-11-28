@@ -2,11 +2,11 @@
     ViewData["Title"] = "Calendario";
 }
 <body>
-  <main>
-    <h2>Calendario</h2>
-    <h3>Noviembre</h3>
+  <main class="calendar-container">
+    <h2 class="calendar-title">Calendario</h2>
+    <h3 class="calendar-month">Noviembre</h3>
 
-    <table border="1">
+    <table class="calendar-table">
       <thead>
         <tr>
           <th>Lunes</th>
@@ -18,21 +18,50 @@
           <th>Domingo</th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
-          <td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+          <td></td><td></td><td class="day">1</td><td class="day">2</td><td class="day">3</td><td class="day">4</td><td class="day">5</td>
         </tr>
+
         <tr>
-          <td>6</td><td>7<br>Salida de los martes</td><td>8</td><td>9<br>Torneo de Burako</td><td>10</td><td>11</td><td>12<br>Cumple de Berta</td>
+          <td class="day">6</td>
+          <td class="day event">7<br><span>Salida de los martes</span></td>
+          <td class="day">8</td>
+          <td class="day event">9<br><span>Torneo de Burako</span></td>
+          <td class="day">10</td>
+          <td class="day">11</td>
+          <td class="day event">12<br><span>Cumple de Berta</span></td>
         </tr>
+
         <tr>
-          <td>13</td><td>14<br>Salida de los martes</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td>
+          <td class="day">13</td>
+          <td class="day event">14<br><span>Salida de los martes</span></td>
+          <td class="day">15</td>
+          <td class="day">16</td>
+          <td class="day">17</td>
+          <td class="day">18</td>
+          <td class="day">19</td>
         </tr>
+
         <tr>
-          <td>20</td><td>21<br>Salida de los martes</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td>
+          <td class="day">20</td>
+          <td class="day event">21<br><span>Salida de los martes</span></td>
+          <td class="day">22</td>
+          <td class="day">23</td>
+          <td class="day">24</td>
+          <td class="day">25</td>
+          <td class="day">26</td>
         </tr>
+
         <tr>
-          <td>27</td><td>28<br>Salida de los martes</td><td>29</td><td>30</td><td>31<br>Fiesta de Halloween</td><td></td><td></td>
+          <td class="day">27</td>
+          <td class="day event">28<br><span>Salida de los martes</span></td>
+          <td class="day">29</td>
+          <td class="day">30</td>
+          <td class="day event">31<br><span>Fiesta de Halloween</span></td>
+          <td></td>
+          <td></td>
         </tr>
       </tbody>
     </table>

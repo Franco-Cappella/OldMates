@@ -31,6 +31,10 @@ namespace OldMates.Models
 
         [JsonProperty]
         public bool Admin { get; set; }
+        
+        [JsonProperty]
+        public string Foto { get; set; }
+
 
         public Usuario()
         {

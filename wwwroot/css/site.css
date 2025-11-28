@@ -467,9 +467,11 @@ header {
   padding: 12px;
 }
 
-.card-img {
-  width: 100%;
+.landing.img {
+  width: 20%;
+  margin: 20px auto;
   border-bottom: 2px solid #d6e4f0;
+  position: center 
 }
 
 .card-body {
@@ -564,53 +566,87 @@ header {
   box-shadow: 0 8px 16px rgba(233, 201, 74, 0.5);
 }
 
-/* MENÚ LATERAL A LA DERECHA Y MÁS ABAJO */
-.menu-lateral {
-  width: 230px;
-  background-color: #eacb44;
-  padding: 10px 0;
-  position: fixed;
 
-  /* Cambiado de izquierda a derecha */
-  right: 0;
-  left: auto;
 
-  /* Bajar el menú */
-  top: 120px;  /* AJUSTÁ ESTE VALOR A TU GUSTO */
-
-  height: calc(100vh - 120px);  
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-
+/* LISTA VERTICAL ORDENADA */
 .menu-lista {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   align-items: center;
 }
 
+/* ESTILO DE BOTÓN (COMO LAS TARJETAS QUE MOSTRASTE) */
 .menu-boton {
   display: block;
-  width: 160px;
-  background-color: #0080c9;
-  color: white;
+  width: 200px;
   text-align: center;
-  padding: 10px 0;
-  border-radius: 5px;
+
+  background: white;
+  color: #333;
+  padding: 10px 5px;
+
   text-decoration: none;
   font-size: 15px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
-  transition: background-color 0.3s;
+
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+
+  transition: transform 0.15s ease, 
+              background-color 0.2s ease;
 }
 
+/* HOVER SUAVE Y ELEGANTE */
 .menu-boton:hover {
-  background-color: #006ca8;
+  background-color: #f4e3a0;
+  transform: scale(1.03);
 }
 
+
+/* Contenedor general para mantener estilo del menú viejo */
+.menu-lateral {
+  margin-top: 20px;
+}
+
+/* Card estilo menú */
+.menu-card {
+  border: 2px solid #BDD6E6;
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.menu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #E9C94A;
+}
+
+/* Botón */
+.menu-btn {
+  background-color: #BDD6E6;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  color: #000;
+  font-weight: 600;
+}
+
+.menu-btn:hover {
+  background-color: #E9C94A;
+  color: #000;
+}
+
+/* Títulos */
+.menu-card .card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
 
 
 
@@ -1244,5 +1280,647 @@ footer p:hover {
     color: #007bb6;
   }
   
+
 }
+/* Contenedor para ponerlos lado a lado */
+.eventos-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px;
+  margin-top: 20px;
+}
+
+/* Tarjeta izquierda */
+.eventos-hoy {
+  width: 350px;
+  text-align: center;
+}
+
+/* Tarjeta derecha */
+.proximos-container {
+  width: 380px;
+}
+
+/* Títulos */
+.bienvenido-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #0a2a57;
+  margin-bottom: 30px;
+}
+
+.subtitulo {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+/* Listas */
+.card-list li {
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Hover bonito */
+.card-list li:hover {
+  background-color: #E9C94A33;
+  cursor: pointer;
+}
+/* ESTO es lo que hace que todo se ponga lado a lado */
+.eventos-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+/* Ajustes de ancho */
+.eventos-hoy {
+  width: 360px;
+}
+
+.proximos-container {
+  width: 400px;
+}
+
+/* Opcional: estilo general */
+.bienvenido-title {
+  text-align: center;
+  color: #0a2a57;
+}
+/* Contenedor principal: pone todo lado a lado */
+.eventos-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+/* Ancho de las tarjetas */
+.eventos-hoy {
+  width: 350px;
+}
+
+.proximos-container {
+  width: 420px;
+}
+
+/* Título */
+.bienvenido-title {
+  text-align: center;
+  color: #0a2a57;
+  margin-bottom: 20px;
+}
+
+/* Subtítulos */
+.subtitulo {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Hover cards */
+.card:hover {
+  transform: scale(1.02);
+  transition: 0.2s ease-in-out;
+}
+
+/* Listas */
+.card-list li {
+  padding: 10px 0;
+  text-align: center;
+  color: #0a2a57;
+}
+
+/* Footer links */
+.card-footer a {
+  color: #0a2a57;
+  font-weight: 600;
+}
+/* Título */
+.bienvenido-title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0A2E5C;
+}
+
+/* Contenedor principal de las dos cajas */
+.eventos-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0%;         
+    margin-top: -10px; /* sube las cajas más cerca del título */
+
+
+}
+
+/* Tarjetas */
+.card {
+  width: 350px;               /* mismo ancho para ambas cajas */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background: white;
+}
+
+/* Header de "Tus eventos del día" */
+.card-header {
+  background: #F5F7FA;
+  padding: 12px 18px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Lista de eventos del día */
+.card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.card-list li {
+  padding: 12px;
+  border-bottom: 1px solid #EEE;
+  text-align: center;
+  color: #0A2E5C;
+  font-weight: 500;
+}
+
+/* Subtítulo "Próximos eventos" */
+.subtitulo {
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: #0A2E5C;
+  padding: 15px 0;
+  margin: 0;
+}
+
+/* Acordeón */
+.accordion-button {
+  background: #fff;
+  color: #0A2E5C;
+  font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #E9F0FF;
+  color: #0A2E5C;
+}
+
+.accordion-body {
+  font-size: 14px;
+  color: #333;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.card-link {
+  color: #0A2E5C;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+.img-centro {
+  width: 235px;        
+  height: auto;
+  margin: 0 10px;     
+  object-fit: contain;
+  margin-top: 30px; 
+}
+
+#notifications-container {
+  width: 90%; /* ocupa casi todo el ancho disponible */
+  max-width: 600px; /* para que no sea gigante en pantallas grandes */
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #ffffffdd;
+  padding: 24px 20px;
+  border-radius: 20px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: auto; /* centrado horizontal */
+}
+
+/* Scrollbar estilizado */
+#notifications-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#notifications-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+#notifications-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Notificación base */
+.notification {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 16px;
+  padding: 16px 24px 16px 50px;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  border-left: 10px solid transparent;
+  cursor: default;
+  user-select: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.35s ease;
+}
+
+.notification:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.notification.read {
+  opacity: 0.6;
+  filter: grayscale(40%);
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.notification.removing {
+  opacity: 0;
+  transform: translateX(100%);
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  transition: all 0.35s ease;
+}
+
+/* Colores por tipo */
+.notification.invite { border-left-color: #3b82f6; color: #1e40af; background: #dbeafe; }
+.notification.activity { border-left-color: #facc15; color: #78350f; background: #fef3c7; }
+.notification.reminder { border-left-color: #10b981; color: #065f46; background: #d1fae5; }
+.notification.alert { border-left-color: #ef4444; color: #b91c1c; background: #fee2e2; }
+.notification.update { border-left-color: #8b5cf6; color: #5b21b6; background: #ede9fe; }
+
+/* Iconos al inicio */
+.notification::before {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 26px;
+}
+
+.notification.invite::before { content: "🎉"; }
+.notification.activity::before { content: "⚽"; }
+.notification.reminder::before { content: "⏰"; }
+.notification.alert::before { content: "⚠️"; }
+.notification.update::before { content: "✉️"; }
+
+/* Contenedor acciones */
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Botones */
+.actions button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  color: inherit;
+  line-height: 1;
+  user-select: none;
+}
+
+.actions button:hover {
+  background-color: rgba(0,0,0,0.1);
+  transform: scale(1.1);
+}
+
+/* Diferenciar botones */
+.actions .mark-read:hover { color: #16a34a; }
+.actions .delete:hover { color: #dc2626; }
+.evento-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+  padding: 4px 0;
+  transition: background 0.2s ease;
+}
+
+.evento-link:hover {
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 6px;
+}
+/* Contenedor del carrusel tipo scroll */
+.scroll-cards-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 15px;
+  scroll-snap-type: x mandatory;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+/* Ocultar scrollbar (opcional) */
+.scroll-cards-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-cards-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 4px;
+}
+
+/* Tarjeta del evento */
+.event-card {
+  flex: 0 0 260px;   /* 🔥 Tamaño de cada card → 5 entran perfecto en pantalla */
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.event-card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.event-card-body {
+  padding: 10px 14px;
+}
+
+.event-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.event-desc {
+  font-size: 0.9rem;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Contenedor */
+.calendar-container {
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Títulos */
+.calendar-title {
+  font-size: 2.2rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.calendar-month {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Tabla */
+.calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.calendar-table th {
+  background: #6c63ff;
+  color: white;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.calendar-table td {
+  height: 110px;
+  padding: 8px;
+  vertical-align: top;
+  border: 1px solid #e7e7e7;
+  font-size: 0.95rem;
+}
+
+/* Día */
+.day {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Evento */
+.event {
+  background: #fff3cd;
+  border-left: 4px solid #ffca2c;
+  position: relative;
+}
+
+.event span {
+  font-weight: normal;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Hover: destaca el día */
+.calendar-table td:hover {
+  background: #f1f1f1;
+  transition: 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calendar-table th, .calendar-table td {
+      font-size: 0.75rem;
+      padding: 4px;
+      height: 70px;
+  }
+}
+/* --- Carrusel general --- */
+.carousel {
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- Área interna del carrusel (contenedor de las cards) --- */
+.carousel-inner {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* --- Cada Card dentro del carrusel --- */
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  margin: 0 10px;
+}
+
+/* --- Cards individuales --- */
+.crsl-card-wz1 {
+  flex: 0 0 18%; /* 5 cards visibles */
+  text-align: center;
+  padding: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background-color: #fff;
+  transition: transform 0.2s ease, scale 0.2s ease;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 30px;
+}
+
+/* --- Imagen de la card --- */
+.crsl-img-wz1 {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* --- Resaltar la card central --- */
+.carousel-item.active .crsl-card-wz1 {
+  transform: scale(1.1); /* Aumenta el tamaño de la card central */
+}
+
+/* --- Título de la card --- */
+.crsl-title-wz1 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* --- Descripción de la card --- */
+.crsl-desc-wz1 {
+  font-size: 0.95rem;
+  color: #555;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
+
+/* --- Estilos de los botones --- */
+.crsl-body-wz1 .btn {
+  font-size: 0.85rem;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* --- Estilos para los botones: Desinscribirse, Editar y Eliminar --- */
+.crsl-body-wz1 .btn-warning {
+  background-color: #ff9800;
+  border: none;
+}
+
+.crsl-body-wz1 .btn-warning:hover {
+  background-color: #e68900;
+}
+
+.crsl-body-wz1 .btn-danger {
+  background-color: #f44336;
+  border: none;
+}
+
+.crsl-body-wz1 .btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+.crsl-body-wz1 .btn-secondary {
+  background-color: #607d8b;
+  border: none;
+}
+
+.crsl-body-wz1 .btn-secondary:hover {
+  background-color: #455a64;
+}
+
+/* --- Flechas de navegación --- */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #333;
+  border-radius: 50%;
+  padding: 10px;
+  z-index: 20; /* Asegura que las flechas estén arriba */
+}
+
+/* --- Ajustes para las cards en pantallas pequeñas --- */
+@media (max-width: 768px) {
+  .crsl-card-wz1 {
+      flex: 0 0 40%; /* 3 cards a la vez */
+  }
+}
+
+@media (max-width: 576px) {
+  .crsl-card-wz1 {
+      flex: 0 0 90%; /* 1 card a la vez en pantallas pequeñas */
+  }
+}
+.carousel-infinito {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  width: calc(250px * 8); /* ancho aprox. según cantidad de imágenes */
+  animation: scroll 20s linear infinite;
+}
+
+.carousel-track img {
+  width: 250px;         /* ajustá el tamaño según tus imágenes */
+  height: auto;
+  object-fit: cover;
+  margin-right: 20px;   /* espacio entre imágenes */
+  border-radius: 10px;  /* opcional, queda lindo */
+}
+
+/* Animación */
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-50%); /* Se mueve la mitad porque duplicaste las imágenes */
+  }
+}
+
+
 

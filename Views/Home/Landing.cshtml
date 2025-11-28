@@ -1,66 +1,107 @@
+@using OldMates.Models
 @{
     ViewData["Title"] = "Landing";
+
+    List<Evento> eventosHoy = ViewBag.EventosHoy as List<Evento> ?? new List<Evento>();
+    List<Evento> proximosEventos = ViewBag.ProximosEventos as List<Evento> ?? new List<Evento>();
+    Usuario usuario = ViewBag.Usuario as Usuario;
 }
 
-
-<h1 class="bienvenido-title">¡Bienvenido!</h1>
-
-
-<div class="card eventos-hoy">
-    <div class="card-header">
-        <h5 class="card-title-small">Tus eventos del día:</h5>
-    </div>
-    <ul class="card-list">
-        <li>Burako</li>
-        <li>Amasado de pan</li>
-        <li>Pintura de exterior</li>
-    </ul>
+<div class="bienvenido">
+    <h1 class="bienvenido-title">¡Bienvenido!</h1>
 </div>
 
+<div class="eventos-container container mt-4">
 
-<h5 class="subtitulo">Próximos eventos</h5>
+    <!-- ========================= -->
+    <!--      EVENTOS DEL DÍA      -->
+    <!-- ========================= -->
+    <div class="card eventos-hoy mb-4">
+        <div class="card-header">
+            <h5 class="card-title-small">Tus eventos del día:</h5>
+        </div>
 
-
-<div class="card eventos-proximos">
-    <img src="/img/landing.png" class="card-img" alt="Taller">
-    <div class="card-body">
-        <h5 class="card-title">Taller de pastelería</h5>
-        <p class="card-text">
-            El taller de pastelería es un espacio donde se aprende a preparar tortas, postres y masas dulces.
-            Los participantes desarrollan su creatividad mientras aplican técnicas de decoración y horneado.
-            Es ideal para quienes disfrutan cocinar y quieren mejorar sus habilidades.
-        </p>
+            <ul class="card-list list-unstyled p-3">
+        @if (eventosHoy.Count == 0)
+        {
+            <li>No tienes actividades hoy.</li>
+        }
+        else
+        {
+            foreach (var ev in eventosHoy)
+            {
+                <li>
+                    <a href="@Url.Action("ActividadUnica", "Home", new { IDEvento = ev.ID })" class="evento-link">
+                        @ev.Fecha.ToString("HH:mm") - @ev.Titulo
+                    </a>
+                </li>
+            }
+        }
+            </ul>
     </div>
 
-
-    <ul class="card-list">
-        <li>Torneo de Truco</li>
-        <li>Fiesta de Halloween</li>
-        <li>Taller de Música</li>
-    </ul>
-
-    <div class="container text-center">
-  <div class="row align-items-center">
-    <div class="col">
-  Juan - Se unio hace 4 meses                                                                                         
-  "OldMates me cambio la vida! Mi salud mejor muchismo y me siento mu acompañado"    </div>
-    <div class="col">
-  Natalia - Una de nuestras primeras usarios
-  "Aprendi muchas cosas gracias a los tutorailes. Siento que conozco mucho más la tecnología"    </div>
-    <div class="col">
-  Hernesto - Se unio hace 2 meses
-  "Me encantan las actividaes, mucha variedad y para todos los gustos. Recomiendo al 100%"    </div>
-  </div>
-</div>
-
-
-    <div class="card-footer">
-        <a href="#" class="card-link">Ver más</a>
-        <a href="#" class="card-link">Preguntas</a>
+    <!-- Imagen central -->
+    <div class="text-center mb-4">
+        <img src="/img/actividades.png" class="img-centro" alt="decoración" style="max-width:300px;">
     </div>
+
+    <!-- ========================= -->
+    <!--     PRÓXIMOS EVENTOS      -->
+    <!-- ========================= -->
+    <div class="card proximos-container">
+        <div class="card-body">
+            <h5 class="subtitulo">Eventos que te podrian gustar:</h5>
+
+            <div class="accordion accordion-flush eventos-proximos" id="accordionProximos">
+
+                @if (proximosEventos.Count == 0)
+                {
+                    <div class="p-3">No hay eventos próximos.</div>
+                }
+                else
+                {
+                    int index = 0;
+
+                    foreach (var e in proximosEventos)
+                    {
+                        string collapseId = $"collapse_{index}";
+                        string headerId = $"header_{index}";
+
+                        <div class="accordion-item">
+
+                            <h2 class="accordion-header" id="@headerId">
+                                <button class="accordion-button collapsed card-title"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#@collapseId">
+                                    @e.Titulo
+                                    <small class="ms-2 text-muted">— @e.Fecha.ToString("dd/MM HH:mm")</small>
+                                </button>
+                            </h2>
+
+                            <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headerId" data-bs-parent="#accordionProximos">
+                                <div class="accordion-body card-body">
+
+                                    <p class="card-text">@e.Descripcion</p>
+                                    <p><strong>Localidad:</strong> @e.Localidad</p>
+                                    <p><strong>Duración:</strong> @e.Duracion</p>
+                                    <p><strong>Capacidad:</strong> @e.Capacidad</p>
+
+                                    <div class="card-footer mt-3">
+                                        <a class="btn btn-link" href="@Url.Action("ActividadUnica", "Home", new { IDEvento = e.ID })">Ver más</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        index++;
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
-
-
-

@@ -10,6 +10,37 @@ namespace OldMates.Models
     {
         private static string _connectionString = @"Server=localhost;DataBase=OldMates; Integrated Security=True; TrustServerCertificate=True;";
 
+
+        public static List<Evento> ObtenerEventosDeHoy()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+            SELECT * 
+            FROM Evento 
+            WHERE Eliminada = 0
+            AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE)
+            ORDER BY Fecha ASC";
+
+                return connection.Query<Evento>(query).ToList();
+            }
+        }
+
+        public static List<Evento> ObtenerProximosEventos()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+            SELECT *
+            FROM Evento
+            WHERE Eliminada = 0
+            AND Fecha > GETDATE()
+            ORDER BY Fecha ASC";
+
+                return connection.Query<Evento>(query).ToList();
+            }
+        }
+
         public static Usuario ObtenerPorUsername(string username)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

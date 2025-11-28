@@ -1,12 +1,40 @@
 @{
     ViewData["Title"] = "PerfilMenu";
 }
+<div class="row menu-lateral">
+    <div class="col-sm-6 mb-3">
+        <div class="card menu-card">
+            <div class="card-body">
+                <h5 class="card-title">Mi Perfil</h5>
+                <a href='@Url.Action("Perfil", "Home")' class="btn menu-btn">▶️</a>
+            </div>
+        </div>
+    </div>
 
-    <nav class="menu-lateral">
-        <ul class="menu-lista">
-            <li><a class="menu-boton" href='@Url.Action("Perfil", "Home")'>Mi Perfil</a></li>
-            <li><a class="menu-boton" href='@Url.Action("EditarPerfil", "Home")'>Editar Perfil</a></li>
-            <li><a class="menu-boton" href='@Url.Action("ListaDeAmigos", "Home")'>Lista De Amigos</a></li>
-            <li><a class="menu-boton" href='@Url.Action("CerrarSesion", "Home")'>Cerrar Sesion</a></li>
-        </ul>
-    </nav>
+    <div class="col-sm-6 mb-3">
+        <div class="card menu-card">
+            <div class="card-body">
+                <h5 class="card-title">Editar Perfil</h5>
+                <a href='@Url.Action("EditarPerfil", "Home")' class="btn menu-btn">▶️</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 mb-3">
+        <div class="card menu-card">
+            <div class="card-body">
+                <h5 class="card-title">Lista de Amigos</h5>
+                <a href='@Url.Action("ListaDeAmigos", "Home")' class="btn menu-btn">▶️</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 mb-3">
+        <div class="card menu-card">
+            <div class="card-body">
+                <h5 class="card-title">Cerrar Sesión</h5>
+                <a href='@Url.Action("CerrarSesion", "Home")' class="btn menu-btn">▶️</a>
+            </div>
+        </div>
+    </div>
+</div>

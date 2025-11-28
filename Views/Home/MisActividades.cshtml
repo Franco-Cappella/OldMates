@@ -2,63 +2,67 @@
 @{
     List<Evento> Eventos = ViewBag.Eventos;
     List<Anotados> Anotados = ViewBag.Anotados;
-    int? IDUsuario = ViewBag.IDUsuario as int?;  // verififcar null 
+    int? IDUsuario = ViewBag.IDUsuario as int?;
 }
-
 
 <div class="container mt-4">
     <h2 class="title">Mis Actividades</h2>
 
     @if (Eventos != null && Eventos.Count > 0)
     {
-        <section class="task-list">
-            <header class="task-list-header">
-                <p>Título</p>
-                <p>Descripción</p>
-                <p>Fecha</p>
-                <p>Finalizada</p>
-                <p>Localidad</p>
-                <p>Capacidad libre</p>
-                <p>Intereses</p>
-                <p>Foto</p>
-                <p>Acciones</p>
-            </header>
+        <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @for (int i = 0; i < Eventos.Count; i++)
+                {
+                    var evento = Eventos[i];
+                    int inscriptosEvento = Anotados.Count(a => a.IDEvento == evento.ID);
+                    int capacidadLibre = evento.Capacidad - inscriptosEvento;
 
-            @foreach (var evento in Eventos)
-            {
-                int anotados = Anotados.Count();
-                <section>
-                    <p>@evento.Titulo</p>
-                    <p>@evento.Descripcion</p>
-                    <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
-                    <p>@(evento.Eliminada ? "Sí" : "No")</p>
-                    <p>@evento.Localidad</p>
-                    <p>@(evento.Capacidad - (Anotados.Count()))</p>
-                    <p>@evento.Intereses</p>
-                    <p>
-                        <img src="@evento.Foto" alt="Foto del evento"
-                             style="max-width: 100px; max-height: 100px;" />
-                    </p>
+                    <div class="carousel-item @((i == 0) ? "active" : "")">
+                        <div class="crsl-card-wz1">
+                            <img src="@evento.Foto" class="crsl-img-wz1" alt="Foto del evento">
 
-                    
+                            <div class="crsl-body-wz1">
+                                <h5 class="crsl-title-wz1">@evento.Titulo</h5>
+                                <p class="crsl-desc-wz1">@evento.Descripcion</p>
 
-                    @if(evento.IDCreador == IDUsuario)
-                    {
-                        <p>
-                            <a class="btn btn-secondary"
-                               href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+                                <p><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy")</p>
+                                <p><strong>Localidad:</strong> @evento.Localidad</p>
+                                <p><strong>Capacidad libre:</strong> @capacidadLibre</p>
+                                <p><strong>Intereses:</strong> @evento.Intereses</p>
 
-                            <a class="btn btn-danger"
-                               href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
-                        </p>
-                    }
-                    @if(evento.IDCreador != IDUsuario)
-                    {
-                        <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
-                    }
-                </section>
-            }
-        </section>
+                                <div class="mt-2">
+                                    @if (evento.IDCreador == IDUsuario)
+                                    {
+                                        <a class="btn btn-secondary btn-sm me-2"
+                                           href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+
+                                        <a class="btn btn-danger btn-sm"
+                                           href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-warning btn-sm"
+                                           href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">
+                                            Desinscribirse
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Flechas de navegación -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselActividades" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselActividades" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
     }
     else
     {

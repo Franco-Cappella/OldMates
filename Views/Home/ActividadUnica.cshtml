@@ -5,8 +5,7 @@
     List<Evento> Eventos = ViewBag.Eventos;
     List<Anotados> Anotados = ViewBag.Anotados;
     List<int> EventosInscripto = ViewBag.EventosInscripto ?? new List<int>();
-    
-    // inscripto: true si está anotado, false si no, nunca null
+    int IDusuario = ViewBag.IDUsuario;
     bool inscripto = EventosInscripto.Contains(Eventos?[0].ID ?? 0);
 
     int IDUsuario = ViewBag.IDUsuario;
@@ -62,16 +61,11 @@
                 <p>
                     @if (inscripto)
                     {
-                        <form action="@Url.Action("DesInscribirse", "Home")" method="post">
-                            <input type="hidden" name="IDEvento" value="@evento.ID" />
-                            <button type="submit" class="btn btn-warning">Desinscribirse</button>
-                        </form>
+                        <a class="btn btn-primary" href="@Url.Action("DesInscribirse", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">DesInscribirse</a>
                     }
                     else
                     {
-                        <a class="btn btn-primary" href="@Url.Action("Inscribirse", "Home", new { IDEvento = evento.ID })">
-                            Inscribirse
-                        </a>
+                        <a class="btn btn-primary" href="@Url.Action("DesInscribirse", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">Inscribirse</a>
                     }
                 </p>
             }

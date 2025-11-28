@@ -12,23 +12,67 @@ namespace OldMates.Controllers
             if (ObtenerIntegranteDesdeSession() == null)
             {
                 return RedirectToAction("Index", "Account");
+                ViewBag.Error = "No estas logueado";
             }
             else
             {
-                return View(ObtenerIntegranteDesdeSession().ID);
+                ViewBag.usuario = usuario;
+                return View();
             }
         }
 
         [HttpPost]
-        public IActionResult CrearEventoRecibir(Evento nuevoEvento)
+        public IActionResult CrearEventoRecibir(Evento nuevoEvento, IFormFile archivo)
         {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+                ViewBag.Error = "No estas logueado";
+            }
+
             if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo) ||
                 string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
             {
+                ViewBag.Error = "Completar todos los campos.";
                 return View(nuevoEvento);
             }
+
+
+
+            if (archivo.Foto != null || archivo.Foto.Length > 0)
+            {
+                string nombreArchivo = archivo.FileName;
+                ViewBag.Error = "Debe seleccionar una imagen para el evento.";
+                return View(nuevoEvento);
+            }
+
+            string nombreFinal = "evento_default.png";
+
+            if (nuevoEvento.Foto != null && nuevoEvento.Foto.Length > 0)
+            {
+                string extension = Path.GetExtension(nuevoEvento.Foto.FileName);
+                nombreFinal = Guid.NewGuid().ToString() + extension;
+
+                string rutaCompleta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
+                if (!Directory.Exists(carpeta))
+                    Directory.CreateDirectory(carpeta);
+
+                string rutaCompleta = Path.Combine(carpeta, nombreFinal);
+
+                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    nuevoEvento.Foto.CopyTo(stream);
+                }
+            }
+
+            nuevoEvento.Foto = nombreFinal;
+
+
+
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;
+
             bool eventoCreado = BD.CrearEvento(nuevoEvento);
 
             if (eventoCreado)
@@ -42,14 +86,16 @@ namespace OldMates.Controllers
             }
         }
 
-
         [HttpGet]
         public IActionResult ModificarEvento(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-
             if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
+            }
+
 
             Evento evento = BD.ObtenerEventoPorId(IDEvento);
 
@@ -65,6 +111,12 @@ namespace OldMates.Controllers
         [HttpPost]
         public IActionResult ModificarEventoRecibir(int ID, string Titulo, TimeSpan Duracion, string Descripcion, string Intereses, int Capacidad, DateTime Fecha, string Localidad, string Imagen)
         {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             Evento eventoOriginal = BD.ObtenerEventoPorId(ID);
 
             if (eventoOriginal == null)
@@ -92,9 +144,9 @@ namespace OldMates.Controllers
         public IActionResult BorrarEvento(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-
             if (usuario == null)
             {
+                ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
             }
 
@@ -107,7 +159,7 @@ namespace OldMates.Controllers
 
             BD.BorrarEvento(IDEvento);
 
-            return RedirectToAction("MisActividades", "Home");
+            return RedirectToAction("Actividades", "Home");
         }
 
 
@@ -120,27 +172,44 @@ namespace OldMates.Controllers
 
         }
 
-        [HttpPost]
         public IActionResult DesInscribirse(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (usuario == null) return RedirectToAction("Index", "Account");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
 
-            BD.DesInscribirseAEvento(usuario.ID, IDEvento);
-
-            return RedirectToAction("Landing", "Home");
+            bool resultado = BD.DesInscribirseAEvento(usuario.ID, IDEvento);
+            return RedirectToAction("Actividades", "Home");
         }
 
         public IActionResult Landing()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("Landing", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
+            ViewBag.EventosHoy = BD.ObtenerEventosDeHoy();
+            ViewBag.ProximosEventos = BD.ObtenerProximosEventos();
+
+            ViewBag.Usuario = usuario;
+
+            return View();
         }
+
 
         public IActionResult Explorar()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("Explorar", "Home");
         }
@@ -148,28 +217,43 @@ namespace OldMates.Controllers
         public IActionResult Mensajes()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("Mensajes", "Home");
         }
 
         public IActionResult Tutoriales()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("Tutoriales", "Home");
         }
 
         public IActionResult Juegos()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("Juegos", "Home");
         }
         public IActionResult Actividades()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
+            }
 
             List<Evento> eventos = BD.ObtenerEventos();
             List<int> eventosInscripto = BD.ObtenerEventosInscripto(usuario.ID);
@@ -184,7 +268,11 @@ namespace OldMates.Controllers
         public IActionResult Perfil()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             ViewBag.Usuario = usuario;
             return View("Perfil", "Home");
         }
@@ -192,7 +280,11 @@ namespace OldMates.Controllers
         public IActionResult PerfilMenu()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             ViewBag.Usuario = usuario;
             return View("PerfilMenu", "Home");
         }
@@ -200,7 +292,11 @@ namespace OldMates.Controllers
         public IActionResult Notificaciones()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("Notificaciones", "Home");
         }
 
@@ -208,14 +304,21 @@ namespace OldMates.Controllers
         public IActionResult EditarPerfil()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("EditarPerfil", "Home");
         }
         public IActionResult MisActividades()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
+            }
 
             List<Evento> Eventos = BD.MisActividades(usuario.ID);
             List<Anotados> Anotados = BD.MisAnotados(usuario.ID);
@@ -232,14 +335,21 @@ namespace OldMates.Controllers
         public IActionResult InvitarAmigos()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("InvitarAmigos", "Home");
         }
         public IActionResult ActividadUnica(int IDEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
-                return RedirectToAction("Index", "Home");
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
 
             Evento evento = BD.ObtenerEventoPorId(IDEvento);
 
@@ -262,17 +372,24 @@ namespace OldMates.Controllers
             return View();
         }
 
-
-
         public IActionResult Calendario()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             return View("Calendario", "Home");
         }
         public IActionResult ListaDeAmigos()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
             return View("ListaDeAmigos", "Home");
         }
@@ -283,6 +400,7 @@ namespace OldMates.Controllers
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
             {
+                ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
             }
             if (string.IsNullOrEmpty(NombreAmigo) || string.IsNullOrEmpty(Telefono) || string.IsNullOrEmpty(Mensaje))
@@ -299,10 +417,15 @@ namespace OldMates.Controllers
         public IActionResult CerrarSesion()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Account");
         }
+
     }
 }
 

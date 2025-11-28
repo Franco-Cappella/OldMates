@@ -2,29 +2,72 @@
     ViewData["Title"] = "Notificaciones";
 }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificaciones</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-    <div class="card blue">
-        Juan Te ha invitado a “Noche de Burako”
+<div id="notifications-container">
+    <div class="notification invite">
+        <span class="text">Juan te ha invitado a “Noche de Burako”</span>
+        <div class="actions">
+            <button class="mark-read" title="Marcar como leída">✓</button>
+            <button class="delete" title="Borrar">🗑️</button>
+        </div>
     </div>
 
-    <div class="card yellow">
-        Hoy tienes la actividad “Partido de Tejo”
+    <div class="notification activity">
+        <span class="text">Hoy tienes la actividad “Partido de Tejo”</span>
+        <div class="actions">
+            <button class="mark-read" title="Marcar como leída">✓</button>
+            <button class="delete" title="Borrar">🗑️</button>
+        </div>
     </div>
 
-    <div class="card yellow">
-        Hoy tienes la actividad “Año Nuevo”
+    <div class="notification activity">
+        <span class="text">Hoy tienes la actividad “Año Nuevo”</span>
+        <div class="actions">
+            <button class="mark-read" title="Marcar como leída">✓</button>
+            <button class="delete" title="Borrar">🗑️</button>
+        </div>
     </div>
 
-    <div class="card blue">
-        Marta Te ha invitado a “Día de Crochet”
+    <div class="notification invite">
+        <span class="text">Marta te ha invitado a “Día de Crochet”</span>
+        <div class="actions">
+            <button class="mark-read" title="Marcar como leída">✓</button>
+            <button class="delete" title="Borrar">🗑️</button>
+        </div>
     </div>
 
-</body>
-</html>
+    <div class="notification reminder">
+        <span class="text">Recuerda confirmar tu asistencia para “Cena de Amigos”</span>
+        <div class="actions">
+            <button class="mark-read" title="Marcar como leída">✓</button>
+            <button class="delete" title="Borrar">🗑️</button>
+        </div>
+    </div>
+
+    <div class="notification update">
+        <span class="text">Nuevo mensaje en “Chat de Servicio”</span>
+        <div class="actions">
+            <button class="mark-read" title="Marcar como leída">✓</button>
+            <button class="delete" title="Borrar">🗑️</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('notifications-container');
+
+            container.addEventListener('click', e => {
+                if (e.target.classList.contains('mark-read')) {
+                    const notification = e.target.closest('.notification');
+                    notification.classList.toggle('read');
+                }
+                if (e.target.classList.contains('delete')) {
+                    const notification = e.target.closest('.notification');
+                    notification.classList.add('removing');
+                    setTimeout(() => notification.remove(), 400);
+                }
+            });
+        });
+    </script>
+}
