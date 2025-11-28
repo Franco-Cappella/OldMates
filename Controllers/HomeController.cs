@@ -251,13 +251,17 @@ namespace OldMates.Controllers
             }
 
             List<int> eventosInscripto = BD.ObtenerEventosInscripto(usuario.ID);
+            if (eventosInscripto == null)
+                eventosInscripto = new List<int>();
 
-            ViewBag.Eventos = new List<Evento> {evento};
+            ViewBag.Eventos = new List<Evento> { evento };
             ViewBag.EventosInscripto = eventosInscripto;
             ViewBag.IDUsuario = usuario.ID;
 
             return View();
         }
+
+
 
         public IActionResult Calendario()
         {

@@ -1,8 +1,14 @@
 @using OldMates.Models
 @{
     ViewData["Title"] = "Actividad Unica";
+
     List<Evento> Eventos = ViewBag.Eventos;
     List<Anotados> Anotados = ViewBag.Anotados;
+    List<int> EventosInscripto = ViewBag.EventosInscripto ?? new List<int>();
+    
+    // inscripto: true si está anotado, false si no, nunca null
+    bool inscripto = EventosInscripto.Contains(Eventos?[0].ID ?? 0);
+
     int IDUsuario = ViewBag.IDUsuario;
     Evento evento = null;
 
@@ -53,7 +59,16 @@
             }
             else
             {
-                <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
+                <p>
+                    @if (inscripto)
+                    {
+                        <a class="btn btn-warning" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" href="@Url.Action("Inscribirse", "Home", new { IDEvento = evento.ID })">Inscribirse</a>
+                    }
+                </p>
             }
         </section>
     </section>
@@ -62,3 +77,4 @@ else
 {
     <p class="empty-message">No tienes eventos registrados.</p>
 }
+
