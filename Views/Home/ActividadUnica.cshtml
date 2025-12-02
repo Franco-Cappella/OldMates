@@ -19,6 +19,7 @@
 {
     <section class="task-list">
         <header class="task-list-header">
+            <p></p>
             <p>Título</p>
             <p>Descripción</p>
             <p>Fecha</p>
@@ -26,11 +27,11 @@
             <p>Localidad</p>
             <p>Capacidad libre</p>
             <p>Intereses</p>
-            <p>Foto</p>
             <p>Acciones</p>
         </header>
 
         <section>
+            <img src="@evento.Foto" style="max-width: 100px; max-height: 100px;" />
             <p>@evento.Titulo</p>
             <p>@evento.Descripcion</p>
             <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
@@ -45,9 +46,6 @@
             <p>@(evento.Capacidad - anotadosEvento)</p>
 
             <p>@evento.Intereses</p>
-            <p>
-                <img src="@evento.Foto" style="max-width: 100px; max-height: 100px;" />
-            </p>
 
             @if (evento.IDCreador == IDUsuario)
             {

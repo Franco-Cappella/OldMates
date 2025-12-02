@@ -31,44 +31,18 @@ namespace OldMates.Controllers
                 ViewBag.Error = "No estas logueado";
             }
 
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo) ||
-                string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
+            string nombreArchivo = "default-evento.png";
+            string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+            string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+            if (archivo != null && archivo.Length > 0)
             {
-                ViewBag.Error = "Completar todos los campos.";
-                return View(nuevoEvento);
-            }
-
-
-
-            if (archivo.Foto != null || archivo.Foto.Length > 0)
-            {
-                string nombreArchivo = archivo.FileName;
-                ViewBag.Error = "Debe seleccionar una imagen para el evento.";
-                return View(nuevoEvento);
-            }
-
-            string nombreFinal = "evento_default.png";
-
-            if (nuevoEvento.Foto != null && nuevoEvento.Foto.Length > 0)
-            {
-                string extension = Path.GetExtension(nuevoEvento.Foto.FileName);
-                nombreFinal = Guid.NewGuid().ToString() + extension;
-
-                string rutaCompleta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
-                if (!Directory.Exists(carpeta))
-                    Directory.CreateDirectory(carpeta);
-
-                string rutaCompleta = Path.Combine(carpeta, nombreFinal);
-
+                nombreArchivo = Path.GetFileName(archivo.FileName);
+                rutaCompleta = Path.Combine(carpeta, nombreArchivo);
                 using (var stream = new FileStream(rutaCompleta, FileMode.Create))
                 {
-                    nuevoEvento.Foto.CopyTo(stream);
+                    archivo.CopyTo(stream);
                 }
             }
-
-            nuevoEvento.Foto = nombreFinal;
-
-
 
             Usuario Creador = ObtenerIntegranteDesdeSession();
             nuevoEvento.IDCreador = Creador.ID;

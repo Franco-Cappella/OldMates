@@ -305,6 +305,11 @@ header {
   box-shadow: 0 0 5px rgba(0, 124, 181, 0.4);
 }
 
+.view-error{
+  color: red;
+  font-weight: bold;
+}
+
 /* Botón */
 .btn-login {
   width: 100%;

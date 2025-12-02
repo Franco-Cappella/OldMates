@@ -11,6 +11,7 @@ namespace OldMates.Controllers
         }
         public IActionResult Login()
         {
+            ViewBag.mensaje = "";
             return View();
         }
 
@@ -20,6 +21,7 @@ namespace OldMates.Controllers
 
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Contraseña))
             {
+                ViewBag.mensaje = "Completa tus datos";
                 return View("Login");
             }
 
@@ -31,6 +33,7 @@ namespace OldMates.Controllers
             }
             else
             {
+                ViewBag.mensaje = "El usuario o la contraseña son incorrectos";
                 return View("Login");
             }
         }
@@ -49,7 +52,8 @@ namespace OldMates.Controllers
             }
             else if (BD.Registro(usuario))
             {
-                return RedirectToAction("Login");
+                GuardarIntegranteEnSession(usuario);
+                return RedirectToAction("Landing", "Home");
             }
             else
             {

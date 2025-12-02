@@ -7,16 +7,21 @@
 
     <h2 class="login-title">Iniciar Sesión</h2>
 
+    @if (ViewBag.mensaje != "")
+    {
+        <h4 class="view-error">@ViewBag.mensaje</h4>
+    }
+
     <form class="login-form" action="/Account/LoginPost" method="post">
 
         <div class="input-group">
             <label class="input-label">Usuario</label>
-            <input type="text" class="input-field" name="Username" required />
+            <input type="text" class="input-field" name="Username" required autocomplete="off"/>
         </div>
 
         <div class="input-group">
             <label class="input-label">Contraseña</label>
-            <input type="password" class="input-field" name="Contraseña" required />
+            <input type="password" class="input-field" name="Contraseña" required autocomplete="off"/>
         </div>
 
         <button type="submit" class="btn-login">Ingresar</button>
