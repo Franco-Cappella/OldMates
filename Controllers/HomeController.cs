@@ -22,7 +22,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearEventoRecibir(string titulo, TimeSpan duracion, string descripcion, string intereses, int capacidad, DateTime fecha, string localidad, IFormFile archivo)
+        public IActionResult CrearEventoRecibir(string titulo, TimeSpan duracion, string descripcion, string intereses, int capacidad, DateTime fecha, string localidad, IFormFile imagen)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
@@ -37,23 +37,27 @@ namespace OldMates.Controllers
                 return View("CrearEvento");
             }
 
-            string nombreAchivo = "default-evento.png";
-            string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
-            string rutaCompleta = Path.Combine(carpeta, nombreAchivo);
-            if (archivo != null && archivo.Length > 0)
+            string nombreArchivo = "default-evento.png";
+            string rutaRelativa = "/img/" + nombreArchivo;
+            
+            if (imagen != null && imagen.Length > 0)
             {
-                nombreAchivo = Path.GetFileName(archivo.FileName);
-                rutaCompleta = Path.Combine(carpeta, nombreAchivo);
+                nombreArchivo = Path.GetFileName(imagen.FileName);
+                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+                
                 using (var stream = new FileStream(rutaCompleta, FileMode.Create))
                 {
-                    archivo.CopyTo(stream);
-                }                
+                    imagen.CopyTo(stream);
+                }
+                
+                rutaRelativa = "/img/" + nombreArchivo;
             }
             
             Usuario Creador = ObtenerIntegranteDesdeSession();
             int IDCreador = Creador.ID;
 
-            Evento nuevoEvento = new Evento(IDCreador, titulo, descripcion, duracion, localidad, capacidad, fecha, intereses, rutaCompleta);
+            Evento nuevoEvento = new Evento(IDCreador, titulo, descripcion, duracion, localidad, capacidad, fecha, intereses, rutaRelativa);
 
             bool eventoCreado = BD.CrearEvento(nuevoEvento);
 
@@ -322,7 +326,7 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index", "Account");
             }
             ViewBag.Usuario = usuario;
-            return View("Perfil", "Home");
+            return View();
         }
 
         public IActionResult PerfilMenu()
@@ -334,7 +338,7 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index", "Account");
             }
             ViewBag.Usuario = usuario;
-            return View("PerfilMenu", "Home");
+            return View();
         }
 
         public IActionResult Notificaciones()
@@ -363,7 +367,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarPerfilRecibir(Usuario usuarioActualizado)
+        public IActionResult EditarPerfilRecibir(Usuario usuarioActualizado, IFormFile fotoArchivo)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
@@ -372,9 +376,24 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            if (string.IsNullOrWhiteSpace(usuarioActualizado.Foto))
+            // Manejar la foto subida
+            if (fotoArchivo != null && fotoArchivo.Length > 0)
             {
-                usuarioActualizado.Foto = usuario.Foto ?? "usuario_default.png";
+                string nombreArchivo = Path.GetFileName(fotoArchivo.FileName);
+                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+                
+                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    fotoArchivo.CopyTo(stream);
+                }
+                
+                usuarioActualizado.Foto = "/img/" + nombreArchivo;
+            }
+            else
+            {
+                // Si no se subió foto, mantener la foto actual
+                usuarioActualizado.Foto = usuario.Foto ?? "/img/usuario_default.png";
             }
 
             usuarioActualizado.ID = usuario.ID;

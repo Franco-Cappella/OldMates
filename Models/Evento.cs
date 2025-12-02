@@ -41,6 +41,11 @@ namespace OldMates.Models
         [JsonProperty]
         public bool Eliminada { get; set; }
         
+        // Constructor sin parámetros requerido por Dapper
+        public Evento()
+        {
+        }
+        
         public Evento (int IDCreador, string titulo, string descripcion, TimeSpan duracion, string localidad, int capacidad, DateTime fecha, string intereses, string foto)
         {
             this.IDCreador = IDCreador;

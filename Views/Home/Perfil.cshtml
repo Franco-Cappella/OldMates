@@ -4,73 +4,76 @@
     ViewData["Title"] = "Perfil";
 }
 
-<div class="perfil-container">
-    <h2 class="title">Mi Perfil</h2>
+<div class="perfil-view-container">
+    <h2 class="perfil-view-title">Mi Perfil</h2>
 
     @if (usuario != null)
     {
-        <div class="perfil-card">
+        <div class="perfil-view-card">
+            
             <!-- Header con foto y nombre -->
-            <div class="perfil-header">
-                <div class="perfil-foto-container">
-                    <img src="~/img/@(usuario.Foto ?? "usuario_default.png")" alt="Foto de perfil" class="perfil-foto">
+            <div class="perfil-view-header">
+                <div class="perfil-view-foto-wrapper">
+                    <img src="@(usuario.Foto ?? "/img/usuario_default.png")" alt="Foto de perfil" class="perfil-view-foto">
                 </div>
-                <h3 class="perfil-nombre">@usuario.Nombre @usuario.Apellido</h3>
-                <p class="perfil-username">@@@usuario.Username</p>
+                <div class="perfil-view-header-info">
+                    <h3 class="perfil-view-nombre">@usuario.Nombre @usuario.Apellido</h3>
+                    <p class="perfil-view-username">@@@usuario.Username</p>
+                </div>
             </div>
 
-            <!-- Cuerpo con información -->
-            <div class="perfil-body">
-                <div class="perfil-info-grid">
-                    <div class="perfil-info-item">
-                        <div class="perfil-info-label">Nombre</div>
-                        <div class="perfil-info-value">@usuario.Nombre</div>
-                    </div>
-
-                    <div class="perfil-info-item">
-                        <div class="perfil-info-label">Apellido</div>
-                        <div class="perfil-info-value">@usuario.Apellido</div>
-                    </div>
-
-                    <div class="perfil-info-item">
-                        <div class="perfil-info-label">Usuario</div>
-                        <div class="perfil-info-value">@usuario.Username</div>
-                    </div>
-
-                    <div class="perfil-info-item">
-                        <div class="perfil-info-label">Localidad</div>
-                        <div class="perfil-info-value">@(usuario.Localidad ?? "No especificada")</div>
-                    </div>
-                </div>
-
-                <!-- Sección de intereses -->
-                @if (!string.IsNullOrWhiteSpace(usuario.Intereses))
-                {
-                    <div class="perfil-intereses">
-                        <div class="perfil-intereses-title">Intereses</div>
-                        <div class="perfil-intereses-lista">
-                            @foreach (var interes in usuario.Intereses.Split(','))
-                            {
-                                <span class="perfil-interes-tag">@interes.Trim()</span>
-                            }
+            <!-- Información personal -->
+            <div class="perfil-view-section">
+                <h4 class="perfil-view-section-title">Información Personal</h4>
+                <div class="perfil-view-info-grid">
+                    
+                    <div class="perfil-view-info-item">
+                        <div>
+                            <div class="perfil-view-info-label">Nombre Completo</div>
+                            <div class="perfil-view-info-value">@usuario.Nombre @usuario.Apellido</div>
                         </div>
                     </div>
-                }
 
-                <!-- Botones de acción -->
-                <div class="perfil-actions">
-                    <a href="@Url.Action("EditarPerfil", "Home")" class="perfil-btn perfil-btn-primary">
-                        ✏️ Editar Perfil
-                    </a>
-                    <a href="@Url.Action("MisActividades", "Home")" class="perfil-btn perfil-btn-secondary">
-                        📅 Mis Actividades
-                    </a>
+                    <div class="perfil-view-info-item">
+                        <div>
+                            <div class="perfil-view-info-label">Ubicación</div>
+                            <div class="perfil-view-info-value">@usuario.Localidad</div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Intereses -->
+            @if (!string.IsNullOrWhiteSpace(usuario.Intereses))
+            {
+                <div class="perfil-view-section">
+                    <h4 class="perfil-view-section-title">Mis Intereses</h4>
+                    <div class="perfil-view-intereses">
+                        @foreach (var interes in usuario.Intereses.Split(','))
+                        {
+                            <span class="perfil-view-interes-tag">@interes.Trim()</span>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Botones de acción -->
+            <div class="perfil-view-actions">
+                <a href="@Url.Action("EditarPerfil", "Home")" class="perfil-view-btn perfil-view-btn-primary">
+                    Editar Perfil
+                </a>
+                <a href="@Url.Action("MisActividades", "Home")" class="perfil-view-btn perfil-view-btn-secondary">
+                    Mis Actividades
+                </a>
+                <a href="@Url.Action("Actividades", "Home")" class="perfil-view-btn perfil-view-btn-info">
+                    Explorar Actividades
+                </a>
+            </div>
+
         </div>
     }
     else
     {
-        <p class="perfil-empty-message">No se encontró información del usuario.</p>
+        <p class="perfil-view-empty">No se encontró información del usuario.</p>
     }
 </div>

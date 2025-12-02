@@ -1,34 +1,12 @@
 @using OldMates.Models
 @{
     List<Evento> Eventos = ViewBag.Eventos;
-
-    int? IDUsuario = ViewBag.IDUsuario != null ? (int)ViewBag.IDUsuario : null;
-
-    List<int> EventosInscripto = ViewBag.EventosInscripto != null
-        ? (List<int>)ViewBag.EventosInscripto
-        : new List<int>();
+    int? IDUsuario = ViewBag.IDUsuario as int?;
+    List<int> EventosInscripto = ViewBag.EventosInscripto ?? new List<int>();
 }
 
-<div class="container mt-4">
-
-    <!-- ========================== -->
-    <!--   BOTÓN CREAR ACTIVIDAD    -->
-    <!-- ========================== -->
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Actividades</h2>
-
-        <a class="btn btn-primary" href="@Url.Action("CrearEvento", "Home")">
-            Crear nueva actividad
-        </a>
-    </div>
-
-
-
-
-    <!-- ========================== -->
-    <!--       LISTA ACTIVIDADES    -->
-    <!-- ========================== -->
+<div class="carrusel-actividades">
+    <h2 class="title text-center mb-4">Actividades</h2>
 
     @if (Eventos != null && Eventos.Count > 0)
     {
@@ -39,24 +17,40 @@
                     bool estaInscripto = EventosInscripto.Contains(evento.ID);
 
                     <div class="swiper-slide">
-                        <img src="~/img/@evento.Foto" alt="@evento.Titulo">
-                        <div class="swiper-caption">
-                            <h5>@evento.Titulo</h5>
-                            <p>@evento.Descripcion</p>
-                            <p><small><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy") | <strong>Localidad:</strong> @evento.Localidad</small></p>
-                            <div class="mt-3">
-                                @if (evento.IDCreador == IDUsuario)
-                                {
-                                    <a class="btn btn-warning btn-sm" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
-                                    <a class="btn btn-danger btn-sm" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
-                                }
-                                else
-                                {
-                                    <a class="btn btn-secondary btn-sm" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">
-                                        @(estaInscripto ? "Desinscribirse" : "Inscribirse")
-                                    </a>
-                                }
-                                <a class="btn btn-info btn-sm" href="@Url.Action("ActividadUnica", "Home", new { IDEvento = evento.ID })">Ver más</a>
+                        <div class="card-actividad">
+                            <div class="card-actividad-img">
+                                <img src="~/img/@evento.Foto" alt="@evento.Titulo">
+                            </div>
+                            <div class="card-actividad-body">
+                                <div>
+                                    <h5>@evento.Titulo</h5>
+                                    <p>@evento.Descripcion</p>
+                                    <div class="card-actividad-info">
+                                        <span><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy")</span>
+                                        <span><strong>Localidad:</strong> @evento.Localidad</span>
+                                        <span><strong>Capacidad:</strong> @evento.Capacidad</span>
+                                        <span><strong>Intereses:</strong> @evento.Intereses</span>
+                                    </div>
+                                </div>
+                                <div class="card-actividad-actions">
+                                    @if (evento.IDCreador == IDUsuario)
+                                    {
+                                        <a class="btn btn-warning" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+                                        <a class="btn btn-danger" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                                    }
+                                    else
+                                    {
+                                        @if (estaInscripto)
+                                        {
+                                            <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-primary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Inscribirse</a>
+                                        }
+                                    }
+                                    <a class="btn btn-info" href="@Url.Action("ActividadUnica", "Home", new { IDEvento = evento.ID })">Ver más</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,28 +60,45 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-pagination"></div>
         </div>
-
-        <script>
-            var swiperActividades = new Swiper(".actividadesSwiper", {
-                loop: true,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-            });
-        </script>
     }
     else
     {
-        <p>No hay actividades disponibles.</p>
+        <p class="empty-message text-center">No hay actividades disponibles.</p>
     }
-
 </div>
+
+@if (Eventos != null && Eventos.Count > 0)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (typeof Swiper === 'undefined') {
+                    console.error('Swiper.js no está cargado');
+                    return;
+                }
+                
+                var swiper = new Swiper(".actividadesSwiper", {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: false,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                        dynamicBullets: true,
+                    },
+                    speed: 500,
+                });
+                
+                if (!swiper) {
+                    console.error('Error al inicializar Swiper de actividades');
+                }
+            } catch (error) {
+                console.error('Error en carrusel de actividades:', error);
+            }
+        });
+    </script>
+}

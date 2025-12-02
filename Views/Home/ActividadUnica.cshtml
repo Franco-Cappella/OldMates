@@ -3,75 +3,102 @@
     ViewData["Title"] = "Actividad Unica";
 
     List<Evento> Eventos = ViewBag.Eventos;
-    List<Anotados> Anotados = ViewBag.Anotados;
     List<int> EventosInscripto = ViewBag.EventosInscripto ?? new List<int>();
-    int IDusuario = ViewBag.IDUsuario;
-    bool inscripto = EventosInscripto.Contains(Eventos?[0].ID ?? 0);
-
     int IDUsuario = ViewBag.IDUsuario;
+    
     Evento evento = null;
+    bool inscripto = false;
 
     if (Eventos != null && Eventos.Count > 0)
+    {
         evento = Eventos[0];
+        inscripto = EventosInscripto.Contains(evento.ID);
+    }
 }
 
 @if (evento != null)
 {
-    <section class="task-list">
-        <header class="task-list-header">
-            <p></p>
-            <p>Título</p>
-            <p>Descripción</p>
-            <p>Fecha</p>
-            <p>Finalizada</p>
-            <p>Localidad</p>
-            <p>Capacidad libre</p>
-            <p>Intereses</p>
-            <p>Acciones</p>
-        </header>
 
-        <section>
-            <img src="@evento.Foto" style="max-width: 100px; max-height: 100px;" />
-            <p>@evento.Titulo</p>
-            <p>@evento.Descripcion</p>
-            <p>@evento.Fecha.ToString("dd/MM/yyyy")</p>
-            <p>@(evento.Eliminada ? "Sí" : "No")</p>
-            <p>@evento.Localidad</p>
+    <div class="actividad-unica-container">
+        
+        <div class="actividad-unica-header">
+            <h1 class="actividad-unica-titulo">@evento.Titulo</h1>
+        </div>
 
-            @{
-                int anotadosEvento = 0;
-                if (Anotados != null)
-                    anotadosEvento = Anotados.Count(a => a.IDEvento == evento.ID);
+        <img src="@evento.Foto" alt="@evento.Titulo" class="actividad-unica-imagen" />
+
+        <div class="actividad-unica-info">
+            <div class="info-item">
+                <span class="info-label">Fecha</span>
+                <span class="info-value">@evento.Fecha.ToString("dd/MM/yyyy HH:mm")</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Localidad</span>
+                <span class="info-value">@evento.Localidad</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Duración</span>
+                <span class="info-value">@evento.Duracion</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Capacidad</span>
+                <span class="info-value">@evento.Capacidad personas</span>
+            </div>
+
+            <div class="info-item">
+                <span class="info-label">Intereses</span>
+                <span class="info-value">@evento.Intereses</span>
+            </div>
+
+            @if (evento.Eliminada)
+            {
+                <div class="info-item" style="border-left-color: #dc3545;">
+                    <span class="info-label">Estado</span>
+                    <span class="info-value" style="color: #dc3545;">Evento Cancelado</span>
+                </div>
             }
-            <p>@(evento.Capacidad - anotadosEvento)</p>
+        </div>
 
-            <p>@evento.Intereses</p>
+        <div class="actividad-unica-descripcion">
+            <h3>Descripción</h3>
+            <p>@evento.Descripcion</p>
+        </div>
 
+        <div class="actividad-unica-acciones">
             @if (evento.IDCreador == IDUsuario)
             {
-                <p>
-                    <a class="btn btn-secondary" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
-                    <a class="btn btn-danger" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
-                </p>
+                <a class="btn btn-warning" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">
+                    Editar Evento
+                </a>
+                <a class="btn btn-danger" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })" 
+                   onclick="return confirm('¿Estás seguro de eliminar este evento?');">
+                    Eliminar Evento
+                </a>
             }
             else
             {
-                <p>
-                    @if (inscripto)
-                    {
-                        <a class="btn btn-primary" href="@Url.Action("DesInscribirse", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">DesInscribirse</a>
-                    }
-                    else
-                    {
-                        <a class="btn btn-primary" href="@Url.Action("DesInscribirse", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">Inscribirse</a>
-                    }
-                </p>
+                @if (inscripto)
+                {
+                    <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">
+                        Desinscribirse
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-primary" href="@Url.Action("DesInscribirse", "Home", new { IDUsuario = IDUsuario, IDEvento = evento.ID })">
+                        Inscribirse
+                    </a>
+                }
             }
-        </section>
-    </section>
+        </div>
+
+    </div>
 }
 else
 {
-    <p class="empty-message">No tienes eventos registrados.</p>
+    <p class="empty-message">No se encontró el evento solicitado.</p>
 }
 

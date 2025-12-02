@@ -1,40 +1,65 @@
+@using OldMates.Models
 @{
-    ViewData["Title"] = "PerfilMenu";
+    ViewData["Title"] = "Menú de Perfil";
+    Usuario usuario = ViewBag.Usuario as Usuario;
 }
-<div class="row menu-lateral">
-    <div class="col-sm-6 mb-3">
-        <div class="card menu-card">
-            <div class="card-body">
-                <h5 class="card-title">Mi Perfil</h5>
-                <a href='@Url.Action("Perfil", "Home")' class="btn menu-btn">▶️</a>
+
+<div class="perfil-view-container">
+    
+    <!-- Header del perfil -->
+    <div class="perfil-view-card">
+        <div class="perfil-view-header">
+            <div class="perfil-view-foto-wrapper">
+                <img src="@(usuario?.Foto ?? "/img/usuario_default.png")" alt="Foto de perfil" class="perfil-view-foto">
+            </div>
+            <div class="perfil-view-header-info">
+                <h2 class="perfil-view-nombre">@(usuario?.Nombre ?? "Usuario") @(usuario?.Apellido ?? "")</h2>
+                <p class="perfil-view-username">@@@(usuario?.Username ?? "")</p>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-6 mb-3">
-        <div class="card menu-card">
-            <div class="card-body">
-                <h5 class="card-title">Editar Perfil</h5>
-                <a href='@Url.Action("EditarPerfil", "Home")' class="btn menu-btn">▶️</a>
-            </div>
-        </div>
+    <!-- Título del menú -->
+    <h2 class="perfil-view-title" style="margin-top: 30px;">Opciones de Perfil</h2>
+
+    <!-- Opciones del menú -->
+    <div class="menu-perfil-grid">
+        
+        <a href='@Url.Action("Perfil", "Home")' class="menu-perfil-card">
+            <h5 class="menu-perfil-titulo">Mi Perfil</h5>
+            <p class="menu-perfil-descripcion">Ver información personal</p>
+        </a>
+
+        <a href='@Url.Action("EditarPerfil", "Home")' class="menu-perfil-card">
+            <h5 class="menu-perfil-titulo">Editar Perfil</h5>
+            <p class="menu-perfil-descripcion">Actualizar datos personales</p>
+        </a>
+
+        <a href='@Url.Action("MisActividades", "Home")' class="menu-perfil-card">
+            <h5 class="menu-perfil-titulo">Mis Actividades</h5>
+            <p class="menu-perfil-descripcion">Ver eventos inscritos</p>
+        </a>
+
+        <a href='@Url.Action("Actividades", "Home")' class="menu-perfil-card">
+            <h5 class="menu-perfil-titulo">Explorar</h5>
+            <p class="menu-perfil-descripcion">Buscar nuevas actividades</p>
+        </a>
+
+        <a href='@Url.Action("ListaDeAmigos", "Home")' class="menu-perfil-card">
+            <h5 class="menu-perfil-titulo">Amigos</h5>
+            <p class="menu-perfil-descripcion">Gestionar contactos</p>
+        </a>
+
+        <a href='@Url.Action("Tutoriales", "Home")' class="menu-perfil-card">
+            <h5 class="menu-perfil-titulo">Tutoriales</h5>
+            <p class="menu-perfil-descripcion">Aprende a usar la plataforma</p>
+        </a>
+
+        <a href='@Url.Action("CerrarSesion", "Home")' class="menu-perfil-card menu-perfil-card-danger" onclick="return confirm('¿Estás seguro de cerrar sesión?');">
+            <h5 class="menu-perfil-titulo">Cerrar Sesión</h5>
+            <p class="menu-perfil-descripcion">Salir de la cuenta</p>
+        </a>
+
     </div>
 
-    <div class="col-sm-6 mb-3">
-        <div class="card menu-card">
-            <div class="card-body">
-                <h5 class="card-title">Lista de Amigos</h5>
-                <a href='@Url.Action("ListaDeAmigos", "Home")' class="btn menu-btn">▶️</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-6 mb-3">
-        <div class="card menu-card">
-            <div class="card-body">
-                <h5 class="card-title">Cerrar Sesión</h5>
-                <a href='@Url.Action("CerrarSesion", "Home")' class="btn menu-btn">▶️</a>
-            </div>
-        </div>
-    </div>
 </div>

@@ -1,33 +1,88 @@
+@using OldMates.Models
 @{
-    ViewData["Title"] = "EditarPerfil";
+    ViewData["Title"] = "Editar Perfil";
+    Usuario usuario = ViewBag.Usuario as Usuario;
 }
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<body>
- 
-  <main class="perfil-main">
 
-    <p class="perfil-titulo">Perfil</p>
+<div class="perfil-view-container">
+    <h2 class="perfil-view-title">Editar Perfil</h2>
 
-    <div class="perfil-foto">
-        <img src="tuimagen.jpg" alt="Foto de perfil">
-    </div>
+    <form action="@Url.Action("EditarPerfilRecibir", "Home")" method="post" enctype="multipart/form-data">
+        
+        <div class="perfil-view-card">
+            
+            <!-- Header con foto -->
+            <div class="perfil-view-header">
+                <div class="perfil-view-foto-wrapper">
+                    <img src="@(usuario?.Foto ?? "/img/usuario_default.png")" alt="Foto de perfil" id="preview-foto" class="perfil-view-foto">
+                    <label for="foto-input" class="perfil-view-cambiar-foto">
+                        Cambiar Foto
+                    </label>
+                    <input type="file" id="foto-input" name="FotoArchivo" accept="image/*" hidden>
+                </div>
+                <div class="perfil-view-header-info">
+                    <h3 class="perfil-view-nombre">Actualiza tu información</h3>
+                    <p class="perfil-view-username">Completa los campos para actualizar tu perfil</p>
+                </div>
+            </div>
 
-    <section class="perfil-seccion datos-personales">
-        <h2>Datos personales</h2>
-        <input type="text" placeholder="Nombre:________________________">   
-        <input type="text" placeholder="Apellido:________________________">      
-        <input type="text" placeholder="Edad:________________________">      
-        <input type="text" placeholder="Ubicación:________________________">       
-        <input type="text" placeholder="Email:________________________">
-    </section>
+            <!-- Información personal -->
+            <div class="perfil-view-section">
+                <h4 class="perfil-view-section-title">Datos Personales</h4>
+                <div class="perfil-edit-form-grid">
+                    
+                    <div class="perfil-edit-form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="Nombre" placeholder="Nombre" value="@usuario?.Nombre" required>
+                    </div>
 
-    <section class="perfil-seccion descripcion">
-        <h2>Sobre mí</h2>
-        <p>Escribí una breve descripción sobre vos...</p>
-    </section>
+                    <div class="perfil-edit-form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="Apellido" placeholder="Apellido" value="@usuario?.Apellido" required>
+                    </div>
 
-</body>
-</html>
+                    <div class="perfil-edit-form-group perfil-edit-form-group-full">
+                        <label for="localidad">Localidad</label>
+                        <input type="text" id="localidad" name="Localidad" placeholder="Ciudad, País" value="@usuario?.Localidad">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Intereses -->
+            <div class="perfil-view-section">
+                <h4 class="perfil-view-section-title">Intereses</h4>
+                <div class="perfil-edit-form-group">
+                    <input type="text" name="Intereses" placeholder="Ej: Lectura, Cocina, Jardinería (separados por comas)" value="@usuario?.Intereses">
+                    <small class="perfil-edit-help-text">Separa tus intereses con comas</small>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="perfil-view-actions">
+                <button type="submit" class="perfil-view-btn perfil-view-btn-primary">
+                    Guardar Cambios
+                </button>
+                <a href="@Url.Action("Perfil", "Home")" class="perfil-view-btn perfil-view-btn-secondary">
+                    Cancelar
+                </a>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+<script>
+    // Previsualizar la foto antes de guardar
+    document.getElementById('foto-input').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('preview-foto').src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
