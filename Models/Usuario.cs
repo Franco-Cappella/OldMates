@@ -35,7 +35,6 @@ namespace OldMates.Models
         [JsonProperty]
         public string Foto { get; set; }
 
-
         public Usuario()
         {
 

@@ -32,33 +32,58 @@
 
     @if (Eventos != null && Eventos.Count > 0)
     {
-        foreach (var evento in Eventos)
-        {
-            bool estaInscripto = EventosInscripto.Contains(evento.ID);
+        <div class="swiper actividadesSwiper">
+            <div class="swiper-wrapper">
+                @foreach (var evento in Eventos)
+                {
+                    bool estaInscripto = EventosInscripto.Contains(evento.ID);
 
-            <div class="card p-3 mb-3">
-                <p><strong>Título:</strong> @evento.Titulo</p>
-                <p><strong>Descripción:</strong> @evento.Descripcion</p>
-                <p><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy")</p>
-                <p><strong>Localidad:</strong> @evento.Localidad</p>
-
-                <div>
-                    @if (evento.IDCreador == IDUsuario)
-                    {
-                        <a class="btn btn-warning btn-sm" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
-                        <a class="btn btn-danger btn-sm" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
-                    }
-                    else
-                    {
-                        <a class="btn btn-secondary btn-sm" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">
-                            @(estaInscripto ? "Desinscribirse" : "Inscribirse")
-                        </a>
-                    }
-
-                    <a class="btn btn-info btn-sm" href="@Url.Action("ActividadUnica", "Home", new { IDEvento = evento.ID })">Ver más</a>
-                </div>
+                    <div class="swiper-slide">
+                        <img src="~/img/@evento.Foto" alt="@evento.Titulo">
+                        <div class="swiper-caption">
+                            <h5>@evento.Titulo</h5>
+                            <p>@evento.Descripcion</p>
+                            <p><small><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy") | <strong>Localidad:</strong> @evento.Localidad</small></p>
+                            <div class="mt-3">
+                                @if (evento.IDCreador == IDUsuario)
+                                {
+                                    <a class="btn btn-warning btn-sm" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+                                    <a class="btn btn-danger btn-sm" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-secondary btn-sm" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">
+                                        @(estaInscripto ? "Desinscribirse" : "Inscribirse")
+                                    </a>
+                                }
+                                <a class="btn btn-info btn-sm" href="@Url.Action("ActividadUnica", "Home", new { IDEvento = evento.ID })">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-        }
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <script>
+            var swiperActividades = new Swiper(".actividadesSwiper", {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+            });
+        </script>
     }
     else
     {

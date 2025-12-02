@@ -5,47 +5,43 @@
     int? IDUsuario = ViewBag.IDUsuario as int?;
 }
 
-<div class="container mt-4">
-    <h2 class="title">Mis Actividades</h2>
+<div class="carrusel-actividades">
+    <h2 class="title text-center mb-4">Mis Actividades</h2>
 
     @if (Eventos != null && Eventos.Count > 0)
     {
-        <div id="carouselActividades" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                @for (int i = 0; i < Eventos.Count; i++)
+        <div class="swiper actividadesSwiper">
+            <div class="swiper-wrapper">
+                @foreach (var evento in Eventos)
                 {
-                    var evento = Eventos[i];
                     int inscriptosEvento = Anotados.Count(a => a.IDEvento == evento.ID);
                     int capacidadLibre = evento.Capacidad - inscriptosEvento;
 
-                    <div class="carousel-item @((i == 0) ? "active" : "")">
-                        <div class="crsl-card-wz1">
-                            <img src="@evento.Foto" class="crsl-img-wz1" alt="Foto del evento">
-
-                            <div class="crsl-body-wz1">
-                                <h5 class="crsl-title-wz1">@evento.Titulo</h5>
-                                <p class="crsl-desc-wz1">@evento.Descripcion</p>
-
-                                <p><strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy")</p>
-                                <p><strong>Localidad:</strong> @evento.Localidad</p>
-                                <p><strong>Capacidad libre:</strong> @capacidadLibre</p>
-                                <p><strong>Intereses:</strong> @evento.Intereses</p>
-
-                                <div class="mt-2">
+                    <div class="swiper-slide">
+                        <div class="card-actividad">
+                            <div class="card-actividad-img">
+                                <img src="~/img/@evento.Foto" alt="@evento.Titulo">
+                            </div>
+                            <div class="card-actividad-body">
+                                <div>
+                                    <h5>@evento.Titulo</h5>
+                                    <p>@evento.Descripcion</p>
+                                    <div class="card-actividad-info">
+                                        <span>📅 <strong>Fecha:</strong> @evento.Fecha.ToString("dd/MM/yyyy")</span>
+                                        <span>📍 <strong>Localidad:</strong> @evento.Localidad</span>
+                                        <span>👥 <strong>Capacidad libre:</strong> @capacidadLibre</span>
+                                        <span>🎯 <strong>Intereses:</strong> @evento.Intereses</span>
+                                    </div>
+                                </div>
+                                <div class="card-actividad-actions">
                                     @if (evento.IDCreador == IDUsuario)
                                     {
-                                        <a class="btn btn-secondary btn-sm me-2"
-                                           href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
-
-                                        <a class="btn btn-danger btn-sm"
-                                           href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
+                                        <a class="btn btn-warning" href="@Url.Action("ModificarEvento", "Home", new { IDEvento = evento.ID })">Editar</a>
+                                        <a class="btn btn-danger" href="@Url.Action("BorrarEvento", "Home", new { IDEvento = evento.ID })">Eliminar</a>
                                     }
                                     else
                                     {
-                                        <a class="btn btn-warning btn-sm"
-                                           href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">
-                                            Desinscribirse
-                                        </a>
+                                        <a class="btn btn-secondary" href="@Url.Action("DesInscribirse", "Home", new { IDEvento = evento.ID })">Desinscribirse</a>
                                     }
                                 </div>
                             </div>
@@ -53,19 +49,50 @@
                     </div>
                 }
             </div>
-
-            <!-- Flechas de navegación -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselActividades" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselActividades" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
         </div>
     }
     else
     {
-        <p class="empty-message">No tienes eventos registrados.</p>
+        <p class="empty-message text-center">No tienes eventos registrados.</p>
     }
 </div>
+
+
+@if (Eventos != null && Eventos.Count > 0)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (typeof Swiper === 'undefined') {
+                    console.error('Swiper.js no está cargado');
+                    return;
+                }
+                
+                var swiper = new Swiper(".actividadesSwiper", {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: false,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                        dynamicBullets: true,
+                    },
+                    speed: 500,
+                });
+                
+                if (!swiper) {
+                    console.error('Error al inicializar Swiper de actividades');
+                }
+            } catch (error) {
+                console.error('Error en carrusel de actividades:', error);
+            }
+        });
+    </script>
+}

@@ -4,45 +4,73 @@
     ViewData["Title"] = "Perfil";
 }
 
-<div class="container mt-4">
+<div class="perfil-container">
     <h2 class="title">Mi Perfil</h2>
 
     @if (usuario != null)
     {
-        <section class="task-list">
-            <header class="task-list-header">
-                <p>Campo</p>
-                <p>Valor</p>
-            </header>
+        <div class="perfil-card">
+            <!-- Header con foto y nombre -->
+            <div class="perfil-header">
+                <div class="perfil-foto-container">
+                    <img src="~/img/@(usuario.Foto ?? "usuario_default.png")" alt="Foto de perfil" class="perfil-foto">
+                </div>
+                <h3 class="perfil-nombre">@usuario.Nombre @usuario.Apellido</h3>
+                <p class="perfil-username">@@@usuario.Username</p>
+            </div>
 
-            <section>
-                <p>Nombre</p>
-                <p>@usuario.Nombre</p>
-            </section>
+            <!-- Cuerpo con información -->
+            <div class="perfil-body">
+                <div class="perfil-info-grid">
+                    <div class="perfil-info-item">
+                        <div class="perfil-info-label">Nombre</div>
+                        <div class="perfil-info-value">@usuario.Nombre</div>
+                    </div>
 
-            <section>
-                <p>Apellido</p>
-                <p>@usuario.Apellido</p>
-            </section>
+                    <div class="perfil-info-item">
+                        <div class="perfil-info-label">Apellido</div>
+                        <div class="perfil-info-value">@usuario.Apellido</div>
+                    </div>
 
-            <section>
-                <p>Username</p>
-                <p>@usuario.Username</p>
-            </section>
+                    <div class="perfil-info-item">
+                        <div class="perfil-info-label">Usuario</div>
+                        <div class="perfil-info-value">@usuario.Username</div>
+                    </div>
 
-            <section>
-                <p>Zona</p>
-                <p>@usuario.Localidad</p>
-            </section>
+                    <div class="perfil-info-item">
+                        <div class="perfil-info-label">Localidad</div>
+                        <div class="perfil-info-value">@(usuario.Localidad ?? "No especificada")</div>
+                    </div>
+                </div>
 
-            <section>
-                <p>Intereses</p>
-                <p>@usuario.Intereses</p>
-            </section>
-        </section>
+                <!-- Sección de intereses -->
+                @if (!string.IsNullOrWhiteSpace(usuario.Intereses))
+                {
+                    <div class="perfil-intereses">
+                        <div class="perfil-intereses-title">Intereses</div>
+                        <div class="perfil-intereses-lista">
+                            @foreach (var interes in usuario.Intereses.Split(','))
+                            {
+                                <span class="perfil-interes-tag">@interes.Trim()</span>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!-- Botones de acción -->
+                <div class="perfil-actions">
+                    <a href="@Url.Action("EditarPerfil", "Home")" class="perfil-btn perfil-btn-primary">
+                        ✏️ Editar Perfil
+                    </a>
+                    <a href="@Url.Action("MisActividades", "Home")" class="perfil-btn perfil-btn-secondary">
+                        📅 Mis Actividades
+                    </a>
+                </div>
+            </div>
+        </div>
     }
     else
     {
-        <p class="empty-message">No se encontró información del usuario.</p>
+        <p class="perfil-empty-message">No se encontró información del usuario.</p>
     }
 </div>
