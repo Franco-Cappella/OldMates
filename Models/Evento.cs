@@ -40,6 +40,20 @@ namespace OldMates.Models
 
         [JsonProperty]
         public bool Eliminada { get; set; }
-
+        
+        public Evento (int IDCreador, string titulo, string descripcion, TimeSpan duracion, string localidad, int capacidad, DateTime fecha, string intereses, string foto)
+        {
+            this.IDCreador = IDCreador;
+            this.Titulo = titulo;
+            this.Descripcion = descripcion;
+            this.Duracion = duracion;
+            this.Localidad = localidad;
+            this.Capacidad = capacidad;
+            this.Intereses = intereses;
+            this.Fecha = fecha;
+            this.Foto = foto;
+            this.DesInscribirse = true;
+            this.Eliminada = false;
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearEventoRecibir(Evento nuevoEvento)
+        public IActionResult CrearEventoRecibir(string titulo, TimeSpan duracion, string descripcion, string intereses, int capacidad, DateTime fecha, string localidad, IFormFile archivo)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
@@ -31,56 +31,29 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo))
-            {
-                ViewBag.Error = "El título es obligatorio.";
-                return View("CrearEvento", nuevoEvento);
-            }
-
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
-            {
-                ViewBag.Error = "La descripción es obligatoria.";
-                return View("CrearEvento", nuevoEvento);
-            }
-
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Localidad))
-            {
-                ViewBag.Error = "La localidad es obligatoria.";
-                return View("CrearEvento", nuevoEvento);
-            }
-
-            if (nuevoEvento.Capacidad <= 0) ViewBag.Error = "No estas logueado";
-
-            string nombreArchivo = "default-evento.png";
-            string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
-            string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
-            if (archivo != null && archivo.Length > 0)
-            {
-                ViewBag.Error = "La capacidad debe ser mayor a 0.";
-                return View("CrearEvento", nuevoEvento);
-            }
-
-            if (nuevoEvento.Fecha < DateTime.Now)
+            if (fecha < DateTime.Now)
             {
                 ViewBag.Error = "La fecha del evento no puede ser en el pasado.";
-                return View("CrearEvento", nuevoEvento);
+                return View("CrearEvento");
             }
 
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Foto))
+            string nombreAchivo = "default-evento.png";
+            string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+            string rutaCompleta = Path.Combine(carpeta, nombreAchivo);
+            if (archivo != null && archivo.Length > 0)
             {
-                nuevoEvento.Foto = "evento_default.png";
-            }
-
-            nuevoEvento.IDCreador = usuario.ID;
-                nombreArchivo = Path.GetFileName(archivo.FileName);
-                rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+                nombreAchivo = Path.GetFileName(archivo.FileName);
+                rutaCompleta = Path.Combine(carpeta, nombreAchivo);
                 using (var stream = new FileStream(rutaCompleta, FileMode.Create))
                 {
                     archivo.CopyTo(stream);
-                }
-
+                }                
+            }
+            
             Usuario Creador = ObtenerIntegranteDesdeSession();
-            nuevoEvento.IDCreador = Creador.ID;
+            int IDCreador = Creador.ID;
+
+            Evento nuevoEvento = new Evento(IDCreador, titulo, descripcion, duracion, localidad, capacidad, fecha, intereses, rutaCompleta);
 
             bool eventoCreado = BD.CrearEvento(nuevoEvento);
 
@@ -92,7 +65,7 @@ namespace OldMates.Controllers
             else
             {
                 ViewBag.Error = "Ya existe un evento con ese título o la fecha es inválida.";
-                return View("CrearEvento", nuevoEvento);
+                return View("CrearEvento");
             }
         }
 
