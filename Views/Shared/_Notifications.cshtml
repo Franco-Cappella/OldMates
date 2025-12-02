@@ -1,0 +1,14 @@
+@* Mensajes de notificación ocultos que serán leídos por JavaScript *@
+
+@if (ViewBag.Error != null)
+{
+    <div id="error-message" style="display: none;">@ViewBag.Error</div>
+}
+
+@if (ViewBag.Success != null)
+{
+    <div id="success-message" style="display: none;">@ViewBag.Success</div>
+}
+
+@* Incluir el script de notificaciones *@
+<script src="~/js/notifications.js"></script>

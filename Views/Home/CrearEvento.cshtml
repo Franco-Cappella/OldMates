@@ -1,6 +1,54 @@
 @{
     ViewData["Title"] = "Crear Evento";
 }
+
+<div class="carrusel-crear">
+    <h2>Inspírate con estas actividades</h2>
+    <div class="swiper crearSwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="ejemplo-card">
+                    <img src="~/img/ManosCreativas.png" alt="Taller de Manualidades">
+                    <div class="ejemplo-info">
+                        <h5>Taller de Manualidades</h5>
+                        <p>Actividad creativa para expresar emociones y desarrollar habilidades artísticas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="ejemplo-card">
+                    <img src="~/img/OrganizacionDelHogar.png" alt="Clase de Yoga">
+                    <div class="ejemplo-info">
+                        <h5>Clase de Yoga</h5>
+                        <p>Ejercicios suaves para mejorar flexibilidad y bienestar mental</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="ejemplo-card">
+                    <img src="~/img/RegistroYUso.png" alt="Club de Lectura">
+                    <div class="ejemplo-info">
+                        <h5>Club de Lectura</h5>
+                        <p>Comparte y discute tus libros favoritos con otros lectores</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="ejemplo-card">
+                    <img src="~/img/ManosCreativas.png" alt="Caminata Grupal">
+                    <div class="ejemplo-info">
+                        <h5>Caminata Grupal</h5>
+                        <p>Actividad física al aire libre para mantenerse activo y socializar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
 <body>
   <main class="crear-actividad-container">
     <h1>Crea una actividad:</h1>
@@ -47,4 +95,54 @@
     </form>
   </main>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            if (typeof Swiper === 'undefined') {
+                console.error('Swiper.js no está cargado');
+                return;
+            }
+            
+            var swiper = new Swiper(".crearSwiper", {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 15
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    }
+                },
+                speed: 600,
+            });
+            
+            if (!swiper) {
+                console.error('Error al inicializar Swiper de crear actividad');
+            }
+        } catch (error) {
+            console.error('Error en carrusel de crear actividad:', error);
+        }
+    });
+</script>
 </html>

@@ -11,36 +11,6 @@ namespace OldMates.Models
         private static string _connectionString = @"Server=localhost;DataBase=OldMates; Integrated Security=True; TrustServerCertificate=True;";
 
 
-        public static List<Evento> ObtenerEventosDeHoy()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = @"
-            SELECT * 
-            FROM Evento 
-            WHERE Eliminada = 0
-            AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE)
-            ORDER BY Fecha ASC";
-
-                return connection.Query<Evento>(query).ToList();
-            }
-        }
-
-        public static List<Evento> ObtenerProximosEventos()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = @"
-            SELECT *
-            FROM Evento
-            WHERE Eliminada = 0
-            AND Fecha > GETDATE()
-            ORDER BY Fecha ASC";
-
-                return connection.Query<Evento>(query).ToList();
-            }
-        }
-
         public static Usuario ObtenerPorUsername(string username)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -49,12 +19,12 @@ namespace OldMates.Models
                 return connection.QueryFirstOrDefault<Usuario>(query, new { Username = username });
             }
         }
-        public static List<int> ObtenerEventosInscripto(int idUsuario)
+        public static List<int> ObtenerEventosInscripto(int IDUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT IDEvento FROM Anotados WHERE IDUsuario = @idUsuario";
-                return connection.Query<int>(query, new { idUsuario }).ToList();
+                string query = "SELECT IDEvento FROM Anotados WHERE IDUsuario = @IDUsuario";
+                return connection.Query<int>(query, new { IDUsuario }).ToList();
             }
         }
 
@@ -250,6 +220,68 @@ namespace OldMates.Models
 
                 return false;
             }
+        }
+        public static List<Evento> ObtenerEventosDeHoy()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"SELECT * FROM Evento WHERE Eliminada = 0 AND CAST(Fecha AS DATE) = CAST(GETDATE() AS DATE) ORDER BY Fecha ASC";
+
+                return connection.Query<Evento>(query).ToList();
+            }
+        }
+
+        public static List<Evento> ObtenerProximosEventos()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"SELECT * FROM Evento WHERE Eliminada = 0 AND Fecha > GETDATE() ORDER BY Fecha ASC";
+
+                return connection.Query<Evento>(query).ToList();
+            }
+        }
+
+        public static bool ActualizarUsuario(Usuario usuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string queryExiste = "SELECT 1 FROM Usuario WHERE ID = @ID";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { ID = usuario.ID });
+
+                if (existe == 1)
+                {
+                    string queryActualizar = @"UPDATE Usuario 
+                                              SET Username = @Username, 
+                                                  Contraseña = @Contraseña, 
+                                                  Localidad = @Localidad, 
+                                                  Intereses = @Intereses, 
+                                                  Nombre = @Nombre, 
+                                                  Apellido = @Apellido, 
+                                                  Foto = @Foto 
+                                              WHERE ID = @ID";
+
+                    connection.Execute(queryActualizar, new 
+                    { 
+                        ID = usuario.ID, 
+                        Username = usuario.Username, 
+                        Contraseña = usuario.Contraseña, 
+                        Localidad = usuario.Localidad, 
+                        Intereses = usuario.Intereses, 
+                        Nombre = usuario.Nombre, 
+                        Apellido = usuario.Apellido, 
+                        Foto = usuario.Foto 
+                    });
+
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public static bool EditarPerfil(Usuario usuario)
+        {
+            return ActualizarUsuario(usuario);
         }
 
     }

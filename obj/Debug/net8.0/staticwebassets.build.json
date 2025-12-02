@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7Y0hKTsjvnPJ3YA21E9K6Crz/eM6dq+CZRRmcG1ylxs=",
+  "Hash": "52q8GnZT+MUIyp5v/Pg8g16UxzZMj/imMS2afUbZZAQ=",
   "Source": "PrimerProyecto",
   "BasePath": "_content/PrimerProyecto",
   "Mode": "Default",
@@ -490,6 +490,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\Tutoriales.png"
+    },
+    {
+      "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\js\\notifications.js",
+      "SourceId": "PrimerProyecto",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\",
+      "BasePath": "_content/PrimerProyecto",
+      "RelativePath": "js/notifications.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\notifications.js"
     },
     {
       "Identity": "C:\\Users\\49004085\\Downloads\\OldMates\\wwwroot\\js\\site.js",

@@ -667,106 +667,7 @@ section h1 {
 
 
 
-/* TUTORIALES */
-
-.carousel-wrapper {
-  min-height: calc(100vh - 180px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 0;
-}
-
-.tutoriales {
-  font-weight: bold;
-  color: #314c66;
-  text-align: center;
-  margin-bottom: 20px;
-  font-family: 'Arial', sans-serif;
-}
-
-.tutoriales-titulo {
-  font-size: 4rem;
-  color: #0A2A43;
-  font-weight: 900;
-  margin-bottom: 30px;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-}
-
-/* Contenedor */
-.carousel {
-  margin-top: 20%;
-  width: 30%;
-  margin: 0 auto;
-  position: relative;
-  overflow: visible !important;
-  border: 6px solid #024873;
-  border-radius: 14px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-}
-
-/* Imágenes */
-.carousel-item img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  position: relative;
-}
-
-/* Degradado */
-.carousel-item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 124, 181, 0) 40%,
-    rgba(0, 124, 181, 0.4) 75%,
-    rgba(2, 31, 89, 0.8) 100%
-  );
-}
-
-/* Texto */
-.carousel-caption {
-  position: absolute;
-  bottom: 20%;
-  z-index: 2;
-}
-
-.carousel-caption h5,
-.carousel-caption p {
-  color: #F2F2F2;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-}
-
-/* Controles */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: rgba(0, 124, 181, 0.6);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-}
-
-.carousel-control-prev-icon:hover,
-.carousel-control-next-icon:hover {
-  background-color: rgba(0,124,181,0.9);
-}
-
-/* Indicadores */
-.carousel-indicators [data-bs-target] {
-  background-color: #007CB5;
-}
-
-.carousel-indicators .active {
-  background-color: #024873;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  z-index: 10;
-}
+/* TUTORIALES - Estilos de carrusel movidos al final del archivo */
 
 
 
@@ -1892,35 +1793,688 @@ footer p:hover {
       flex: 0 0 90%; /* 1 card a la vez en pantallas pequeñas */
   }
 }
-.carousel-infinito {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
+/* Carrusel infinito eliminado - estilos movidos al final */
+
+
+
+
+
+/* ========================================
+   ESTILOS PARA PÁGINA DE PERFIL
+   ======================================== */
+
+/* Contenedor principal del perfil */
+.perfil-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
 }
 
-.carousel-track {
-  display: flex;
-  width: calc(250px * 8); /* ancho aprox. según cantidad de imágenes */
-  animation: scroll 20s linear infinite;
+/* Título de la página */
+.perfil-container .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 15px;
 }
 
-.carousel-track img {
-  width: 250px;         /* ajustá el tamaño según tus imágenes */
-  height: auto;
-  object-fit: cover;
-  margin-right: 20px;   /* espacio entre imágenes */
-  border-radius: 10px;  /* opcional, queda lindo */
+/* Card del perfil */
+.perfil-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
 }
 
-/* Animación */
-@keyframes scroll {
-  0% {
-      transform: translateX(0);
-  }
-  100% {
-      transform: translateX(-50%); /* Se mueve la mitad porque duplicaste las imágenes */
-  }
+/* Header del perfil con foto */
+.perfil-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
 }
 
+.perfil-foto-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.perfil-foto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #ffffff;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-nombre {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 10px 0 5px 0;
+}
+
+.perfil-username {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+/* Cuerpo del perfil con información */
+.perfil-body {
+    padding: 30px;
+}
+
+.perfil-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.perfil-info-item {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #3498db;
+    transition: all 0.3s ease;
+}
+
+.perfil-info-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left-color: #667eea;
+}
+
+.perfil-info-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.perfil-info-value {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+/* Sección de intereses */
+.perfil-intereses {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.perfil-intereses-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.perfil-intereses-title::before {
+    content: "🎯";
+    font-size: 1.5rem;
+}
+
+.perfil-intereses-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.perfil-interes-tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Botones de acción */
+.perfil-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.perfil-btn {
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.perfil-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.perfil-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    color: white;
+}
+
+.perfil-btn-secondary {
+    background: #ecf0f1;
+    color: #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-btn-secondary:hover {
+    background: #bdc3c7;
+    transform: translateY(-2px);
+    color: #2c3e50;
+}
+
+/* Mensaje vacío */
+.perfil-empty-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #7f8c8d;
+    font-size: 1.2rem;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.perfil-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.perfil-info-item {
+    animation: fadeInUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.perfil-info-item:nth-child(1) { animation-delay: 0.1s; }
+.perfil-info-item:nth-child(2) { animation-delay: 0.2s; }
+.perfil-info-item:nth-child(3) { animation-delay: 0.3s; }
+.perfil-info-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* ========================================
+   ESTILOS LIMPIOS PARA CARRUSEL
+   ======================================== */
+
+/* Estos estilos NO interfieren con otros carruseles */
+/* Solo se aplican cuando se usan con IDs específicos */
 
 
+/* Carruseles eliminados - usando tarjetas simples */
+
+
+/* ========================================
+   ESTILOS PARA CARRUSELES - SWIPER.JS
+   ======================================== */
+
+/* Variables CSS para carruseles */
+:root {
+    --carrusel-primary: #4a90e2;
+    --carrusel-secondary: #f5f5f5;
+    --carrusel-accent: #ff6b6b;
+    --carrusel-text: #333;
+    --carrusel-shadow: rgba(0, 0, 0, 0.1);
+    --carrusel-hover: rgba(74, 144, 226, 0.1);
+}
+
+/* ========================================
+   CARRUSEL DE TUTORIALES
+   ======================================== */
+
+.carrusel-tutoriales {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.carrusel-tutoriales .tutorialesSwiper {
+    padding: 20px 0 60px 0;
+}
+
+.carrusel-tutoriales .swiper-slide {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--carrusel-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carrusel-tutoriales .swiper-slide:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.carrusel-tutoriales .swiper-slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.carrusel-tutoriales .swiper-caption {
+    padding: 25px;
+    background: linear-gradient(to bottom, #fff 0%, #f8f9fa 100%);
+}
+
+.carrusel-tutoriales .swiper-caption h5 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--carrusel-text);
+    margin-bottom: 12px;
+}
+
+.carrusel-tutoriales .swiper-caption p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Controles de navegación para tutoriales */
+.carrusel-tutoriales .swiper-button-next,
+.carrusel-tutoriales .swiper-button-prev {
+    background: var(--carrusel-primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.carrusel-tutoriales .swiper-button-next:after,
+.carrusel-tutoriales .swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.carrusel-tutoriales .swiper-button-next:hover,
+.carrusel-tutoriales .swiper-button-prev:hover {
+    background: #357abd;
+    transform: scale(1.1);
+}
+
+.carrusel-tutoriales .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.carrusel-tutoriales .swiper-pagination-bullet-active {
+    background: var(--carrusel-primary);
+    width: 30px;
+    border-radius: 6px;
+}
+
+/* ========================================
+   CARRUSEL DE MIS ACTIVIDADES
+   ======================================== */
+
+.carrusel-actividades {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.carrusel-actividades .actividadesSwiper {
+    padding: 20px 0 60px 0;
+}
+
+.carrusel-actividades .swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.carrusel-actividades .card-actividad {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--carrusel-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.carrusel-actividades .card-actividad:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.carrusel-actividades .card-actividad-img {
+    flex: 0 0 40%;
+    overflow: hidden;
+}
+
+.carrusel-actividades .card-actividad-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.carrusel-actividades .card-actividad:hover .card-actividad-img img {
+    transform: scale(1.05);
+}
+
+.carrusel-actividades .card-actividad-body {
+    flex: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.carrusel-actividades .card-actividad-body h5 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--carrusel-text);
+    margin-bottom: 12px;
+}
+
+.carrusel-actividades .card-actividad-body p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.carrusel-actividades .card-actividad-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.carrusel-actividades .card-actividad-info span {
+    font-size: 0.9rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carrusel-actividades .card-actividad-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.carrusel-actividades .card-actividad-actions .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.carrusel-actividades .card-actividad-actions .btn-warning {
+    background: #ffc107;
+    color: #000;
+}
+
+.carrusel-actividades .card-actividad-actions .btn-warning:hover {
+    background: #e0a800;
+    transform: translateY(-2px);
+}
+
+.carrusel-actividades .card-actividad-actions .btn-danger {
+    background: #dc3545;
+    color: #fff;
+}
+
+.carrusel-actividades .card-actividad-actions .btn-danger:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+.carrusel-actividades .card-actividad-actions .btn-secondary {
+    background: #6c757d;
+    color: #fff;
+}
+
+.carrusel-actividades .card-actividad-actions .btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Controles de navegación para actividades */
+.carrusel-actividades .swiper-button-next,
+.carrusel-actividades .swiper-button-prev {
+    background: var(--carrusel-primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.carrusel-actividades .swiper-button-next:after,
+.carrusel-actividades .swiper-button-prev:after {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.carrusel-actividades .swiper-button-next:hover,
+.carrusel-actividades .swiper-button-prev:hover {
+    background: #357abd;
+    transform: scale(1.1);
+}
+
+.carrusel-actividades .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.carrusel-actividades .swiper-pagination-bullet-active {
+    background: var(--carrusel-primary);
+    transform: scale(1.3);
+}
+
+/* ========================================
+   CARRUSEL DE CREAR ACTIVIDAD (EJEMPLOS)
+   ======================================== */
+
+.carrusel-crear {
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+    padding: 40px 20px;
+    background: linear-gradient(to bottom, #f8f9fa 0%, #fff 100%);
+    border-radius: 15px;
+}
+
+.carrusel-crear h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--carrusel-text);
+    margin-bottom: 30px;
+}
+
+.carrusel-crear .crearSwiper {
+    padding: 20px 0 60px 0;
+}
+
+.carrusel-crear .swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.carrusel-crear .ejemplo-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px var(--carrusel-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.carrusel-crear .ejemplo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.carrusel-crear .ejemplo-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.carrusel-crear .ejemplo-info {
+    padding: 20px;
+}
+
+.carrusel-crear .ejemplo-info h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--carrusel-text);
+    margin-bottom: 10px;
+}
+
+.carrusel-crear .ejemplo-info p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Controles de navegación para crear */
+.carrusel-crear .swiper-button-next,
+.carrusel-crear .swiper-button-prev {
+    background: var(--carrusel-primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.carrusel-crear .swiper-button-next:after,
+.carrusel-crear .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.carrusel-crear .swiper-button-next:hover,
+.carrusel-crear .swiper-button-prev:hover {
+    background: #357abd;
+    transform: scale(1.1);
+}
+
+.carrusel-crear .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.carrusel-crear .swiper-pagination-bullet-active {
+    background: var(--carrusel-primary);
+    transform: scale(1.2);
+}
+
+/* ========================================
+   RESPONSIVE PARA CARRUSELES
+   ======================================== */
+
+@media (max-width: 768px) {
+    .carrusel-actividades .card-actividad {
+        flex-direction: column;
+    }
+
+    .carrusel-actividades .card-actividad-img {
+        flex: 0 0 250px;
+    }
+
+    .carrusel-tutoriales .swiper-slide img {
+        height: 300px;
+    }
+
+    .carrusel-crear .ejemplo-card img {
+        height: 180px;
+    }
+
+    .carrusel-tutoriales .swiper-button-next,
+    .carrusel-tutoriales .swiper-button-prev,
+    .carrusel-actividades .swiper-button-next,
+    .carrusel-actividades .swiper-button-prev,
+    .carrusel-crear .swiper-button-next,
+    .carrusel-crear .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carrusel-tutoriales .swiper-button-next:after,
+    .carrusel-tutoriales .swiper-button-prev:after,
+    .carrusel-actividades .swiper-button-next:after,
+    .carrusel-actividades .swiper-button-prev:after,
+    .carrusel-crear .swiper-button-next:after,
+    .carrusel-crear .swiper-button-prev:after {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carrusel-tutoriales,
+    .carrusel-actividades,
+    .carrusel-crear {
+        padding: 20px 10px;
+    }
+
+    .carrusel-tutoriales .swiper-caption,
+    .carrusel-actividades .card-actividad-body,
+    .carrusel-crear .ejemplo-info {
+        padding: 15px;
+    }
+
+    .carrusel-tutoriales .swiper-caption h5,
+    .carrusel-actividades .card-actividad-body h5,
+    .carrusel-crear .ejemplo-info h5 {
+        font-size: 1.2rem;
+    }
+
+    .carrusel-crear h2 {
+        font-size: 1.5rem;
+    }
+}

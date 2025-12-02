@@ -22,67 +22,63 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearEventoRecibir(Evento nuevoEvento, IFormFile archivo)
+        public IActionResult CrearEventoRecibir(Evento nuevoEvento)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
             {
+                ViewBag.Error = "Debes iniciar sesión para crear un evento.";
                 return RedirectToAction("Index", "Account");
-                ViewBag.Error = "No estas logueado";
             }
 
-            if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo) ||
-                string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
+            if (string.IsNullOrWhiteSpace(nuevoEvento.Titulo))
             {
-                ViewBag.Error = "Completar todos los campos.";
-                return View(nuevoEvento);
+                ViewBag.Error = "El título es obligatorio.";
+                return View("CrearEvento", nuevoEvento);
             }
 
-
-
-            if (archivo.Foto != null || archivo.Foto.Length > 0)
+            if (string.IsNullOrWhiteSpace(nuevoEvento.Descripcion))
             {
-                string nombreArchivo = archivo.FileName;
-                ViewBag.Error = "Debe seleccionar una imagen para el evento.";
-                return View(nuevoEvento);
+                ViewBag.Error = "La descripción es obligatoria.";
+                return View("CrearEvento", nuevoEvento);
             }
 
-            string nombreFinal = "evento_default.png";
-
-            if (nuevoEvento.Foto != null && nuevoEvento.Foto.Length > 0)
+            if (string.IsNullOrWhiteSpace(nuevoEvento.Localidad))
             {
-                string extension = Path.GetExtension(nuevoEvento.Foto.FileName);
-                nombreFinal = Guid.NewGuid().ToString() + extension;
-
-                string rutaCompleta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
-                if (!Directory.Exists(carpeta))
-                    Directory.CreateDirectory(carpeta);
-
-                string rutaCompleta = Path.Combine(carpeta, nombreFinal);
-
-                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
-                {
-                    nuevoEvento.Foto.CopyTo(stream);
-                }
+                ViewBag.Error = "La localidad es obligatoria.";
+                return View("CrearEvento", nuevoEvento);
             }
 
-            nuevoEvento.Foto = nombreFinal;
+            if (nuevoEvento.Capacidad <= 0)
+            {
+                ViewBag.Error = "La capacidad debe ser mayor a 0.";
+                return View("CrearEvento", nuevoEvento);
+            }
 
+            if (nuevoEvento.Fecha < DateTime.Now)
+            {
+                ViewBag.Error = "La fecha del evento no puede ser en el pasado.";
+                return View("CrearEvento", nuevoEvento);
+            }
 
+            if (string.IsNullOrWhiteSpace(nuevoEvento.Foto))
+            {
+                nuevoEvento.Foto = "evento_default.png";
+            }
 
-            Usuario Creador = ObtenerIntegranteDesdeSession();
-            nuevoEvento.IDCreador = Creador.ID;
+            nuevoEvento.IDCreador = usuario.ID;
 
             bool eventoCreado = BD.CrearEvento(nuevoEvento);
 
             if (eventoCreado)
             {
+                ViewBag.Success = "Evento creado exitosamente.";
                 return RedirectToAction("Landing", "Home");
             }
             else
             {
-                ViewBag.Error = "Hubo un problema al crear el evento.";
-                return View("Actividades", "Home");
+                ViewBag.Error = "Ya existe un evento con ese título o la fecha es inválida.";
+                return View("CrearEvento", nuevoEvento);
             }
         }
 
@@ -92,15 +88,23 @@ namespace OldMates.Controllers
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
             {
-                ViewBag.Error = "No estas logueado";
+                ViewBag.Error = "Debes iniciar sesión para modificar eventos.";
                 return RedirectToAction("Index", "Account");
             }
 
-
             Evento evento = BD.ObtenerEventoPorId(IDEvento);
 
-            if (evento == null || evento.IDCreador != usuario.ID)
+            if (evento == null)
+            {
+                ViewBag.Error = "El evento no existe o fue eliminado.";
                 return RedirectToAction("Landing", "Home");
+            }
+
+            if (evento.IDCreador != usuario.ID)
+            {
+                ViewBag.Error = "No tienes permiso para modificar este evento.";
+                return RedirectToAction("Landing", "Home");
+            }
 
             ViewBag.Evento = evento;
             ViewBag.IDUsuario = usuario.ID;
@@ -109,32 +113,65 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult ModificarEventoRecibir(int ID, string Titulo, TimeSpan Duracion, string Descripcion, string Intereses, int Capacidad, DateTime Fecha, string Localidad, string Imagen)
+        public IActionResult ModificarEventoRecibir(Evento eventoActualizado)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
             {
-                ViewBag.Error = "No estas logueado";
+                ViewBag.Error = "Debes iniciar sesión para modificar eventos.";
                 return RedirectToAction("Index", "Account");
             }
-            Evento eventoOriginal = BD.ObtenerEventoPorId(ID);
+
+            Evento eventoOriginal = BD.ObtenerEventoPorId(eventoActualizado.ID);
 
             if (eventoOriginal == null)
-                return RedirectToAction("Landing", "Home");
-            eventoOriginal.Titulo = Titulo; eventoOriginal.Duracion = Duracion; eventoOriginal.Descripcion = Descripcion; eventoOriginal.Intereses = Intereses; eventoOriginal.Capacidad = Capacidad; eventoOriginal.Fecha = Fecha; eventoOriginal.Localidad = Localidad;
-
-            if (string.IsNullOrWhiteSpace(eventoOriginal.Titulo))
             {
-                ViewBag.Error = "Debe ingresar un título.";
-                ViewBag.Evento = eventoOriginal;
+                ViewBag.Error = "El evento no existe o fue eliminado.";
+                return RedirectToAction("Landing", "Home");
+            }
+
+            if (eventoOriginal.IDCreador != usuario.ID)
+            {
+                ViewBag.Error = "No tienes permiso para modificar este evento.";
+                return RedirectToAction("Landing", "Home");
+            }
+
+            if (string.IsNullOrWhiteSpace(eventoActualizado.Titulo))
+            {
+                ViewBag.Error = "El título es obligatorio.";
+                ViewBag.Evento = eventoActualizado;
                 return View("ModificarEvento");
             }
 
-            if (BD.ModificarEvento(eventoOriginal))
-                return RedirectToAction("MisActividades", "Home");
+            if (string.IsNullOrWhiteSpace(eventoActualizado.Descripcion))
+            {
+                ViewBag.Error = "La descripción es obligatoria.";
+                ViewBag.Evento = eventoActualizado;
+                return View("ModificarEvento");
+            }
 
-            ViewBag.Error = "Error al modificar el evento.";
-            ViewBag.Evento = eventoOriginal;
+            if (eventoActualizado.Capacidad <= 0)
+            {
+                ViewBag.Error = "La capacidad debe ser mayor a 0.";
+                ViewBag.Evento = eventoActualizado;
+                return View("ModificarEvento");
+            }
+
+            if (string.IsNullOrWhiteSpace(eventoActualizado.Foto))
+            {
+                eventoActualizado.Foto = eventoOriginal.Foto;
+            }
+
+            eventoActualizado.IDCreador = eventoOriginal.IDCreador;
+
+            if (BD.ModificarEvento(eventoActualizado))
+            {
+                ViewBag.Success = "Evento modificado exitosamente.";
+                return RedirectToAction("MisActividades", "Home");
+            }
+
+            ViewBag.Error = "Error al modificar el evento. Intenta nuevamente.";
+            ViewBag.Evento = eventoActualizado;
 
             return View("ModificarEvento");
         }
@@ -170,6 +207,30 @@ namespace OldMates.Controllers
 
             return usuario;
 
+        }
+
+        private string GuardarFoto(IFormFile imagen, string nombrePorDefecto)
+        {
+            string nombreFinal = nombrePorDefecto;
+
+            if (imagen != null && imagen.Length > 0)
+            {
+                string extension = Path.GetExtension(imagen.FileName);
+                nombreFinal = Guid.NewGuid().ToString() + extension;
+
+                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
+                if (!Directory.Exists(carpeta))
+                    Directory.CreateDirectory(carpeta);
+
+                string rutaCompleta = Path.Combine(carpeta, nombreFinal);
+
+                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    imagen.CopyTo(stream);
+                }
+            }
+
+            return nombreFinal;
         }
 
         public IActionResult DesInscribirse(int IDEvento)
@@ -301,6 +362,7 @@ namespace OldMates.Controllers
         }
 
 
+        [HttpGet]
         public IActionResult EditarPerfil()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
@@ -309,7 +371,40 @@ namespace OldMates.Controllers
                 ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
             }
-            return View("EditarPerfil", "Home");
+            ViewBag.Usuario = usuario;
+            return View("EditarPerfil");
+        }
+
+        [HttpPost]
+        public IActionResult EditarPerfilRecibir(Usuario usuarioActualizado)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
+            }
+
+            if (string.IsNullOrWhiteSpace(usuarioActualizado.Foto))
+            {
+                usuarioActualizado.Foto = usuario.Foto ?? "usuario_default.png";
+            }
+
+            usuarioActualizado.ID = usuario.ID;
+
+            bool perfilActualizado = BD.EditarPerfil(usuarioActualizado);
+
+            if (perfilActualizado)
+            {
+                GuardarIntegranteEnSession(usuarioActualizado);
+                return RedirectToAction("Perfil", "Home");
+            }
+            else
+            {
+                ViewBag.Error = "Hubo un problema al actualizar el perfil.";
+                ViewBag.Usuario = usuarioActualizado;
+                return View("EditarPerfil");
+            }
         }
         public IActionResult MisActividades()
         {
@@ -424,6 +519,15 @@ namespace OldMates.Controllers
             }
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Account");
+        }
+        private bool GuardarIntegranteEnSession(Usuario usuario)
+        {
+            HttpContext.Session.SetString("Usuario", Objeto.ObjectToString(usuario));
+
+            string valor = HttpContext.Session.GetString("Usuario");
+
+            if (!string.IsNullOrEmpty(valor)) return true;
+            else return false;
         }
 
     }
