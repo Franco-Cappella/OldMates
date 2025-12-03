@@ -488,9 +488,9 @@ namespace OldMates.Controllers
             else
             {
                 var usuarios = BD.BuscarUsuarios(busqueda, usuario.ID);
-                foreach (var u in usuarios)
+                foreach (var usu in usuarios)
                 {
-                    u.Intereses = BD.ObtenerEstadoAmistad(usuario.ID, u.ID) ?? "ninguno";
+                    usu.Intereses = BD.ObtenerEstadoAmistad(usuario.ID, usu.ID) ?? "ninguno";
                 }
                 ViewBag.Usuarios = usuarios;
             }

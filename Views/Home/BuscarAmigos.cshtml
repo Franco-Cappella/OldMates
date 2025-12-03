@@ -6,16 +6,20 @@
     Usuario usuarioActual = ViewBag.Usuario;
 }
 
-<div class="buscar-container">
-    <h1 class="buscar-title">Buscar Personas</h1>
-    <p class="buscar-subtitle">Encontrá nuevos amigos con intereses similares</p>
+<div class="carrusel-actividades">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="title mb-0">Buscar Personas</h2>
+        <a class="btn btn-success" href="@Url.Action("ListaDeAmigos", "Home")">
+            <i class="bi bi-people"></i> Mis Amigos
+        </a>
+    </div>
 
-    <form action="@Url.Action("BuscarAmigos", "Home")" method="get" class="buscar-form">
-        <div class="buscar-input-group">
+    <form action="@Url.Action("BuscarAmigos", "Home")" method="get" class="mb-4">
+        <div class="input-group input-group-lg">
             <input type="text" name="busqueda" value="@busqueda" 
-                   placeholder="Buscar por nombre o usuario..." 
-                   class="buscar-input" />
-            <button type="submit" class="buscar-btn">
+                   placeholder="Buscar por nombre, apellido o usuario..." 
+                   class="form-control" />
+            <button type="submit" class="btn btn-primary">
                 <i class="bi bi-search"></i> Buscar
             </button>
         </div>
@@ -23,279 +27,99 @@
 
     @if (!string.IsNullOrEmpty(busqueda))
     {
-        <div class="resultados-section">
-            <h2 class="resultados-title">
-                Resultados para "@busqueda" 
-                <span class="resultados-count">(@usuarios.Count encontrados)</span>
-            </h2>
+        <h3 class="subtitle mb-3">
+            Resultados para "@busqueda" 
+            <span class="badge bg-info">@usuarios.Count encontrados</span>
+        </h3>
 
-            @if (usuarios.Count == 0)
-            {
-                <div class="empty-results">
-                    <i class="bi bi-search" style="font-size: 3rem; color: #BDD6E6;"></i>
-                    <h3>No se encontraron personas</h3>
-                    <p>Probá con otro nombre o invitá a tus amigos por WhatsApp</p>
-                    <a href="@Url.Action("InvitarAmigos", "Home")" class="btn btn-invitar">
-                        <i class="bi bi-whatsapp"></i> Invitar por WhatsApp
-                    </a>
-                </div>
-            }
-            else
-            {
-                <div class="usuarios-grid">
+        @if (usuarios.Count == 0)
+        {
+            <p class="empty-message text-center">No se encontraron personas. Probá con otro nombre.</p>
+        }
+        else
+        {
+            <div class="swiper buscarSwiper">
+                <div class="swiper-wrapper">
                     @foreach (var u in usuarios)
                     {
                         string estadoAmistad = u.Intereses;
-                        <div class="usuario-card">
-                            <img src="@(u.Foto ?? "/img/usuario_default.png")" alt="Foto" class="usuario-foto">
-                            <div class="usuario-info">
-                                <h4>@u.Nombre @u.Apellido</h4>
-                                <p class="usuario-localidad">
-                                    <i class="bi bi-geo-alt"></i> @(u.Localidad ?? "Sin ubicación")
-                                </p>
-                            </div>
-                            <div class="usuario-action">
-                                @if (estadoAmistad == "aceptada")
-                                {
-                                    <span class="estado-amigos">
-                                        <i class="bi bi-check-circle-fill"></i> Ya son amigos
-                                    </span>
-                                }
-                                else if (estadoAmistad == "pendiente")
-                                {
-                                    <span class="estado-pendiente">
-                                        <i class="bi bi-clock"></i> Solicitud enviada
-                                    </span>
-                                }
-                                else
-                                {
-                                    <form action="@Url.Action("EnviarSolicitudAmistad", "Home")" method="post">
-                                        <input type="hidden" name="IDAmigo" value="@u.ID" />
-                                        <button type="submit" class="btn-agregar">
-                                            <i class="bi bi-person-plus"></i> Agregar
-                                        </button>
-                                    </form>
-                                }
+                        <div class="swiper-slide">
+                            <div class="card-actividad">
+                                <div class="card-actividad-img">
+                                    <img src="@(u.Foto ?? "/img/usuario_default.png")" alt="@u.Nombre">
+                                </div>
+                                <div class="card-actividad-body">
+                                    <div>
+                                        <h5>@u.Nombre @u.Apellido</h5>
+                                        <div class="card-actividad-info">
+                                            <span><strong>Localidad:</strong> @(u.Localidad ?? "Sin ubicación")</span>
+                                            <span><strong>Username:</strong> @u.Username</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-actividad-actions">
+                                        @if (estadoAmistad == "aceptada")
+                                        {
+                                            <button class="btn btn-success" disabled>
+                                                <i class="bi bi-check-circle-fill"></i> Ya son amigos
+                                            </button>
+                                        }
+                                        else if (estadoAmistad == "pendiente")
+                                        {
+                                            <button class="btn btn-warning" disabled>
+                                                <i class="bi bi-clock"></i> Solicitud enviada
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <form action="@Url.Action("EnviarSolicitudAmistad", "Home")" method="post" style="display:inline;">
+                                                <input type="hidden" name="IDAmigo" value="@u.ID" />
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="bi bi-person-plus"></i> Agregar Amigo
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     }
                 </div>
-            }
-        </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        }
     }
-
-    <div class="volver-section">
-        <a href="@Url.Action("ListaDeAmigos", "Home")" class="btn btn-volver">
-            <i class="bi bi-arrow-left"></i> Volver a Mis Amigos
-        </a>
-    </div>
 </div>
 
-<style>
-    .buscar-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 30px 20px;
-    }
-
-    .buscar-title {
-        text-align: center;
-        color: #024873;
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    .buscar-subtitle {
-        text-align: center;
-        color: #666;
-        font-size: 1.1rem;
-        margin-bottom: 30px;
-    }
-
-    .buscar-form {
-        margin-bottom: 30px;
-    }
-
-    .buscar-input-group {
-        display: flex;
-        gap: 10px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .buscar-input {
-        flex: 1;
-        padding: 15px 20px;
-        border: 2px solid #BDD6E6;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        outline: none;
-        transition: 0.3s ease;
-    }
-
-    .buscar-input:focus {
-        border-color: #024873;
-        box-shadow: 0 0 10px rgba(2, 72, 115, 0.2);
-    }
-
-    .buscar-btn {
-        background-color: #024873;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 12px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-
-    .buscar-btn:hover {
-        background-color: #013953;
-    }
-
-    .resultados-section {
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        margin-bottom: 30px;
-    }
-
-    .resultados-title {
-        color: #024873;
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-    }
-
-    .resultados-count {
-        color: #666;
-        font-weight: normal;
-        font-size: 1rem;
-    }
-
-    .usuarios-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .usuario-card {
-        display: flex;
-        align-items: center;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 15px 20px;
-        border-radius: 12px;
-        gap: 15px;
-        transition: 0.3s ease;
-        flex-wrap: wrap;
-    }
-
-    .usuario-card:hover {
-        transform: translateX(5px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .usuario-foto {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #BDD6E6;
-    }
-
-    .usuario-info {
-        flex: 1;
-        min-width: 150px;
-    }
-
-    .usuario-info h4 {
-        margin: 0;
-        color: #024873;
-        font-size: 1.1rem;
-    }
-
-    .usuario-localidad {
-        margin: 5px 0 0;
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    .btn-agregar {
-        background-color: #28a745;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.3s ease;
-        font-size: 1rem;
-    }
-
-    .btn-agregar:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-    }
-
-    .estado-amigos {
-        color: #28a745;
-        font-weight: 600;
-        font-size: 1rem;
-    }
-
-    .estado-pendiente {
-        color: #ffc107;
-        font-weight: 600;
-        font-size: 1rem;
-    }
-
-    .empty-results {
-        text-align: center;
-        padding: 40px 20px;
-    }
-
-    .empty-results h3 {
-        color: #024873;
-        margin: 15px 0 10px;
-    }
-
-    .empty-results p {
-        color: #666;
-        margin-bottom: 20px;
-    }
-
-    .btn-invitar {
-        background-color: #25D366;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 10px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    .btn-invitar:hover {
-        background-color: #128C7E;
-        color: white;
-    }
-
-    .volver-section {
-        text-align: center;
-    }
-
-    .btn-volver {
-        background-color: #6c757d;
-        color: white;
-        padding: 12px 25px;
-        border-radius: 10px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: 0.3s ease;
-    }
-
-    .btn-volver:hover {
-        background-color: #5a6268;
-        color: white;
-    }
-</style>
+@if (!string.IsNullOrEmpty(busqueda) && usuarios.Count > 0)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                if (typeof Swiper === 'undefined') {
+                    console.error('Swiper.js no está cargado');
+                    return;
+                }
+                
+                var swiperBuscar = new Swiper(".buscarSwiper", {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: false,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                        dynamicBullets: true,
+                    },
+                    speed: 500,
+                });
+            } catch (error) {
+                console.error('Error en carrusel de búsqueda:', error);
+            }
+        });
+    </script>
+}
