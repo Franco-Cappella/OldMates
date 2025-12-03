@@ -1,46 +1,33 @@
 @using OldMates.Models
 @{
     ViewData["Title"] = "Buscar Amigos";
-    List<Usuario> usuarios = ViewBag.Usuarios as List<Usuario> ?? new List<Usuario>();
-    string busqueda = ViewBag.Busqueda as string ?? "";
-    Usuario usuarioActual = ViewBag.Usuario;
+    List<Usuario> Usuarios = ViewBag.Usuarios as List<Usuario> ?? new List<Usuario>();
+    string Busqueda = ViewBag.Busqueda as string ?? "";
+    Usuario UsuarioActual = ViewBag.Usuario;
 }
 
 <div class="carrusel-actividades">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="title mb-0">Buscar Personas</h2>
-        <a class="btn btn-success" href="@Url.Action("ListaDeAmigos", "Home")">
-            <i class="bi bi-people"></i> Mis Amigos
-        </a>
+        <a class="btn btn-success" href="@Url.Action("ListaDeAmigos", "Home")">Mis Amigos</a>
     </div>
 
     <form action="@Url.Action("BuscarAmigos", "Home")" method="get" class="mb-4">
         <div class="input-group input-group-lg">
-            <input type="text" name="busqueda" value="@busqueda" 
+            <input type="text" name="busqueda" value="@Busqueda" 
                    placeholder="Buscar por nombre, apellido o usuario..." 
                    class="form-control" />
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i> Buscar
-            </button>
+            <button type="submit" class="btn btn-primary">Buscar</button>
         </div>
     </form>
 
-    @if (!string.IsNullOrEmpty(busqueda))
+    @if (!string.IsNullOrEmpty(Busqueda))
     {
-        <h3 class="subtitle mb-3">
-            Resultados para "@busqueda" 
-            <span class="badge bg-info">@usuarios.Count encontrados</span>
-        </h3>
-
-        @if (usuarios.Count == 0)
-        {
-            <p class="empty-message text-center">No se encontraron personas. Probá con otro nombre.</p>
-        }
-        else
+        @if (Usuarios != null && Usuarios.Count > 0)
         {
             <div class="swiper buscarSwiper">
                 <div class="swiper-wrapper">
-                    @foreach (var u in usuarios)
+                    @foreach (var u in Usuarios)
                     {
                         string estadoAmistad = u.Intereses;
                         <div class="swiper-slide">
@@ -51,31 +38,25 @@
                                 <div class="card-actividad-body">
                                     <div>
                                         <h5>@u.Nombre @u.Apellido</h5>
+                                        <p>@u.Username</p>
                                         <div class="card-actividad-info">
                                             <span><strong>Localidad:</strong> @(u.Localidad ?? "Sin ubicación")</span>
-                                            <span><strong>Username:</strong> @u.Username</span>
                                         </div>
                                     </div>
                                     <div class="card-actividad-actions">
                                         @if (estadoAmistad == "aceptada")
                                         {
-                                            <button class="btn btn-success" disabled>
-                                                <i class="bi bi-check-circle-fill"></i> Ya son amigos
-                                            </button>
+                                            <a class="btn btn-secondary" disabled>Ya son amigos</a>
                                         }
                                         else if (estadoAmistad == "pendiente")
                                         {
-                                            <button class="btn btn-warning" disabled>
-                                                <i class="bi bi-clock"></i> Solicitud enviada
-                                            </button>
+                                            <a class="btn btn-warning" disabled>Solicitud enviada</a>
                                         }
                                         else
                                         {
-                                            <form action="@Url.Action("EnviarSolicitudAmistad", "Home")" method="post" style="display:inline;">
+                                            <form action="@Url.Action("EnviarSolicitudAmistad", "Home")" method="post">
                                                 <input type="hidden" name="IDAmigo" value="@u.ID" />
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="bi bi-person-plus"></i> Agregar Amigo
-                                                </button>
+                                                <button type="submit" class="btn btn-primary">Agregar</button>
                                             </form>
                                         }
                                     </div>
@@ -89,10 +70,14 @@
                 <div class="swiper-pagination"></div>
             </div>
         }
+        else
+        {
+            <p class="empty-message text-center">No se encontraron personas.</p>
+        }
     }
 </div>
 
-@if (!string.IsNullOrEmpty(busqueda) && usuarios.Count > 0)
+@if (!string.IsNullOrEmpty(Busqueda) && Usuarios != null && Usuarios.Count > 0)
 {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -102,7 +87,7 @@
                     return;
                 }
                 
-                var swiperBuscar = new Swiper(".buscarSwiper", {
+                var swiper = new Swiper(".buscarSwiper", {
                     slidesPerView: 1,
                     spaceBetween: 30,
                     loop: false,
@@ -117,6 +102,10 @@
                     },
                     speed: 500,
                 });
+                
+                if (!swiper) {
+                    console.error('Error al inicializar Swiper de búsqueda');
+                }
             } catch (error) {
                 console.error('Error en carrusel de búsqueda:', error);
             }

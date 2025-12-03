@@ -1,107 +1,44 @@
-@using OldMates.Models
+@using OldMates.Models 
 @{
-    ViewData["Title"] = "Mis Amigos";
-    List<Usuario> amigos = ViewBag.Amigos as List<Usuario> ?? new List<Usuario>();
-    List<Amistad> solicitudes = ViewBag.SolicitudesPendientes as List<Amistad> ?? new List<Amistad>();
+    List<Usuario> Amigos = ViewBag.Amigos;
+    List<Amistad> Solicitudes = ViewBag.SolicitudesPendientes;
     Usuario usuario = ViewBag.Usuario;
 }
 
 <div class="carrusel-actividades">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="title mb-0">Mis Amigos</h2>
-        <a class="btn btn-success" href="@Url.Action("BuscarAmigos", "Home")">
-            <i class="bi bi-search"></i> Buscar Personas
-        </a>
+        <a class="btn btn-success" href="@Url.Action("BuscarAmigos", "Home")">+ Buscar Personas</a>
     </div>
 
-    @if (solicitudes.Count > 0)
+    @if (Solicitudes != null && Solicitudes.Count > 0)
     {
-        <div class="mb-5">
-            <h3 class="subtitle mb-3">
-                <i class="bi bi-person-plus"></i> Solicitudes Pendientes 
-                <span class="badge bg-warning text-dark">@solicitudes.Count</span>
-            </h3>
-            <div class="swiper solicitudesSwiper">
-                <div class="swiper-wrapper">
-                    @foreach (var solicitud in solicitudes)
-                    {
-                        <div class="swiper-slide">
-                            <div class="card-actividad">
-                                <div class="card-actividad-img">
-                                    <img src="@(solicitud.Usuario1?.Foto ?? "/img/usuario_default.png")" alt="@solicitud.Usuario1?.Nombre">
-                                </div>
-                                <div class="card-actividad-body">
-                                    <div>
-                                        <h5>@solicitud.Usuario1?.Nombre @solicitud.Usuario1?.Apellido</h5>
-                                        <div class="card-actividad-info">
-                                            <span><strong>Localidad:</strong> @(solicitud.Usuario1?.Localidad ?? "Sin ubicación")</span>
-                                            <span><strong>Intereses:</strong> @(solicitud.Usuario1?.Intereses ?? "No especificado")</span>
-                                        </div>
-                                    </div>
-                                    <div class="card-actividad-actions">
-                                        <form action="@Url.Action("AceptarSolicitud", "Home")" method="post" style="display:inline;">
-                                            <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
-                                            <button type="submit" class="btn btn-success">
-                                                <i class="bi bi-check-lg"></i> Aceptar
-                                            </button>
-                                        </form>
-                                        <form action="@Url.Action("RechazarSolicitud", "Home")" method="post" style="display:inline;">
-                                            <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
-                                            <button type="submit" class="btn btn-danger">
-                                                <i class="bi bi-x-lg"></i> Rechazar
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    }
-
-    <h3 class="subtitle mb-3">
-        <i class="bi bi-people"></i> Mis Amigos 
-        <span class="badge bg-primary">@amigos.Count</span>
-    </h3>
-
-    @if (amigos.Count == 0)
-    {
-        <p class="empty-message text-center">Todavía no tenés amigos. ¡Buscá personas con intereses similares!</p>
-    }
-    else
-    {
-        <div class="swiper amigosSwiper">
+        <div class="swiper solicitudesSwiper mb-5">
             <div class="swiper-wrapper">
-                @foreach (var amigo in amigos)
+                @foreach (var solicitud in Solicitudes)
                 {
                     <div class="swiper-slide">
                         <div class="card-actividad">
                             <div class="card-actividad-img">
-                                <img src="@(amigo.Foto ?? "/img/usuario_default.png")" alt="@amigo.Nombre">
+                                <img src="@(solicitud.Usuario1?.Foto ?? "/img/usuario_default.png")" alt="@solicitud.Usuario1?.Nombre">
                             </div>
                             <div class="card-actividad-body">
                                 <div>
-                                    <h5>@amigo.Nombre @amigo.Apellido</h5>
+                                    <h5>@solicitud.Usuario1?.Nombre @solicitud.Usuario1?.Apellido</h5>
+                                    <p>Solicitud de amistad</p>
                                     <div class="card-actividad-info">
-                                        <span><strong>Localidad:</strong> @(amigo.Localidad ?? "Sin ubicación")</span>
-                                        <span><strong>Intereses:</strong> @(amigo.Intereses ?? "No especificado")</span>
+                                        <span><strong>Localidad:</strong> @(solicitud.Usuario1?.Localidad ?? "Sin ubicación")</span>
+                                        <span><strong>Intereses:</strong> @(solicitud.Usuario1?.Intereses ?? "No especificado")</span>
                                     </div>
                                 </div>
                                 <div class="card-actividad-actions">
-                                    <a href="@Url.Action("Mensajes", "Home")" class="btn btn-info">
-                                        <i class="bi bi-chat-dots"></i> Mensaje
-                                    </a>
-                                    <form action="@Url.Action("EliminarAmigo", "Home")" method="post" style="display:inline;" 
-                                          onsubmit="return confirm('¿Estás seguro de eliminar a @amigo.Nombre de tus amigos?');">
-                                        <input type="hidden" name="IDAmigo" value="@amigo.ID" />
-                                        <button type="submit" class="btn btn-danger">
-                                            <i class="bi bi-person-x"></i> Eliminar
-                                        </button>
+                                    <form action="@Url.Action("AceptarSolicitud", "Home")" method="post" style="display:inline;">
+                                        <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
+                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                    </form>
+                                    <form action="@Url.Action("RechazarSolicitud", "Home")" method="post" style="display:inline;">
+                                        <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
+                                        <button type="submit" class="btn btn-danger">Rechazar</button>
                                     </form>
                                 </div>
                             </div>
@@ -114,9 +51,52 @@
             <div class="swiper-pagination"></div>
         </div>
     }
+
+    @if (Amigos != null && Amigos.Count > 0)
+    {
+        <div class="swiper amigosSwiper">
+            <div class="swiper-wrapper">
+                @foreach (var amigo in Amigos)
+                {
+                    <div class="swiper-slide">
+                        <div class="card-actividad">
+                            <div class="card-actividad-img">
+                                <img src="@(amigo.Foto ?? "/img/usuario_default.png")" alt="@amigo.Nombre">
+                            </div>
+                            <div class="card-actividad-body">
+                                <div>
+                                    <h5>@amigo.Nombre @amigo.Apellido</h5>
+                                    <p>@amigo.Username</p>
+                                    <div class="card-actividad-info">
+                                        <span><strong>Localidad:</strong> @(amigo.Localidad ?? "Sin ubicación")</span>
+                                        <span><strong>Intereses:</strong> @(amigo.Intereses ?? "No especificado")</span>
+                                    </div>
+                                </div>
+                                <div class="card-actividad-actions">
+                                    <form action="@Url.Action("EliminarAmigo", "Home")" method="post" style="display:inline;" 
+                                          onsubmit="return confirm('¿Estás seguro de eliminar a @amigo.Nombre de tus amigos?');">
+                                        <input type="hidden" name="IDAmigo" value="@amigo.ID" />
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    }
+    else
+    {
+        <p class="empty-message text-center">No tienes amigos registrados.</p>
+    }
 </div>
 
-@if (solicitudes.Count > 0 || amigos.Count > 0)
+
+@if ((Solicitudes != null && Solicitudes.Count > 0) || (Amigos != null && Amigos.Count > 0))
 {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -126,10 +106,10 @@
                     return;
                 }
                 
-                @if (solicitudes.Count > 0)
+                @if (Solicitudes != null && Solicitudes.Count > 0)
                 {
                     <text>
-                    var swiperSolicitudes = new Swiper(".solicitudesSwiper", {
+                    var swiper = new Swiper(".solicitudesSwiper", {
                         slidesPerView: 1,
                         spaceBetween: 30,
                         loop: false,
@@ -144,13 +124,17 @@
                         },
                         speed: 500,
                     });
+                    
+                    if (!swiper) {
+                        console.error('Error al inicializar Swiper de solicitudes');
+                    }
                     </text>
                 }
                 
-                @if (amigos.Count > 0)
+                @if (Amigos != null && Amigos.Count > 0)
                 {
                     <text>
-                    var swiperAmigos = new Swiper(".amigosSwiper", {
+                    var swiper = new Swiper(".amigosSwiper", {
                         slidesPerView: 1,
                         spaceBetween: 30,
                         loop: false,
@@ -165,6 +149,10 @@
                         },
                         speed: 500,
                     });
+                    
+                    if (!swiper) {
+                        console.error('Error al inicializar Swiper de amigos');
+                    }
                     </text>
                 }
             } catch (error) {
