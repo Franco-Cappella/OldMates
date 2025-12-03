@@ -2,57 +2,103 @@
     ViewData["Title"] = "Crear Evento";
 }
 
-<body>
-  <main class="crear-actividad-container">
-    <h1>Crea una actividad:</h1>
-
-    <form action="CrearEventoRecibir" method="post" enctype="multipart/form-data">
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="titulo">Título</label>
-          <input type="text" id="titulo" name="Titulo" class="form-control" placeholder="Titulo" required>
+<div class="form-page-container">
+    <div class="form-page-card">
+        <div class="form-page-header">
+            <h1 class="form-page-title">Crea una Actividad</h1>
+            <p class="form-page-subtitle">Comparte momentos especiales con la comunidad</p>
         </div>
 
-        <div class="form-group">
-          <label for="duracion">Duración</label>
-          <input type="time" id="duracion" name="Duracion" class="form-control" placeholder="Duración" required>
-        </div>
+        <div class="form-page-body">
+            <form action="@Url.Action("CrearEventoRecibir", "Home")" method="post" enctype="multipart/form-data">
+                
+                <div class="form-grid-2col">
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-card-heading"></i> Título de la Actividad
+                        </span>
+                        <input type="text" name="Titulo" class="form-page-input form-page-input-lg" 
+                               placeholder="Ej: Tarde de Ajedrez" required>
+                    </div>
 
-        <div class="form-group">
-          <label for="descripcion">Descripción</label>
-          <input type="text" id="descripcion" name="Descripcion" class="form-control" placeholder="Descripción" required>
-        </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-clock"></i> Duración
+                        </span>
+                        <input type="time" name="Duracion" class="form-page-input form-page-input-lg" required>
+                    </div>
 
-        <div class="form-group">
-          <label for="intereses">Interés</label>
-          <input type="text" id="intereses" name="Intereses" class="form-control" placeholder="Interés" required>
-        </div>
+                    <div style="grid-column: 1 / -1;">
+                        <span class="form-page-label">
+                            <i class="bi bi-text-paragraph"></i> Descripción
+                        </span>
+                        <textarea name="Descripcion" class="form-page-input" rows="3" 
+                                  placeholder="Describe tu actividad..." required></textarea>
+                    </div>
 
-        <div class="form-group">
-          <label for="capacidad">Capacidad máxima</label>
-          <input type="number" id="capacidad" name="Capacidad" class="form-control" placeholder="Capacidad máxima" required>
-        </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-heart"></i> Intereses
+                        </span>
+                        <input type="text" name="Intereses" class="form-page-input form-page-input-lg" 
+                               placeholder="Ej: Deportes, Lectura" required>
+                    </div>
 
-        <div class="form-group">
-          <label for="fecha">Fecha y hora</label>
-          <input type="datetime-local" id="fecha" name="Fecha" class="form-control" placeholder="Fecha" required>
-        </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-people"></i> Capacidad Máxima
+                        </span>
+                        <input type="number" name="Capacidad" class="form-page-input form-page-input-lg" 
+                               placeholder="Ej: 10" min="1" required>
+                    </div>
 
-        <div class="form-group">
-          <label for="localidad">Zona</label>
-          <input type="text" id="localidad" name="Localidad" class="form-control" placeholder="Zona" required>
-        </div>
 
-        <div class="form-group upload-btn">
-          <label for="imagen" class="btn-success">Imagen de la actividad</label>
-          <input type="file" id="imagen" name="Imagen" accept="image/*" hidden>
-        </div>
-      </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-calendar-event"></i> Fecha y Hora
+                        </span>
+                        <input type="datetime-local" name="Fecha" class="form-page-input form-page-input-lg" required>
+                    </div>
 
-      <div class="submit-btn">
-        <button type="submit" class="btn-primary">Crear Actividad</button>
-      </div>
-    </form>
-  </main>
-</body>
-</html>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-geo-alt"></i> Zona
+                        </span>
+                        <input type="text" name="Localidad" class="form-page-input form-page-input-lg" 
+                               placeholder="Ej: Montevideo Centro" required>
+                    </div>
+
+                    <div style="grid-column: 1 / -1;">
+                        <span class="form-page-label">
+                            <i class="bi bi-image"></i> Imagen de la Actividad
+                        </span>
+                        <div class="d-flex align-items-center">
+                            <span class="btn-upload-image" onclick="document.getElementById('imagen').click()">
+                                <i class="bi bi-upload"></i> Seleccionar Imagen
+                            </span>
+                            <span id="file-name" class="file-name-display">Ningún archivo seleccionado</span>
+                            <input type="file" id="imagen" name="imagen" accept="image/*" hidden>
+                        </div>
+                        <small class="form-help-text">
+                            <i class="bi bi-info-circle"></i> Formatos permitidos: JPG, PNG, GIF (máx. 5MB)
+                        </small>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn-yellow-primary">
+                        <i class="bi bi-check-circle"></i> Crear Actividad
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('imagen').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'Ningún archivo seleccionado';
+        document.getElementById('file-name').textContent = fileName;
+    });
+</script>

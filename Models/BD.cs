@@ -211,9 +211,9 @@ namespace OldMates.Models
 
                 if (existe == 1)
                 {
-                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Capacidad = @Capacidad WHERE ID = @IDEvento";
+                    string queryActualizar = @"UPDATE Evento SET Titulo = @Titulo, Descripcion = @Descripcion, Duracion = @Duracion, Fecha = @Fecha, Localidad = @Localidad, Intereses = @Intereses, Capacidad = @Capacidad, Foto = @Foto WHERE ID = @IDEvento";
 
-                    connection.Execute(queryActualizar, new { IDEvento = evento.ID, Titulo = evento.Titulo, Descripcion = evento.Descripcion, Duracion = evento.Duracion, Fecha = evento.Fecha, Localidad = evento.Localidad, Intereses = evento.Intereses, Capacidad = evento.Capacidad });
+                    connection.Execute(queryActualizar, new { IDEvento = evento.ID, Titulo = evento.Titulo, Descripcion = evento.Descripcion, Duracion = evento.Duracion, Fecha = evento.Fecha, Localidad = evento.Localidad, Intereses = evento.Intereses, Capacidad = evento.Capacidad, Foto = evento.Foto });
 
                     return true;
                 }
@@ -250,27 +250,9 @@ namespace OldMates.Models
 
                 if (existe == 1)
                 {
-                    string queryActualizar = @"UPDATE Usuario 
-                                              SET Username = @Username, 
-                                                  Contraseña = @Contraseña, 
-                                                  Localidad = @Localidad, 
-                                                  Intereses = @Intereses, 
-                                                  Nombre = @Nombre, 
-                                                  Apellido = @Apellido, 
-                                                  Foto = @Foto 
-                                              WHERE ID = @ID";
+                    string queryActualizar = @"UPDATE Usuario SET Username = @Username, Contraseña = @Contraseña, Localidad = @Localidad, Intereses = @Intereses, Nombre = @Nombre, Apellido = @Apellido, Foto = @Foto WHERE ID = @ID";
 
-                    connection.Execute(queryActualizar, new 
-                    { 
-                        ID = usuario.ID, 
-                        Username = usuario.Username, 
-                        Contraseña = usuario.Contraseña, 
-                        Localidad = usuario.Localidad, 
-                        Intereses = usuario.Intereses, 
-                        Nombre = usuario.Nombre, 
-                        Apellido = usuario.Apellido, 
-                        Foto = usuario.Foto 
-                    });
+                    connection.Execute(queryActualizar, new { ID = usuario.ID, Username = usuario.Username, Contraseña = usuario.Contraseña, Localidad = usuario.Localidad, Intereses = usuario.Intereses, Nombre = usuario.Nombre, Apellido = usuario.Apellido, Foto = usuario.Foto });
 
                     return true;
                 }

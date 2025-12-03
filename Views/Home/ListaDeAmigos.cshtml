@@ -2,44 +2,53 @@
     ViewData["Title"] = "Lista De Amigos";
 }
 
-<div class="container text-center">
-  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-    <div class="col">
-      <div class="p-3">Dario</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Ana</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Becky</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Tita</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Alicia</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Bernardo</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Julia</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Mechi</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Jose</div>
-    </div>
-    <div class="col">
-      <div class="p-3">Jaime</div>
-    </div>
-     <div class="col">
-      <div class="p-3">Erica</div>
-    </div>
-     <div class="col">
-      <div class="p-3">Rodo</div>
+<div class="container">
+  <h2 class="text-center mb-4">Mis Amigos</h2>
+  
+  <div class="text-center">
+    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+      <div class="col">
+        <div class="p-3 border rounded">Dario</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Ana</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Becky</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Tita</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Alicia</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Bernardo</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Julia</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Mechi</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Jose</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Jaime</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Erica</div>
+      </div>
+      <div class="col">
+        <div class="p-3 border rounded">Rodo</div>
+      </div>
     </div>
   </div>
-              <li><a class="menu-boton" href='@Url.Action("InvitarAmigos", "Home")'>Invitar Amigos</a></li>
+</div>
+
+<div class="text-center mt-5 mb-4">
+  <a class="btn btn-success btn-lg" href='@Url.Action("InvitarAmigos", "Home")'>
+    <i class="bi bi-person-plus"></i> Invitar Amigos
+  </a>
 </div>

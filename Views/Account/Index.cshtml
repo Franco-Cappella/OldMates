@@ -1,81 +1,82 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿  @{
+    ViewData["Title"] = "Bienvenido";
 }
-<body>
-  <main>
-    <section>
-      <div class="index">
+
+<section>
+    <div class="index">
         <h1>Bienvenido a <strong>¡OldMates!</strong></h1>
 
         <p>
-          <strong>OldMates</strong> es una app para abuelos y personas mayores que quieren hacer nuevos amigos,
-          compartir intereses y mantenerse activos. <br><br>
-          Sumate a actividades grupales, juegos, encuentros o charlas. <br><br>
-          Descubrí eventos, armá tu agenda y conectate con otros desde tu perfil. <br><br>
-          En OldMates siempre hay algo para hacer... y alguien con quien compartirlo.
+            <strong>OldMates</strong> es una app para abuelos y personas mayores que quieren hacer nuevos amigos,
+            compartir intereses y mantenerse activos. <br><br>
+            Sumate a actividades grupales, juegos, encuentros o charlas. <br><br>
+            Descubrí eventos, armá tu agenda y conectate con otros desde tu perfil. <br><br>
+            En OldMates siempre hay algo para hacer... y alguien con quien compartirlo.
         </p>
 
         <div class="index-imgs">
-          <img src="img/index2.png" alt="Personas mayores conversando">
+            <img src="/img/index2.png" alt="Personas mayores conversando">
         </div>
 
         <div class="index-buttons">
-          <a href='@Url.Action("Registro", "Account")' class="btn-registro">Registro</a>
-          <a href='@Url.Action("Login", "Account")' class="btn-login">Iniciar Sesión</a>
+            <a href='@Url.Action("Registro", "Account")' class="btn-registro">Registro</a>
+            <a href='@Url.Action("Login", "Account")' class="btn-login">Iniciar Sesión</a>
         </div>
-      </div>  
-    </section>
+    </div>
+</section>
 
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-¿Qué es OldMates?
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-      <div class="accordion-body">
-        <strong>"Conectar, disfrutar y compartir: eso es OldMates.".</strong> OldMates es una aplicación pensada especialmente para acompañar a los abuelos y adultos mayores, ofreciéndoles un espacio simple, seguro y lleno de actividades para mantenerse activos, conectados y entretenidos.</code>
-      </div>
+<div class="accordion" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                ¿Qué es OldMates?
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <strong>"Conectar, disfrutar y compartir: eso es OldMates."</strong> OldMates es una aplicación pensada especialmente para acompañar a los abuelos y adultos mayores, ofreciéndoles un espacio simple, seguro y lleno de actividades para mantenerse activos, conectados y entretenidos.
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-   ¿Para quién es?
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-      <div class="accordion-body">
-        <strong>"Una app hecha para ellos, pensada con el corazón."</strong> Está creada para personas mayores que quieren compartir momentos, aprender cosas nuevas, comunicarse con otros de su misma edad y sentirse parte de una comunidad. También es útil para familiares o cuidadores que buscan herramientas que mejoren el bienestar de sus seres queridos.<code></code>
-      </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                ¿Para quién es?
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <strong>"Una app hecha para ellos, pensada con el corazón."</strong> Está creada para personas mayores que quieren compartir momentos, aprender cosas nuevas, comunicarse con otros de su misma edad y sentirse parte de una comunidad. También es útil para familiares o cuidadores que buscan herramientas que mejoren el bienestar de sus seres queridos.
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-  ¿Para qué la puedo usar?
-      </button>
-    </h2>
-    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-      <div class="accordion-body">
-        <strong>"Un espacio para volver a sentirse parte."</strong> Con OldMates los abuelos pueden disfrutar de tutoriales, participar en actividades recreativas, acceder a propuestas culturales, recibir recordatorios de sus eventos del día y chatear con otras personas que comparten sus gustos y experiencias. Todo en un mismo lugar, de forma clara y accesible. <code></code>
-      </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                ¿Para qué la puedo usar?
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <strong>"Un espacio para volver a sentirse parte."</strong> Con OldMates los abuelos pueden disfrutar de tutoriales, participar en actividades recreativas, acceder a propuestas culturales, recibir recordatorios de sus eventos del día y chatear con otras personas que comparten sus gustos y experiencias. Todo en un mismo lugar, de forma clara y accesible.
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-       <div class="container text-center">
-  <div class="row align-items-center" style="margin-bottom:0; padding: 0 2%;">
-    <div class="col">
-  <h4>Juan - Se unio hace 4 meses</h4> 
-  "¡OldMates me cambio la vida! Mi salud mejor muchismo y me siento muy acompañado."</div>
-   <div class="col">
-  <h4>Natalia - Nuestra primera usuaria</h4>
-  "Aprendi muchas cosas gracias a los tutoriales. Siento que conozco mucho más la tecnología."</div>
-    <div class="col">
-  <h4>Ernesto - Se unio hace 2 meses</h4>
-  "Me encantan las actividades, hay mucha variedad y para todos los gustos. Recomiendo completamente"</div>
-  </div>
+
+<div class="container text-center">
+    <div class="row align-items-center" style="margin-bottom:0; padding: 0 2%;">
+        <div class="col">
+            <h4>Juan - Se unió hace 4 meses</h4>
+            "¡OldMates me cambió la vida! Mi salud mejoró muchísimo y me siento muy acompañado."
+        </div>
+        <div class="col">
+            <h4>Natalia - Nuestra primera usuaria</h4>
+            "Aprendí muchas cosas gracias a los tutoriales. Siento que conozco mucho más la tecnología."
+        </div>
+        <div class="col">
+            <h4>Ernesto - Se unió hace 2 meses</h4>
+            "Me encantan las actividades, hay mucha variedad y para todos los gustos. Recomiendo completamente"
+        </div>
+    </div>
 </div>
-  </main>
-</body>

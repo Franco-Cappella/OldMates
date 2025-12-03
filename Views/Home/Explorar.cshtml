@@ -1,27 +1,20 @@
 @{
     ViewData["Title"] = "Explorar";
 }
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explorar</title>
-</head>
-<body>
-  <div class="container text-center">
+
+<div class="container text-center">
     <div class="row">
-      <div class="col">
-      Juegos
-      <a href='@Url.Action("Juegos", "Home")'><img src="~/img/Juegos.png" alt="Juegos"></a>
-      </div>
-      <div class="col">
-      Tutoriales
-      <a href='@Url.Action("Tutoriales", "Home")'><img src="~/img/Tutoriales.png" alt="Tutoriales"></a>
-      </div>
-      <div class="col">
-      Actividades
-      <a href='@Url.Action("Actividades", "Home")'><img src="~/img/Actividades.png" alt="Actividades"></a>
-      </div>
+        <div class="col">
+            Juegos
+            <a href='@Url.Action("Juegos", "Home")'><img src="~/img/Juegos.png" alt="Juegos"></a>
+        </div>
+        <div class="col">
+            Tutoriales
+            <a href='@Url.Action("Tutoriales", "Home")'><img src="~/img/Tutoriales.png" alt="Tutoriales"></a>
+        </div>
+        <div class="col">
+            Actividades
+            <a href='@Url.Action("Actividades", "Home")'><img src="~/img/Actividades.png" alt="Actividades"></a>
+        </div>
     </div>
-  </div>
-</body>
-</html>
+</div>

@@ -37,25 +37,9 @@ namespace OldMates.Controllers
                 return View("CrearEvento");
             }
 
-            string nombreArchivo = "default-evento.png";
-            string rutaRelativa = "/img/" + nombreArchivo;
+            string rutaRelativa = GuardarFoto(imagen, "/img/default-evento.png");
             
-            if (imagen != null && imagen.Length > 0)
-            {
-                nombreArchivo = Path.GetFileName(imagen.FileName);
-                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
-                string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
-                
-                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
-                {
-                    imagen.CopyTo(stream);
-                }
-                
-                rutaRelativa = "/img/" + nombreArchivo;
-            }
-            
-            Usuario Creador = ObtenerIntegranteDesdeSession();
-            int IDCreador = Creador.ID;
+            int IDCreador = usuario.ID;
 
             Evento nuevoEvento = new Evento(IDCreador, titulo, descripcion, duracion, localidad, capacidad, fecha, intereses, rutaRelativa);
 
@@ -104,7 +88,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult ModificarEventoRecibir(Evento eventoActualizado)
+        public IActionResult ModificarEventoRecibir(Evento eventoActualizado, IFormFile imagen)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
@@ -148,7 +132,12 @@ namespace OldMates.Controllers
                 return View("ModificarEvento");
             }
 
-            if (string.IsNullOrWhiteSpace(eventoActualizado.Foto))
+            // Guardar nueva imagen si se proporciona
+            if (imagen != null && imagen.Length > 0)
+            {
+                eventoActualizado.Foto = GuardarFoto(imagen, eventoOriginal.Foto);
+            }
+            else
             {
                 eventoActualizado.Foto = eventoOriginal.Foto;
             }
@@ -200,29 +189,7 @@ namespace OldMates.Controllers
 
         }
 
-        private string GuardarFoto(IFormFile imagen, string nombrePorDefecto)
-        {
-            string nombreFinal = nombrePorDefecto;
 
-            if (imagen != null && imagen.Length > 0)
-            {
-                string extension = Path.GetExtension(imagen.FileName);
-                nombreFinal = Guid.NewGuid().ToString() + extension;
-
-                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img");
-                if (!Directory.Exists(carpeta))
-                    Directory.CreateDirectory(carpeta);
-
-                string rutaCompleta = Path.Combine(carpeta, nombreFinal);
-
-                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
-                {
-                    imagen.CopyTo(stream);
-                }
-            }
-
-            return nombreFinal;
-        }
 
         public IActionResult DesInscribirse(int IDEvento)
         {
@@ -376,25 +343,9 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // Manejar la foto subida
-            if (fotoArchivo != null && fotoArchivo.Length > 0)
-            {
-                string nombreArchivo = Path.GetFileName(fotoArchivo.FileName);
-                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
-                string rutaCompleta = Path.Combine(carpeta, nombreArchivo);
-                
-                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
-                {
-                    fotoArchivo.CopyTo(stream);
-                }
-                
-                usuarioActualizado.Foto = "/img/" + nombreArchivo;
-            }
-            else
-            {
-                // Si no se subió foto, mantener la foto actual
-                usuarioActualizado.Foto = usuario.Foto ?? "/img/usuario_default.png";
-            }
+            // Guardar foto
+            string fotoActual = usuario.Foto ?? "/img/usuario_default.png";
+            usuarioActualizado.Foto = GuardarFoto(fotoArchivo, fotoActual);
 
             usuarioActualizado.ID = usuario.ID;
 
@@ -473,7 +424,7 @@ namespace OldMates.Controllers
             return View();
         }
 
-        public IActionResult Calendario()
+        public IActionResult Calendario(int mes = 0, int año = 0)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
@@ -481,6 +432,30 @@ namespace OldMates.Controllers
                 ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
             }
+
+            DateTime fechaActual = DateTime.Now;
+            int mesActual = mes > 0 ? mes : fechaActual.Month;
+            int añoActual = año > 0 ? año : fechaActual.Year;
+            
+            if (mesActual < 1) { mesActual = 12; añoActual--; }
+            if (mesActual > 12) { mesActual = 1; añoActual++; }
+
+            List<Evento> eventosInscritos = BD.MisActividades(usuario.ID);
+            
+            List<Evento> todosEventos = BD.ObtenerEventos();
+            List<Evento> eventosCreados = todosEventos.Where(e => e.IDCreador == usuario.ID).ToList();
+            
+            var todosLosEventos = eventosInscritos
+                .Union(eventosCreados)
+                .GroupBy(e => e.ID)
+                .Select(g => g.First())
+                .ToList();
+            
+            ViewBag.Eventos = todosLosEventos;
+            ViewBag.Usuario = usuario;
+            ViewBag.Mes = mesActual;
+            ViewBag.Año = añoActual;
+            
             return View("Calendario", "Home");
         }
         public IActionResult ListaDeAmigos()
@@ -526,14 +501,39 @@ namespace OldMates.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Account");
         }
-            private bool GuardarIntegranteEnSession(Usuario usuario)
+        private bool GuardarIntegranteEnSession(Usuario usuario)
         {
             HttpContext.Session.SetString("Usuario", Objeto.ObjectToString(usuario));
-
             string valor = HttpContext.Session.GetString("Usuario");
+            return !string.IsNullOrEmpty(valor);
+        }
 
-            if (!string.IsNullOrEmpty(valor)) return true;
-            else return false;
+        private string GuardarFoto(IFormFile archivo, string fotoPorDefecto)
+        {
+            if (archivo == null || archivo.Length == 0)
+                return fotoPorDefecto;
+
+            try
+            {
+                string extension = Path.GetExtension(archivo.FileName);
+                string nombreUnico = Guid.NewGuid().ToString() + extension;
+                string carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img");
+                
+                if (!Directory.Exists(carpeta))
+                    Directory.CreateDirectory(carpeta);
+
+                string rutaCompleta = Path.Combine(carpeta, nombreUnico);
+                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    archivo.CopyTo(stream);
+                }
+
+                return "/img/" + nombreUnico;
+            }
+            catch
+            {
+                return fotoPorDefecto;
+            }
         }
     }
 }

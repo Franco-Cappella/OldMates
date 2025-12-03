@@ -11,14 +11,13 @@
         
         <div class="perfil-view-card">
             
-            <!-- Header con foto -->
             <div class="perfil-view-header">
                 <div class="perfil-view-foto-wrapper">
                     <img src="@(usuario?.Foto ?? "/img/usuario_default.png")" alt="Foto de perfil" id="preview-foto" class="perfil-view-foto">
-                    <label for="foto-input" class="perfil-view-cambiar-foto">
+                    <span class="perfil-view-cambiar-foto" onclick="document.getElementById('foto-input').click()" style="cursor: pointer;">
                         Cambiar Foto
-                    </label>
-                    <input type="file" id="foto-input" name="FotoArchivo" accept="image/*" hidden>
+                    </span>
+                    <input type="file" id="foto-input" name="fotoArchivo" accept="image/*" hidden>
                 </div>
                 <div class="perfil-view-header-info">
                     <h3 class="perfil-view-nombre">Actualiza tu información</h3>
@@ -26,30 +25,28 @@
                 </div>
             </div>
 
-            <!-- Información personal -->
             <div class="perfil-view-section">
                 <h4 class="perfil-view-section-title">Datos Personales</h4>
                 <div class="perfil-edit-form-grid">
                     
                     <div class="perfil-edit-form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="Nombre" placeholder="Nombre" value="@usuario?.Nombre" required>
+                        <span class="form-field-title">Nombre</span>
+                        <input type="text" name="Nombre" placeholder="Nombre" value="@usuario?.Nombre" required>
                     </div>
 
                     <div class="perfil-edit-form-group">
-                        <label for="apellido">Apellido</label>
-                        <input type="text" id="apellido" name="Apellido" placeholder="Apellido" value="@usuario?.Apellido" required>
+                        <span class="form-field-title">Apellido</span>
+                        <input type="text" name="Apellido" placeholder="Apellido" value="@usuario?.Apellido" required>
                     </div>
 
                     <div class="perfil-edit-form-group perfil-edit-form-group-full">
-                        <label for="localidad">Localidad</label>
-                        <input type="text" id="localidad" name="Localidad" placeholder="Ciudad, País" value="@usuario?.Localidad">
+                        <span class="form-field-title">Localidad</span>
+                        <input type="text" name="Localidad" placeholder="Ciudad, País" value="@usuario?.Localidad">
                     </div>
 
                 </div>
             </div>
 
-            <!-- Intereses -->
             <div class="perfil-view-section">
                 <h4 class="perfil-view-section-title">Intereses</h4>
                 <div class="perfil-edit-form-group">
@@ -58,7 +55,6 @@
                 </div>
             </div>
 
-            <!-- Botones de acción -->
             <div class="perfil-view-actions">
                 <button type="submit" class="perfil-view-btn perfil-view-btn-primary">
                     Guardar Cambios
@@ -74,7 +70,6 @@
 </div>
 
 <script>
-    // Previsualizar la foto antes de guardar
     document.getElementById('foto-input').addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {

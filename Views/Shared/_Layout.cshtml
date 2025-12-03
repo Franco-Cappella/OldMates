@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
 
 </head>
@@ -32,19 +33,27 @@
 
                 <!-- MENÚ -->
                 <ul class="navbar-nav">
-                    <li><a href='@Url.Action("Landing", "Home")'>Inicio</a></li>
-                    <li><a href='@Url.Action("Explorar", "Home")'>Explorar</a></li>
-                    <li><a href='@Url.Action("MisActividades", "Home")'>Mis Actividades</a></li>
-                    <li><a href='@Url.Action("Calendario", "Home")'>Mi Agenda</a></li>
-                    <li><a href='@Url.Action("Mensajes", "Home")'>Mensajes</a></li>
+                    @if (Context.Session.GetString("Usuario") != null)
+                    {
+                        <li><a href='@Url.Action("Landing", "Home")'>Inicio</a></li>
+                        <li><a href='@Url.Action("Explorar", "Home")'>Explorar</a></li>
+                        <li><a href='@Url.Action("MisActividades", "Home")'>Mis Actividades</a></li>
+                        <li><a href='@Url.Action("Calendario", "Home")'>Mi Agenda</a></li>
+                        <li><a href='@Url.Action("Mensajes", "Home")'>Mensajes</a></li>
 
-                    <li><a href='@Url.Action("PerfilMenu", "Home")'>
-                        <img src="/img/Perfil.png" alt="Perfil"></a>
-                    </li>
+                        <li><a href='@Url.Action("PerfilMenu", "Home")'>
+                            <img src="/img/Perfil.png" alt="Perfil"></a>
+                        </li>
 
-                    <li><a href='@Url.Action("Notificaciones", "Home")'>
-                        <img src="/img/Campana.png" alt="Notificaciones"></a>
-                    </li>
+                        <li><a href='@Url.Action("Notificaciones", "Home")'>
+                            <img src="/img/Campana.png" alt="Notificaciones"></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a href='@Url.Action("Login", "Account")' class="btn-header-login">Iniciar Sesión</a></li>
+                        <li><a href='@Url.Action("Registro", "Account")' class="btn-header-registro">Registro</a></li>
+                    }
                 </ul>
 
 
@@ -71,17 +80,17 @@
 
         <div>
             <h3>Ayuda</h3>
-            <p>Recomendaciones</p>
-            <p>Tutoriales</p>
-            <p>Chat de servicio</p>
+            <a href="@Url.Action("Actividades", "Home")">Recomendaciones</a>
+            <a href="@Url.Action("Tutoriales", "Home")">Tutoriales</a>
+            <a href="@Url.Action("Mensajes", "Home")">Chat de servicio</a>
         </div>
 
 
         <div>
             <h3>Links Útiles</h3>
-            <p>Perfil</p>
-            <p>Actividades</p>
-            <p>Encuentros</p>
+            <a href="@Url.Action("Perfil", "Home")">Perfil</a>
+            <a href="@Url.Action("Actividades", "Home")">Actividades</a>
+            <a href="@Url.Action("MisActividades", "Home")">Mis Encuentros</a>
         </div>
 
 

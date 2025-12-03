@@ -7,101 +7,126 @@
     Usuario usuario = ViewBag.Usuario as Usuario;
 }
 
-<div class="bienvenido">
-    <h1 class="bienvenido-title">¡Bienvenido!</h1>
-</div>
+<div class="landing-container">
+    <h1 class="landing-title">¡Bienvenido, @usuario?.Nombre!</h1>
 
-<div class="eventos-container container mt-4">
+    <div class="landing-actions">
+        <a href="@Url.Action("CrearEvento", "Home")" class="btn landing-btn">Crear Actividad</a>
+        <a href="@Url.Action("Actividades", "Home")" class="btn landing-btn">Actividades</a>
+        <a href="@Url.Action("Calendario", "Home")" class="btn landing-btn">Mi Agenda</a>
+        <a href="@Url.Action("InvitarAmigos", "Home")" class="btn landing-btn">Invitar Amigos</a>
+    </div>
 
-    <!-- ========================= -->
-    <!--      EVENTOS DEL DÍA      -->
-    <!-- ========================= -->
-    <div class="card eventos-hoy mb-4">
-        <div class="card-header">
-            <h5 class="card-title-small">Tus eventos del día:</h5>
+    <div class="row g-3 justify-content-center" style="align-items: flex-start;">
+        
+        <div class="col-lg-4 col-md-6">
+            <a href="@Url.Action("Actividades", "Home")" class="landing-link">
+                <div class="card h-100 landing-card-blue">
+                    <div class="card-header landing-card-header-transparent">
+                        OldMates
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="/img/actividades.png" class="landing-card-img-small" alt="OldMates">
+                            <div>
+                                <h5 class="landing-conecta-title mb-1">¡Conectá!</h5>
+                                <p class="landing-conecta-text mb-1">Nuevas actividades y amigos</p>
+                                <span class="landing-conecta-link">Explorar →</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
 
-            <ul class="card-list list-unstyled p-3">
-        @if (eventosHoy.Count == 0)
-        {
-            <li>No tienes actividades hoy.</li>
-        }
-        else
-        {
-            foreach (var ev in eventosHoy)
-            {
-                <li>
-                    <a href="@Url.Action("ActividadUnica", "Home", new { IDEvento = ev.ID })" class="evento-link">
-                        @ev.Fecha.ToString("HH:mm") - @ev.Titulo
-                    </a>
-                </li>
-            }
-        }
-            </ul>
-    </div>
-
-    <!-- Imagen central -->
-    <div class="text-center mb-4">
-        <img src="/img/actividades.png" class="img-centro" alt="decoración" style="max-width:300px;">
-    </div>
-
-    <!-- ========================= -->
-    <!--     PRÓXIMOS EVENTOS      -->
-    <!-- ========================= -->
-    <div class="card proximos-container">
-        <div class="card-body">
-            <h5 class="subtitulo">Eventos que te podrian gustar:</h5>
-
-            <div class="accordion accordion-flush eventos-proximos" id="accordionProximos">
-
-                @if (proximosEventos.Count == 0)
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 landing-card-blue">
+                <div class="card-header landing-card-header-transparent">
+                    Eventos de hoy
+                </div>
+                <div class="card-body p-2">
+                @if (eventosHoy.Count == 0)
                 {
-                    <div class="p-3">No hay eventos próximos.</div>
+                    <div class="text-center py-3">
+                        <p class="mb-0 landing-empty-text">Sin actividades hoy</p>
+                    </div>
                 }
                 else
                 {
-                    int index = 0;
-
-                    foreach (var e in proximosEventos)
+                    <div class="accordion accordion-flush" id="accordionHoy">
+                    @{int indexHoy = 0;}
+                    @foreach (var ev in eventosHoy.Take(4))
                     {
-                        string collapseId = $"collapse_{index}";
-                        string headerId = $"header_{index}";
-
-                        <div class="accordion-item">
-
-                            <h2 class="accordion-header" id="@headerId">
-                                <button class="accordion-button collapsed card-title"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#@collapseId">
-                                    @e.Titulo
-                                    <small class="ms-2 text-muted">— @e.Fecha.ToString("dd/MM HH:mm")</small>
+                        string collapseHoyId = $"collapseHoy_{indexHoy}";
+                        <div class="accordion-item landing-accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed py-2 px-3 landing-accordion-btn" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#@collapseHoyId">
+                                    @ev.Fecha.ToString("HH:mm") - @ev.Titulo
                                 </button>
                             </h2>
-
-                            <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@headerId" data-bs-parent="#accordionProximos">
-                                <div class="accordion-body card-body">
-
-                                    <p class="card-text">@e.Descripcion</p>
-                                    <p><strong>Localidad:</strong> @e.Localidad</p>
-                                    <p><strong>Duración:</strong> @e.Duracion</p>
-                                    <p><strong>Capacidad:</strong> @e.Capacidad</p>
-
-                                    <div class="card-footer mt-3">
-                                        <a class="btn btn-link" href="@Url.Action("ActividadUnica", "Home", new { IDEvento = e.ID })">Ver más</a>
-                                    </div>
-
+                            <div id="@collapseHoyId" class="accordion-collapse collapse" data-bs-parent="#accordionHoy">
+                                <div class="accordion-body py-2 px-3 landing-accordion-body">
+                                    <p class="mb-1 landing-event-info">Lugar: @ev.Localidad</p>
+                                    <p class="mb-2 landing-event-info">Duración: @ev.Duracion</p>
+                                    <a href="@Url.Action("ActividadUnica", "Home", new { IDEvento = ev.ID })" class="btn btn-sm landing-btn-details">
+                                        Ver detalles
+                                    </a>
                                 </div>
                             </div>
-
                         </div>
-
-                        index++;
+                        indexHoy++;
                     }
+                    </div>
                 }
+                </div>
+            </div>
+        </div>
 
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 landing-card-blue">
+                <div class="card-header landing-card-header-transparent">
+                    Sugeridos
+                </div>
+                <div class="card-body p-2">
+                    @if (proximosEventos.Count == 0)
+                    {
+                        <div class="text-center py-3">
+                            <p class="mb-0 landing-empty-text">Sin sugerencias</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="accordion accordion-flush" id="accordionSugeridos">
+                        @{int indexSug = 0;}
+                        @foreach (var e in proximosEventos.Take(4))
+                        {
+                            string collapseSugId = $"collapseSug_{indexSug}";
+                            <div class="accordion-item landing-accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed py-2 px-3 landing-accordion-btn" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#@collapseSugId">
+                                        @e.Titulo
+                                        <small class="ms-auto landing-event-date">@e.Fecha.ToString("dd/MM")</small>
+                                    </button>
+                                </h2>
+                                <div id="@collapseSugId" class="accordion-collapse collapse" data-bs-parent="#accordionSugeridos">
+                                    <div class="accordion-body py-2 px-3 landing-accordion-body">
+                                        <p class="mb-1 landing-event-info">Fecha: @e.Fecha.ToString("dd/MM HH:mm")</p>
+                                        <p class="mb-1 landing-event-info">Lugar: @e.Localidad</p>
+                                        <p class="mb-2 landing-event-info">Interés: @e.Intereses</p>
+                                        <a href="@Url.Action("ActividadUnica", "Home", new { IDEvento = e.ID })" class="btn btn-sm landing-btn-details">
+                                            Ver detalles
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            indexSug++;
+                        }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-
 </div>

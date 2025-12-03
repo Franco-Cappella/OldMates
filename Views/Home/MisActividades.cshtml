@@ -6,7 +6,10 @@
 }
 
 <div class="carrusel-actividades">
-    <h2 class="title text-center mb-4">Mis Actividades</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="title mb-0">Mis Actividades</h2>
+        <a class="btn btn-success" href="@Url.Action("CrearEvento", "Home")">+ Crear Actividad</a>
+    </div>
 
     @if (Eventos != null && Eventos.Count > 0)
     {
@@ -20,7 +23,7 @@
                     <div class="swiper-slide">
                         <div class="card-actividad">
                             <div class="card-actividad-img">
-                                <img src="~/img/@evento.Foto" alt="@evento.Titulo">
+                                <img src="@evento.Foto" alt="@evento.Titulo">
                             </div>
                             <div class="card-actividad-body">
                                 <div>

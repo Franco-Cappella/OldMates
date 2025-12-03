@@ -5,51 +5,94 @@
     int IDUsuario = ViewBag.IDUsuario;
 }
 
-<body>
-  <main class="crear-actividad-container">
-    <h1>Modificar actividad:</h1>
-
-    <form action="ModificarEventoRecibir" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="ID" value="@evento.ID" />
-
-      <div class="form-grid">
-        <div class="form-group">
-          <input type="text" name="Titulo" class="form-control" placeholder="Título" value="@evento.Titulo" required />
+<div class="form-page-container">
+    <div class="form-page-card">
+        <div class="form-page-header">
+            <h1 class="form-page-title">Modificar Actividad</h1>
+            <p class="form-page-subtitle">Actualiza los datos de tu evento</p>
         </div>
 
-        <div class="form-group">
-          <input type="time" name="Duracion" class="form-control" placeholder="Duración" value="@evento.Duracion" required />
-        </div>
+        <div class="form-page-body">
+            <form action="ModificarEventoRecibir" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="ID" value="@evento.ID" />
 
-        <div class="form-group">
-          <input type="text" name="Descripcion" class="form-control" placeholder="Descripción" value="@evento.Descripcion" required />
-        </div>
+                <div class="form-grid-2col">
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-card-heading"></i> Título
+                        </span>
+                        <input type="text" name="Titulo" class="form-page-input" value="@evento.Titulo" required />
+                    </div>
 
-        <div class="form-group">
-          <input type="text" name="Intereses" class="form-control" placeholder="Intereses" value="@evento.Intereses" required />
-        </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-clock"></i> Duración
+                        </span>
+                        <input type="time" name="Duracion" class="form-page-input" value="@evento.Duracion" required />
+                    </div>
 
-        <div class="form-group">
-          <input type="number" name="Capacidad" class="form-control" placeholder="Capacidad máxima" value="@evento.Capacidad" required />
-        </div>
+                    <div style="grid-column: 1 / -1;">
+                        <span class="form-page-label">
+                            <i class="bi bi-text-paragraph"></i> Descripción
+                        </span>
+                        <textarea name="Descripcion" class="form-page-input" rows="3" required>@evento.Descripcion</textarea>
+                    </div>
 
-        <div class="form-group">
-          <input type="date" name="Fecha" class="form-control" placeholder="Fecha" value="@evento.Fecha.ToString("yyyy-MM-dd")" required />
-        </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-heart"></i> Intereses
+                        </span>
+                        <input type="text" name="Intereses" class="form-page-input" value="@evento.Intereses" required />
+                    </div>
 
-        <div class="form-group">
-          <input type="text" name="Localidad" class="form-control" placeholder="Zona" value="@evento.Localidad" required />
-        </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-people"></i> Capacidad
+                        </span>
+                        <input type="number" name="Capacidad" class="form-page-input" value="@evento.Capacidad" required />
+                    </div>
 
-        <div class="form-group upload-btn">
-          <label for="imagen" class="btn-success">Cambiar imagen +</label>
-          <input type="file" id="imagen" name="Imagen" accept="image/*" hidden />
-        </div>
-      </div>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-calendar-event"></i> Fecha
+                        </span>
+                        <input type="date" name="Fecha" class="form-page-input" value="@evento.Fecha.ToString("yyyy-MM-dd")" required />
+                    </div>
 
-      <div class="submit-btn">
-        <button type="submit" class="btn-primary">Guardar Cambios</button>
-      </div>
-    </form>
-  </main>
-</body>
+                    <div>
+                        <span class="form-page-label">
+                            <i class="bi bi-geo-alt"></i> Zona
+                        </span>
+                        <input type="text" name="Localidad" class="form-page-input" value="@evento.Localidad" required />
+                    </div>
+
+                    <div style="grid-column: 1 / -1;">
+                        <span class="form-page-label">
+                            <i class="bi bi-image"></i> Imagen
+                        </span>
+                        <div class="d-flex align-items-center">
+                            <span class="btn-upload-image" onclick="document.getElementById('imagen').click()">
+                                <i class="bi bi-upload"></i> Cambiar Imagen
+                            </span>
+                            <span id="file-name" class="file-name-display">Ningún archivo seleccionado</span>
+                            <input type="file" id="imagen" name="imagen" accept="image/*" hidden />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn-yellow-primary">
+                        <i class="bi bi-check-circle"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('imagen').addEventListener('change', function(e) {
+        const fileName = e.target.files[0]?.name || 'Ningún archivo seleccionado';
+        document.getElementById('file-name').textContent = fileName;
+    });
+</script>

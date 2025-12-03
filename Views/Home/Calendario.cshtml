@@ -1,70 +1,204 @@
+@using OldMates.Models
 @{
     ViewData["Title"] = "Calendario";
+    List<Evento> eventos = ViewBag.Eventos ?? new List<Evento>();
+    Usuario usuario = ViewBag.Usuario;
+    
+    DateTime hoy = DateTime.Now;
+    int año = ViewBag.Año ?? hoy.Year;
+    int mes = ViewBag.Mes ?? hoy.Month;
+    
+    int mesAnterior = mes - 1;
+    int añoAnterior = año;
+    if (mesAnterior < 1) { mesAnterior = 12; añoAnterior--; }
+    
+    int mesSiguiente = mes + 1;
+    int añoSiguiente = año;
+    if (mesSiguiente > 12) { mesSiguiente = 1; añoSiguiente++; }
+    
+    DateTime primerDia = new DateTime(año, mes, 1);
+    int diasEnMes = DateTime.DaysInMonth(año, mes);
+    
+    int primerDiaSemana = (int)primerDia.DayOfWeek;
+    primerDiaSemana = primerDiaSemana == 0 ? 6 : primerDiaSemana - 1;
+    
+    string nombreMes = primerDia.ToString("MMMM yyyy", new System.Globalization.CultureInfo("es-ES"));
+    nombreMes = char.ToUpper(nombreMes[0]) + nombreMes.Substring(1);
 }
-<body>
-  <main class="calendar-container">
-    <h2 class="calendar-title">Calendario</h2>
-    <h3 class="calendar-month">Noviembre</h3>
+
+<main class="calendar-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="calendar-title mb-0">Mi Agenda</h2>
+        <div>
+            <a href="@Url.Action("Calendario", "Home", new { mes = mesAnterior, año = añoAnterior })" 
+               class="btn btn-sm" 
+               style="background-color: #BDD6E6; color: #024873; border: none; border-radius: 8px; padding: 8px 15px; font-weight: 600; text-decoration: none;">
+                <i class="bi bi-chevron-left"></i> Anterior
+            </a>
+            <a href="@Url.Action("Calendario", "Home", new { mes = mesSiguiente, año = añoSiguiente })" 
+               class="btn btn-sm" 
+               style="background-color: #BDD6E6; color: #024873; border: none; border-radius: 8px; padding: 8px 15px; font-weight: 600; margin-left: 10px; text-decoration: none;">
+                Siguiente <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <h3 class="calendar-month">@nombreMes</h3>
 
     <table class="calendar-table">
-      <thead>
-        <tr>
-          <th>Lunes</th>
-          <th>Martes</th>
-          <th>Miércoles</th>
-          <th>Jueves</th>
-          <th>Viernes</th>
-          <th>Sábado</th>
-          <th>Domingo</th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sábado</th>
+                <th>Domingo</th>
+            </tr>
+        </thead>
 
-      <tbody>
-        <tr>
-          <td></td><td></td><td class="day">1</td><td class="day">2</td><td class="day">3</td><td class="day">4</td><td class="day">5</td>
-        </tr>
-
-        <tr>
-          <td class="day">6</td>
-          <td class="day event">7<br><span>Salida de los martes</span></td>
-          <td class="day">8</td>
-          <td class="day event">9<br><span>Torneo de Burako</span></td>
-          <td class="day">10</td>
-          <td class="day">11</td>
-          <td class="day event">12<br><span>Cumple de Berta</span></td>
-        </tr>
-
-        <tr>
-          <td class="day">13</td>
-          <td class="day event">14<br><span>Salida de los martes</span></td>
-          <td class="day">15</td>
-          <td class="day">16</td>
-          <td class="day">17</td>
-          <td class="day">18</td>
-          <td class="day">19</td>
-        </tr>
-
-        <tr>
-          <td class="day">20</td>
-          <td class="day event">21<br><span>Salida de los martes</span></td>
-          <td class="day">22</td>
-          <td class="day">23</td>
-          <td class="day">24</td>
-          <td class="day">25</td>
-          <td class="day">26</td>
-        </tr>
-
-        <tr>
-          <td class="day">27</td>
-          <td class="day event">28<br><span>Salida de los martes</span></td>
-          <td class="day">29</td>
-          <td class="day">30</td>
-          <td class="day event">31<br><span>Fiesta de Halloween</span></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
+        <tbody>
+            @{
+                int diaActual = 1;
+                int semanas = (int)Math.Ceiling((primerDiaSemana + diasEnMes) / 7.0);
+                
+                for (int semana = 0; semana < semanas; semana++)
+                {
+                    <tr>
+                    @for (int diaSemana = 0; diaSemana < 7; diaSemana++)
+                    {
+                        int posicion = semana * 7 + diaSemana;
+                        
+                        if (posicion < primerDiaSemana || diaActual > diasEnMes)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            DateTime fechaDia = new DateTime(año, mes, diaActual);
+                            
+                            var eventosDelDia = eventos.Where(e => e.Fecha.Date == fechaDia.Date).ToList();
+                            
+                            bool esHoy = fechaDia.Date == DateTime.Now.Date;
+                            string claseHoy = esHoy ? "calendar-today" : "";
+                            
+                            if (eventosDelDia.Any())
+                            {
+                                <td class="day event @claseHoy">
+                                    <strong>@diaActual</strong>
+                                    @foreach (var evento in eventosDelDia)
+                                    {
+                                        <br/>
+                                        <a href="@Url.Action("ActividadUnica", "Home", new { IDEvento = evento.ID })" 
+                                           class="evento-calendario" 
+                                           title="@evento.Descripcion - Click para ver detalles">
+                                            @evento.Titulo
+                                        </a>
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="day @claseHoy">
+                                    @if (esHoy)
+                                    {
+                                        <strong style="color: #007CB5;">@diaActual</strong>
+                                    }
+                                    else
+                                    {
+                                        @diaActual
+                                    }
+                                </td>
+                            }
+                            
+                            diaActual++;
+                        }
+                    }
+                    </tr>
+                }
+            }
+        </tbody>
     </table>
-  </main>
-</body>
-</html>
+    
+    @if (eventos.Any())
+    {
+        <div class="mt-5">
+            <h4 style="color: #024873; font-weight: 700; margin-bottom: 20px;">
+                <i class="bi bi-list-check"></i> Próximas Actividades
+            </h4>
+            <div class="row g-3">
+                @foreach (var evento in eventos.OrderBy(e => e.Fecha).Take(5))
+                {
+                    <div class="col-md-6">
+                        <div class="card" style="border-left: 4px solid #E9C94A; border-radius: 10px;">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: #024873; font-weight: 600;">@evento.Titulo</h5>
+                                <p class="card-text mb-2">
+                                    <i class="bi bi-calendar3"></i> @evento.Fecha.ToString("dd/MM/yyyy HH:mm")
+                                </p>
+                                <p class="card-text mb-2">
+                                    <i class="bi bi-geo-alt"></i> @evento.Localidad
+                                </p>
+                                <a href="@Url.Action("ActividadUnica", "Home", new { IDEvento = evento.ID })" 
+                                   class="btn btn-sm" 
+                                   style="background-color: #BDD6E6; color: #024873; border: none; border-radius: 8px; font-weight: 600;">
+                                    Ver detalles
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center mt-5 p-5" style="background-color: #f8f9fa; border-radius: 15px;">
+            <i class="bi bi-calendar-x" style="font-size: 3rem; color: #BDD6E6;"></i>
+            <h4 style="color: #024873; margin-top: 20px;">No tenés actividades programadas</h4>
+            <p style="color: #666;">¡Explorá nuevas actividades y unite a la comunidad!</p>
+            <a href="@Url.Action("Actividades", "Home")" class="btn btn-lg mt-3" 
+               style="background-color: #E9C94A; color: #024873; border: none; border-radius: 12px; font-weight: 600; padding: 12px 30px;">
+                <i class="bi bi-search"></i> Explorar Actividades
+            </a>
+        </div>
+    }
+</main>
+
+<style>
+    .calendar-today {
+        background-color: #e8f1fa !important;
+        border: 2px solid #007CB5 !important;
+    }
+    
+    .evento-calendario {
+        font-size: 0.85rem;
+        color: #024873;
+        display: block;
+        margin-top: 4px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        padding: 2px 4px;
+        border-radius: 4px;
+    }
+    
+    .evento-calendario:hover {
+        background-color: #E9C94A;
+        color: #024873;
+        text-decoration: none;
+        transform: translateX(3px);
+        font-weight: 600;
+    }
+    
+    .calendar-table td.event {
+        background-color: #fff3cd;
+        vertical-align: top;
+    }
+    
+    .calendar-table td.day:hover {
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+</style>
