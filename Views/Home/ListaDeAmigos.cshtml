@@ -1,54 +1,367 @@
+@using OldMates.Models
 @{
-    ViewData["Title"] = "Lista De Amigos";
+    ViewData["Title"] = "Mis Amigos";
+    List<Usuario> amigos = ViewBag.Amigos as List<Usuario> ?? new List<Usuario>();
+    List<Amistad> solicitudes = ViewBag.SolicitudesPendientes as List<Amistad> ?? new List<Amistad>();
+    Usuario usuario = ViewBag.Usuario;
 }
 
-<div class="container">
-  <h2 class="text-center mb-4">Mis Amigos</h2>
-  
-  <div class="text-center">
-    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
-      <div class="col">
-        <div class="p-3 border rounded">Dario</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Ana</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Becky</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Tita</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Alicia</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Bernardo</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Julia</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Mechi</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Jose</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Jaime</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Erica</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border rounded">Rodo</div>
-      </div>
+<div class="amigos-container">
+    <h1 class="amigos-title">Mis Amigos</h1>
+
+    <div class="amigos-actions">
+        <a href="@Url.Action("BuscarAmigos", "Home")" class="btn amigos-btn-primary">
+            <i class="bi bi-search"></i> Buscar Personas
+        </a>
+        <a href="@Url.Action("InvitarAmigos", "Home")" class="btn amigos-btn-secondary">
+            <i class="bi bi-envelope"></i> Invitar por WhatsApp
+        </a>
     </div>
-  </div>
+
+    @if (solicitudes.Count > 0)
+    {
+        <div class="solicitudes-section">
+            <h2 class="section-title">
+                <i class="bi bi-person-plus"></i> Solicitudes Pendientes 
+                <span class="badge-count">@solicitudes.Count</span>
+            </h2>
+            <div class="solicitudes-grid">
+                @foreach (var solicitud in solicitudes)
+                {
+                    <div class="solicitud-card">
+                        <img src="@(solicitud.Usuario1?.Foto ?? "/img/usuario_default.png")" alt="Foto" class="solicitud-foto">
+                        <div class="solicitud-info">
+                            <h4>@solicitud.Usuario1?.Nombre @solicitud.Usuario1?.Apellido</h4>
+                            <p><i class="bi bi-geo-alt"></i> @(solicitud.Usuario1?.Localidad ?? "Sin ubicación")</p>
+                        </div>
+                        <div class="solicitud-actions">
+                            <form action="@Url.Action("AceptarSolicitud", "Home")" method="post" style="display:inline;">
+                                <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
+                                <button type="submit" class="btn-aceptar">
+                                    <i class="bi bi-check-lg"></i> Aceptar
+                                </button>
+                            </form>
+                            <form action="@Url.Action("RechazarSolicitud", "Home")" method="post" style="display:inline;">
+                                <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
+                                <button type="submit" class="btn-rechazar">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="amigos-section">
+        <h2 class="section-title">
+            <i class="bi bi-people"></i> Mis Amigos 
+            <span class="badge-count-blue">@amigos.Count</span>
+        </h2>
+
+        @if (amigos.Count == 0)
+        {
+            <div class="empty-state">
+                <i class="bi bi-people" style="font-size: 4rem; color: #BDD6E6;"></i>
+                <h3>Todavía no tenés amigos</h3>
+                <p>¡Buscá personas con intereses similares y enviales una solicitud!</p>
+                <a href="@Url.Action("BuscarAmigos", "Home")" class="btn amigos-btn-primary">
+                    <i class="bi bi-search"></i> Buscar Personas
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="amigos-grid">
+                @foreach (var amigo in amigos)
+                {
+                    <div class="amigo-card">
+                        <img src="@(amigo.Foto ?? "/img/usuario_default.png")" alt="Foto de @amigo.Nombre" class="amigo-foto">
+                        <div class="amigo-info">
+                            <h4>@amigo.Nombre @amigo.Apellido</h4>
+                            <p class="amigo-localidad"><i class="bi bi-geo-alt"></i> @(amigo.Localidad ?? "Sin ubicación")</p>
+                        </div>
+                        <div class="amigo-actions">
+                            <a href="@Url.Action("Mensajes", "Home")" class="btn-mensaje" title="Enviar mensaje">
+                                <i class="bi bi-chat-dots"></i>
+                            </a>
+                            <form action="@Url.Action("EliminarAmigo", "Home")" method="post" style="display:inline;" 
+                                  onsubmit="return confirm('¿Estás seguro de eliminar a @amigo.Nombre de tus amigos?');">
+                                <input type="hidden" name="IDAmigo" value="@amigo.ID" />
+                                <button type="submit" class="btn-eliminar" title="Eliminar amigo">
+                                    <i class="bi bi-person-x"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
 
-<div class="text-center mt-5 mb-4">
-  <a class="btn btn-success btn-lg" href='@Url.Action("InvitarAmigos", "Home")'>
-    <i class="bi bi-person-plus"></i> Invitar Amigos
-  </a>
-</div>
+<style>
+    .amigos-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px 20px;
+    }
+
+    .amigos-title {
+        text-align: center;
+        color: #024873;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .amigos-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+
+    .amigos-btn-primary {
+        background-color: #024873;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: 0.3s ease;
+    }
+
+    .amigos-btn-primary:hover {
+        background-color: #013953;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .amigos-btn-secondary {
+        background-color: #E9C94A;
+        color: #024873;
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: 0.3s ease;
+    }
+
+    .amigos-btn-secondary:hover {
+        background-color: #d4b643;
+        transform: translateY(-2px);
+    }
+
+    .section-title {
+        color: #024873;
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .badge-count {
+        background-color: #E9C94A;
+        color: #024873;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+
+    .badge-count-blue {
+        background-color: #BDD6E6;
+        color: #024873;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+    }
+
+    .solicitudes-section {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        border-left: 5px solid #E9C94A;
+    }
+
+    .solicitudes-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .solicitud-card {
+        display: flex;
+        align-items: center;
+        background: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .solicitud-foto {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #E9C94A;
+    }
+
+    .solicitud-info {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .solicitud-info h4 {
+        margin: 0;
+        color: #024873;
+        font-size: 1.1rem;
+    }
+
+    .solicitud-info p {
+        margin: 5px 0 0;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .solicitud-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-aceptar {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .btn-aceptar:hover {
+        background-color: #218838;
+    }
+
+    .btn-rechazar {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .btn-rechazar:hover {
+        background-color: #c82333;
+    }
+
+    .amigos-section {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .amigos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .amigo-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        transition: 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .amigo-card:hover {
+        transform: translateY(-5px);
+        border-color: #BDD6E6;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .amigo-foto {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #BDD6E6;
+        margin-bottom: 15px;
+    }
+
+    .amigo-info h4 {
+        margin: 0;
+        color: #024873;
+        font-size: 1.1rem;
+    }
+
+    .amigo-localidad {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 8px 0 15px;
+    }
+
+    .amigo-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-mensaje {
+        background-color: #007CB5;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s ease;
+    }
+
+    .btn-mensaje:hover {
+        background-color: #024873;
+        color: white;
+    }
+
+    .btn-eliminar {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .btn-eliminar:hover {
+        background-color: #dc3545;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+    }
+
+    .empty-state h3 {
+        color: #024873;
+        margin: 20px 0 10px;
+    }
+
+    .empty-state p {
+        color: #666;
+        margin-bottom: 25px;
+    }
+</style>

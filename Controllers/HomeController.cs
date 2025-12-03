@@ -9,16 +9,14 @@ namespace OldMates.Controllers
         public IActionResult CrearEvento()
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
-            if (ObtenerIntegranteDesdeSession() == null)
+            if (usuario == null)
             {
-                return RedirectToAction("Index", "Account");
                 ViewBag.Error = "No estas logueado";
+                return RedirectToAction("Index", "Account");
             }
-            else
-            {
-                ViewBag.usuario = usuario;
-                return View();
-            }
+            
+            ViewBag.usuario = usuario;
+            return View();
         }
 
         [HttpPost]
@@ -241,7 +239,7 @@ namespace OldMates.Controllers
                 ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
             }
-            return View("Mensajes", "Home");
+            return View();
         }
 
         public IActionResult Tutoriales()
@@ -466,12 +464,97 @@ namespace OldMates.Controllers
                 ViewBag.Error = "No estas logueado";
                 return RedirectToAction("Index", "Account");
             }
-            if (ObtenerIntegranteDesdeSession() == null) RedirectToAction("Index", "Home");
-            return View("ListaDeAmigos", "Home");
+
+            ViewBag.Amigos = BD.ObtenerAmigos(usuario.ID);
+            ViewBag.SolicitudesPendientes = BD.ObtenerSolicitudesPendientes(usuario.ID);
+            ViewBag.Usuario = usuario;
+
+            return View();
         }
 
         [HttpGet]
-            public IActionResult InvitarAmigosPost(string NombreAmigo, string Telefono, string Mensaje)
+        public IActionResult BuscarAmigos(string busqueda)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                ViewBag.Usuarios = new List<Usuario>();
+            }
+            else
+            {
+                var usuarios = BD.BuscarUsuarios(busqueda, usuario.ID);
+                foreach (var u in usuarios)
+                {
+                    u.Intereses = BD.ObtenerEstadoAmistad(usuario.ID, u.ID) ?? "ninguno";
+                }
+                ViewBag.Usuarios = usuarios;
+            }
+
+            ViewBag.Busqueda = busqueda;
+            ViewBag.Usuario = usuario;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EnviarSolicitudAmistad(int IDAmigo)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            BD.EnviarSolicitudAmistad(usuario.ID, IDAmigo);
+            return RedirectToAction("BuscarAmigos", new { busqueda = "" });
+        }
+
+        [HttpPost]
+        public IActionResult AceptarSolicitud(int IDSolicitud)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            BD.AceptarSolicitudAmistad(IDSolicitud, usuario.ID);
+            return RedirectToAction("ListaDeAmigos");
+        }
+
+        [HttpPost]
+        public IActionResult RechazarSolicitud(int IDSolicitud)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            BD.RechazarSolicitudAmistad(IDSolicitud, usuario.ID);
+            return RedirectToAction("ListaDeAmigos");
+        }
+
+        [HttpPost]
+        public IActionResult EliminarAmigo(int IDAmigo)
+        {
+            Usuario usuario = ObtenerIntegranteDesdeSession();
+            if (usuario == null)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+
+            BD.EliminarAmigo(usuario.ID, IDAmigo);
+            return RedirectToAction("ListaDeAmigos");
+        }
+
+        [HttpGet]
+        public IActionResult InvitarAmigosPost(string NombreAmigo, string Telefono, string Mensaje)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)

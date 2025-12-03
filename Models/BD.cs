@@ -266,5 +266,207 @@ namespace OldMates.Models
             return ActualizarUsuario(usuario);
         }
 
+        // ========== SISTEMA DE AMIGOS ==========
+
+        public static List<Usuario> ObtenerAmigos(int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT u.* FROM Usuario u
+                    INNER JOIN Amistad a ON (a.IDUsuario1 = u.ID OR a.IDUsuario2 = u.ID)
+                    WHERE (a.IDUsuario1 = @IDUsuario OR a.IDUsuario2 = @IDUsuario)
+                    AND a.Estado = 'aceptada'
+                    AND u.ID != @IDUsuario";
+                return connection.Query<Usuario>(query, new { IDUsuario }).ToList();
+            }
+        }
+
+        public static List<Amistad> ObtenerSolicitudesPendientes(int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+    SELECT a.*, u.ID, u.Nombre, u.Apellido, u.Foto, u.Localidad, u.Intereses
+    FROM Amistad a
+    INNER JOIN Usuario u ON a.IDUsuario1 = u.ID
+    WHERE a.IDUsuario2 = @IDUsuario AND a.Estado = 'pendiente'";
+                
+                var solicitudes = connection.Query<Amistad, Usuario, Amistad>(
+                    query,
+                    (amistad, usuario) => { amistad.Usuario1 = usuario; return amistad; },
+                    new { IDUsuario },
+                    splitOn: "ID"
+                ).ToList();
+                
+                return solicitudes;
+            }
+        }
+
+        public static bool EnviarSolicitudAmistad(int IDUsuario1, int IDUsuario2)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                // Verificar que no exista ya una solicitud
+                string queryExiste = @"
+                    SELECT 1 FROM Amistad 
+                    WHERE ((IDUsuario1 = @IDUsuario1 AND IDUsuario2 = @IDUsuario2) 
+                    OR (IDUsuario1 = @IDUsuario2 AND IDUsuario2 = @IDUsuario1))
+                    AND Estado != 'rechazada'";
+                int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDUsuario1, IDUsuario2 });
+
+                if (existe == 0 && IDUsuario1 != IDUsuario2)
+                {
+                    string query = @"
+                        INSERT INTO Amistad (IDUsuario1, IDUsuario2, Estado, FechaSolicitud)
+                        VALUES (@IDUsuario1, @IDUsuario2, 'pendiente', GETDATE())";
+                    connection.Execute(query, new { IDUsuario1, IDUsuario2 });
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static bool AceptarSolicitudAmistad(int IDSolicitud, int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    UPDATE Amistad 
+                    SET Estado = 'aceptada', FechaRespuesta = GETDATE()
+                    WHERE ID = @IDSolicitud AND IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
+                int filas = connection.Execute(query, new { IDSolicitud, IDUsuario });
+                return filas > 0;
+            }
+        }
+
+        public static bool RechazarSolicitudAmistad(int IDSolicitud, int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    UPDATE Amistad 
+                    SET Estado = 'rechazada', FechaRespuesta = GETDATE()
+                    WHERE ID = @IDSolicitud AND IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
+                int filas = connection.Execute(query, new { IDSolicitud, IDUsuario });
+                return filas > 0;
+            }
+        }
+
+        public static bool EliminarAmigo(int IDUsuario, int IDAmigo)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    DELETE FROM Amistad 
+                    WHERE ((IDUsuario1 = @IDUsuario AND IDUsuario2 = @IDAmigo) 
+                    OR (IDUsuario1 = @IDAmigo AND IDUsuario2 = @IDUsuario))
+                    AND Estado = 'aceptada'";
+                int filas = connection.Execute(query, new { IDUsuario, IDAmigo });
+                return filas > 0;
+            }
+        }
+
+        public static List<Usuario> BuscarUsuarios(string busqueda, int IDUsuarioActual)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT * FROM Usuario 
+                    WHERE ID != @IDUsuarioActual 
+                    AND (Nombre LIKE @Busqueda OR Apellido LIKE @Busqueda OR Username LIKE @Busqueda)";
+                return connection.Query<Usuario>(query, new { IDUsuarioActual, Busqueda = "%" + busqueda + "%" }).ToList();
+            }
+        }
+
+        public static string ObtenerEstadoAmistad(int IDUsuario1, int IDUsuario2)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT Estado FROM Amistad 
+                    WHERE ((IDUsuario1 = @IDUsuario1 AND IDUsuario2 = @IDUsuario2) 
+                    OR (IDUsuario1 = @IDUsuario2 AND IDUsuario2 = @IDUsuario1))
+                    AND Estado != 'rechazada'";
+                return connection.QueryFirstOrDefault<string>(query, new { IDUsuario1, IDUsuario2 });
+            }
+        }
+
+        public static int ContarSolicitudesPendientes(int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Amistad WHERE IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
+                return connection.QueryFirstOrDefault<int>(query, new { IDUsuario });
+            }
+        }
+
+
+        // ========== SISTEMA DE MENSAJES ==========
+
+        public static List<Mensaje> ObtenerConversacion(int IDUsuario1, int IDUsuario2)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT * FROM Mensaje 
+                    WHERE (IDEmisor = @IDUsuario1 AND IDReceptor = @IDUsuario2)
+                    OR (IDEmisor = @IDUsuario2 AND IDReceptor = @IDUsuario1)
+                    ORDER BY FechaEnvio ASC";
+                return connection.Query<Mensaje>(query, new { IDUsuario1, IDUsuario2 }).ToList();
+            }
+        }
+
+        public static bool EnviarMensaje(int IDEmisor, int IDReceptor, string contenido)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    INSERT INTO Mensaje (IDEmisor, IDReceptor, Contenido, FechaEnvio, Leido)
+                    VALUES (@IDEmisor, @IDReceptor, @Contenido, GETDATE(), 0)";
+                int filas = connection.Execute(query, new { IDEmisor, IDReceptor, Contenido = contenido });
+                return filas > 0;
+            }
+        }
+
+        public static void MarcarMensajesComoLeidos(int IDUsuario, int IDAmigo)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    UPDATE Mensaje SET Leido = 1 
+                    WHERE IDEmisor = @IDAmigo AND IDReceptor = @IDUsuario AND Leido = 0";
+                connection.Execute(query, new { IDUsuario, IDAmigo });
+            }
+        }
+
+        public static List<Usuario> ObtenerConversacionesRecientes(int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT DISTINCT u.*, 
+                        (SELECT TOP 1 Contenido FROM Mensaje 
+                         WHERE (IDEmisor = u.ID AND IDReceptor = @IDUsuario) 
+                         OR (IDEmisor = @IDUsuario AND IDReceptor = u.ID)
+                         ORDER BY FechaEnvio DESC) as Intereses,
+                        (SELECT COUNT(*) FROM Mensaje 
+                         WHERE IDEmisor = u.ID AND IDReceptor = @IDUsuario AND Leido = 0) as Admin
+                    FROM Usuario u
+                    INNER JOIN Mensaje m ON (m.IDEmisor = u.ID OR m.IDReceptor = u.ID)
+                    WHERE (m.IDEmisor = @IDUsuario OR m.IDReceptor = @IDUsuario)
+                    AND u.ID != @IDUsuario";
+                return connection.Query<Usuario>(query, new { IDUsuario }).ToList();
+            }
+        }
+
+        public static int ContarMensajesNoLeidos(int IDUsuario)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Mensaje WHERE IDReceptor = @IDUsuario AND Leido = 0";
+                return connection.QueryFirstOrDefault<int>(query, new { IDUsuario });
+            }
+        }
     }
 }
