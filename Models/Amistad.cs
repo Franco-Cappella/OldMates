@@ -14,15 +14,13 @@ namespace OldMates.Models
         public int IDUsuario2 { get; set; }
 
         [JsonProperty]
-        public string Estado { get; set; } // "pendiente", "aceptada", "rechazada"
+        public string Estado { get; set; }
 
         [JsonProperty]
         public DateTime FechaSolicitud { get; set; }
 
         [JsonProperty]
         public DateTime? FechaRespuesta { get; set; }
-
-        // Propiedades de navegación para mostrar info del amigo
         public Usuario Usuario1 { get; set; }
         public Usuario Usuario2 { get; set; }
 
