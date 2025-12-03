@@ -266,18 +266,11 @@ namespace OldMates.Models
             return ActualizarUsuario(usuario);
         }
 
-        // ========== SISTEMA DE AMIGOS ==========
-
         public static List<Usuario> ObtenerAmigos(int IDUsuario)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    SELECT u.* FROM Usuario u
-                    INNER JOIN Amistad a ON (a.IDUsuario1 = u.ID OR a.IDUsuario2 = u.ID)
-                    WHERE (a.IDUsuario1 = @IDUsuario OR a.IDUsuario2 = @IDUsuario)
-                    AND a.Estado = 'aceptada'
-                    AND u.ID != @IDUsuario";
+                string query = "SELECT u.* FROM Usuario u INNER JOIN Amistad a ON (a.IDUsuario1 = u.ID OR a.IDUsuario2 = u.ID) WHERE (a.IDUsuario1 = @IDUsuario OR a.IDUsuario2 = @IDUsuario) AND a.Estado = 'aceptada' AND u.ID != @IDUsuario";
                 return connection.Query<Usuario>(query, new { IDUsuario }).ToList();
             }
         }
@@ -286,19 +279,8 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-    SELECT a.*, u.ID, u.Nombre, u.Apellido, u.Foto, u.Localidad, u.Intereses
-    FROM Amistad a
-    INNER JOIN Usuario u ON a.IDUsuario1 = u.ID
-    WHERE a.IDUsuario2 = @IDUsuario AND a.Estado = 'pendiente'";
-                
-                var solicitudes = connection.Query<Amistad, Usuario, Amistad>(
-                    query,
-                    (amistad, usuario) => { amistad.Usuario1 = usuario; return amistad; },
-                    new { IDUsuario },
-                    splitOn: "ID"
-                ).ToList();
-                
+                string query = "SELECT a.*, u.ID, u.Nombre, u.Apellido, u.Foto, u.Localidad, u.Intereses FROM Amistad a INNER JOIN Usuario u ON a.IDUsuario1 = u.ID WHERE a.IDUsuario2 = @IDUsuario AND a.Estado = 'pendiente'";
+                var solicitudes = connection.Query<Amistad, Usuario, Amistad>(query, (amistad, usuario) => { amistad.Usuario1 = usuario; return amistad; }, new { IDUsuario }, splitOn: "ID").ToList();
                 return solicitudes;
             }
         }
@@ -307,19 +289,12 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                // Verificar que no exista ya una solicitud
-                string queryExiste = @"
-                    SELECT 1 FROM Amistad 
-                    WHERE ((IDUsuario1 = @IDUsuario1 AND IDUsuario2 = @IDUsuario2) 
-                    OR (IDUsuario1 = @IDUsuario2 AND IDUsuario2 = @IDUsuario1))
-                    AND Estado != 'rechazada'";
+                string queryExiste = "SELECT 1 FROM Amistad WHERE ((IDUsuario1 = @IDUsuario1 AND IDUsuario2 = @IDUsuario2) OR (IDUsuario1 = @IDUsuario2 AND IDUsuario2 = @IDUsuario1)) AND Estado != 'rechazada'";
                 int existe = connection.QueryFirstOrDefault<int>(queryExiste, new { IDUsuario1, IDUsuario2 });
 
                 if (existe == 0 && IDUsuario1 != IDUsuario2)
                 {
-                    string query = @"
-                        INSERT INTO Amistad (IDUsuario1, IDUsuario2, Estado, FechaSolicitud)
-                        VALUES (@IDUsuario1, @IDUsuario2, 'pendiente', GETDATE())";
+                    string query = "INSERT INTO Amistad (IDUsuario1, IDUsuario2, Estado, FechaSolicitud) VALUES (@IDUsuario1, @IDUsuario2, 'pendiente', GETDATE())";
                     connection.Execute(query, new { IDUsuario1, IDUsuario2 });
                     return true;
                 }
@@ -331,10 +306,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    UPDATE Amistad 
-                    SET Estado = 'aceptada', FechaRespuesta = GETDATE()
-                    WHERE ID = @IDSolicitud AND IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
+                string query = "UPDATE Amistad SET Estado = 'aceptada', FechaRespuesta = GETDATE() WHERE ID = @IDSolicitud AND IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
                 int filas = connection.Execute(query, new { IDSolicitud, IDUsuario });
                 return filas > 0;
             }
@@ -344,10 +316,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    UPDATE Amistad 
-                    SET Estado = 'rechazada', FechaRespuesta = GETDATE()
-                    WHERE ID = @IDSolicitud AND IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
+                string query = "UPDATE Amistad SET Estado = 'rechazada', FechaRespuesta = GETDATE() WHERE ID = @IDSolicitud AND IDUsuario2 = @IDUsuario AND Estado = 'pendiente'";
                 int filas = connection.Execute(query, new { IDSolicitud, IDUsuario });
                 return filas > 0;
             }
@@ -357,11 +326,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    DELETE FROM Amistad 
-                    WHERE ((IDUsuario1 = @IDUsuario AND IDUsuario2 = @IDAmigo) 
-                    OR (IDUsuario1 = @IDAmigo AND IDUsuario2 = @IDUsuario))
-                    AND Estado = 'aceptada'";
+                string query = "DELETE FROM Amistad WHERE ((IDUsuario1 = @IDUsuario AND IDUsuario2 = @IDAmigo) OR (IDUsuario1 = @IDAmigo AND IDUsuario2 = @IDUsuario)) AND Estado = 'aceptada'";
                 int filas = connection.Execute(query, new { IDUsuario, IDAmigo });
                 return filas > 0;
             }
@@ -371,10 +336,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    SELECT * FROM Usuario 
-                    WHERE ID != @IDUsuarioActual 
-                    AND (Nombre LIKE @Busqueda OR Apellido LIKE @Busqueda OR Username LIKE @Busqueda)";
+                string query = "SELECT * FROM Usuario WHERE ID != @IDUsuarioActual AND (Nombre LIKE @Busqueda OR Apellido LIKE @Busqueda OR Username LIKE @Busqueda)";
                 return connection.Query<Usuario>(query, new { IDUsuarioActual, Busqueda = "%" + busqueda + "%" }).ToList();
             }
         }
@@ -383,11 +345,7 @@ namespace OldMates.Models
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"
-                    SELECT Estado FROM Amistad 
-                    WHERE ((IDUsuario1 = @IDUsuario1 AND IDUsuario2 = @IDUsuario2) 
-                    OR (IDUsuario1 = @IDUsuario2 AND IDUsuario2 = @IDUsuario1))
-                    AND Estado != 'rechazada'";
+                string query = "SELECT Estado FROM Amistad WHERE ((IDUsuario1 = @IDUsuario1 AND IDUsuario2 = @IDUsuario2) OR (IDUsuario1 = @IDUsuario2 AND IDUsuario2 = @IDUsuario1)) AND Estado != 'rechazada'";
                 return connection.QueryFirstOrDefault<string>(query, new { IDUsuario1, IDUsuario2 });
             }
         }

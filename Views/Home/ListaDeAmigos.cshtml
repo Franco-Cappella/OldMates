@@ -13,32 +13,33 @@
 
     @if (Solicitudes != null && Solicitudes.Count > 0)
     {
+        <h3 style="font-size: 18px; color: #666; margin-bottom: 15px;">Solicitudes Pendientes</h3>
         <div class="swiper solicitudesSwiper mb-5">
             <div class="swiper-wrapper">
                 @foreach (var solicitud in Solicitudes)
                 {
                     <div class="swiper-slide">
-                        <div class="card-actividad">
-                            <div class="card-actividad-img">
-                                <img src="@(solicitud.Usuario1?.Foto ?? "/img/usuario_default.png")" alt="@solicitud.Usuario1?.Nombre">
+                        <div class="card-actividad card-solicitud-pequena">
+                            <div class="card-actividad-img img-solicitud-pequena">
+                                <img src="@(solicitud.Usuario1.Foto ?? "/img/usuario_default.png")" alt="@solicitud.Usuario1.Nombre">
                             </div>
                             <div class="card-actividad-body">
                                 <div>
-                                    <h5>@solicitud.Usuario1?.Nombre @solicitud.Usuario1?.Apellido</h5>
-                                    <p>Solicitud de amistad</p>
+                                    <h5 style="font-size: 16px;">@solicitud.Usuario1.Nombre @solicitud.Usuario1.Apellido</h5>
+                                    <p style="font-size: 13px; color: #888;">Solicitud de amistad</p>
                                     <div class="card-actividad-info">
-                                        <span><strong>Localidad:</strong> @(solicitud.Usuario1?.Localidad ?? "Sin ubicación")</span>
-                                        <span><strong>Intereses:</strong> @(solicitud.Usuario1?.Intereses ?? "No especificado")</span>
+                                        <p style="font-size: 13px;"><strong>Localidad:</strong> @solicitud.Usuario1.Localidad</p>
+                                        <p style="font-size: 13px;"><strong>Intereses:</strong> @solicitud.Usuario1.Intereses</p>
                                     </div>
                                 </div>
                                 <div class="card-actividad-actions">
                                     <form action="@Url.Action("AceptarSolicitud", "Home")" method="post" style="display:inline;">
                                         <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
-                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Aceptar</button>
                                     </form>
                                     <form action="@Url.Action("RechazarSolicitud", "Home")" method="post" style="display:inline;">
                                         <input type="hidden" name="IDSolicitud" value="@solicitud.ID" />
-                                        <button type="submit" class="btn btn-danger">Rechazar</button>
+                                        <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
                                     </form>
                                 </div>
                             </div>
@@ -54,22 +55,23 @@
 
     @if (Amigos != null && Amigos.Count > 0)
     {
+        <h3 style="font-size: 24px; color: #021F59; margin-bottom: 20px; font-weight: bold;">Tus Amigos</h3>
         <div class="swiper amigosSwiper">
             <div class="swiper-wrapper">
                 @foreach (var amigo in Amigos)
                 {
                     <div class="swiper-slide">
-                        <div class="card-actividad">
-                            <div class="card-actividad-img">
+                        <div class="card-actividad card-amigo-grande">
+                            <div class="card-actividad-img img-amigo-grande">
                                 <img src="@(amigo.Foto ?? "/img/usuario_default.png")" alt="@amigo.Nombre">
                             </div>
                             <div class="card-actividad-body">
                                 <div>
-                                    <h5>@amigo.Nombre @amigo.Apellido</h5>
-                                    <p>@amigo.Username</p>
+                                    <h5 style="font-size: 22px; font-weight: bold;">@amigo.Nombre @amigo.Apellido</h5>
+                                    <p style="font-size: 16px; color: #007CB5;">@amigo.Username</p>
                                     <div class="card-actividad-info">
-                                        <span><strong>Localidad:</strong> @(amigo.Localidad ?? "Sin ubicación")</span>
-                                        <span><strong>Intereses:</strong> @(amigo.Intereses ?? "No especificado")</span>
+                                        <p style="font-size: 15px;"><strong>Localidad:</strong> @amigo.Localidad</p>
+                                        <p style="font-size: 15px;"><strong>Intereses:</strong> @amigo.Intereses</p>
                                     </div>
                                 </div>
                                 <div class="card-actividad-actions">

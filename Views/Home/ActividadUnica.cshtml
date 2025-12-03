@@ -25,7 +25,7 @@
             <h1 class="actividad-unica-titulo">@evento.Titulo</h1>
         </div>
 
-        <img src="@evento.Foto" alt="@evento.Titulo" class="actividad-unica-imagen" />
+        <img src="@(string.IsNullOrEmpty(evento.Foto) ? "/img/default-evento.png" : evento.Foto)" alt="@evento.Titulo" class="actividad-unica-imagen" />
 
         <div class="actividad-unica-info">
             <div class="info-item">

@@ -22,7 +22,7 @@
                     <div class="swiper-slide">
                         <div class="card-actividad">
                             <div class="card-actividad-img">
-                                <img src="@evento.Foto" alt="@evento.Titulo">
+                                <img src="@(string.IsNullOrEmpty(evento.Foto) ? "/img/default-evento.png" : evento.Foto)" alt="@evento.Titulo">
                             </div>
                             <div class="card-actividad-body">
                                 <div>

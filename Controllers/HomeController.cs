@@ -332,7 +332,7 @@ namespace OldMates.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarPerfilRecibir(Usuario usuarioActualizado, IFormFile fotoArchivo)
+        public IActionResult EditarPerfilRecibir(string Nombre, string Apellido, string Localidad, string Intereses, IFormFile fotoArchivo)
         {
             Usuario usuario = ObtenerIntegranteDesdeSession();
             if (usuario == null)
@@ -341,23 +341,28 @@ namespace OldMates.Controllers
                 return RedirectToAction("Index", "Account");
             }
 
-            // Guardar foto
-            string fotoActual = usuario.Foto ?? "/img/usuario_default.png";
-            usuarioActualizado.Foto = GuardarFoto(fotoArchivo, fotoActual);
+            usuario.Nombre = Nombre;
+            usuario.Apellido = Apellido;
+            usuario.Localidad = Localidad;
+            usuario.Intereses = Intereses;
 
-            usuarioActualizado.ID = usuario.ID;
+            if (fotoArchivo != null && fotoArchivo.Length > 0)
+            {
+                string fotoActual = usuario.Foto ?? "/img/usuario_default.png";
+                usuario.Foto = GuardarFoto(fotoArchivo, fotoActual);
+            }
 
-            bool perfilActualizado = BD.EditarPerfil(usuarioActualizado);
+            bool perfilActualizado = BD.EditarPerfil(usuario);
 
             if (perfilActualizado)
             {
-                GuardarIntegranteEnSession(usuarioActualizado);
+                GuardarIntegranteEnSession(usuario);
                 return RedirectToAction("Perfil", "Home");
             }
             else
             {
                 ViewBag.Error = "Hubo un problema al actualizar el perfil.";
-                ViewBag.Usuario = usuarioActualizado;
+                ViewBag.Usuario = usuario;
                 return View("EditarPerfil");
             }
         }
